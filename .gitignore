@@ -10,6 +10,7 @@
 /build
 
 # misc
+/certificates
 .env
 .env.local
 .env.development.local
