@@ -6,6 +6,12 @@ require("dotenv").config();
 
 const PORT = process.env.PORT;
 
+const accueilRouter = require('./src/routes/home/accueil.route')
+
+app.use('/accueil', accueilRouter)
+
+
+//https options
 const options = {
   key: fs.readFileSync(path.join(__dirname, "./certificates/localhost+2-key.pem")),
   cert: fs.readFileSync(path.join(__dirname, "./certificates/localhost+2.pem")),
