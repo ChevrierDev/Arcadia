@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="stylesheet" href="../../../css/layouts.css">
+    <script defer src="../../../js/home.js"></script>
+</head>
+
+<body class="bg-primary-50">
+   
+    <nav class="relative">
+        <div class="flex justify-around md:justify-between md:px-20 items-center min-h-[10vh] bg-primary-50/70 pt-3 relative z-10 md:min-h-[15vh]">
+            <div class="flex items-start justify-start">
+                <a href="/accueil">
+                    <img src="../../../images/Arcadia-logo.png" alt="logo Arcadia" class="min-w-[76px] h-[70px] mr-10 md:w-[150px] md:h-[140px] inline">
+                </a>
+            </div>
+            <div class="md:flex hidden items-center space-x-10 justify-around mr-48">
+                <a href="/accueil"><p class="text-black font-bold font-muli text-lg hover:text-icon duration-150 ease-out">Accueil</p></a>
+                <a href="/services"><p class="text-black font-bold font-muli text-lg hover:text-icon duration-150 ease-out">Service</p></a>
+                <a href="/habitats"><p class="text-black font-bold font-muli text-lg hover:text-icon duration-150 ease-out">Habitats</p></a>
+                <a href="/contact"><p class="text-black font-bold font-muli text-lg hover:text-icon duration-150 ease-out">Contact</p></a>
+            </div>
+            <div class="hidden md:block items-center justify-center hover:scale-95 duration-200 ease-in">
+                <button><svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 256 256"><path fill="black" d="M230.93 220a8 8 0 0 1-6.93 4H32a8 8 0 0 1-6.92-12c15.23-26.33 38.7-45.21 66.09-54.16a72 72 0 1 1 73.66 0c27.39 8.95 50.86 27.83 66.09 54.16a8 8 0 0 1 .01 8"/></svg></button>
+            </div>
+    
+             <!-- mobile menu -->
+             <div class="flex items-center justify-center gap-x-4 md:hidden">
+                <!-- hamburger menu -->
+                <div>
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48"><g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="M7.94971 11.9497H39.9497"/><path d="M7.94971 23.9497H39.9497"/><path d="M7.94971 35.9497H39.9497"/></g></svg>
+                    </button>
+                </div>
+    
+                <!-- login menu -->
+                <div class="pb-0.5 ">
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256"><path fill="black" d="M230.93 220a8 8 0 0 1-6.93 4H32a8 8 0 0 1-6.92-12c15.23-26.33 38.7-45.21 66.09-54.16a72 72 0 1 1 73.66 0c27.39 8.95 50.86 27.83 66.09 54.16a8 8 0 0 1 .01 8"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <header class="w-full h-[70vh] relative top-0   overflow-hidden header-contact">
+            <!-- <div class="absolute top-[-150px] left-0 w-full h-[35vh] overflow-hidden">
+                <img src="../../../images/service-headerBG.jpg" alt="Service Header Background" class="w-full h-full object-contain top-position">
+            </div> -->
+        </header>
+    </nav>
+ 
+    
+    
+    <!-- contact presention -->
+    <main class="w-full h-fit pb-9  mt-10">
+
+        <div class="container flex flex-col justify-center items-center mx-auto bg-primary-100">
+            <form action="/accueil" class="mt-7 space-y-4">
+                <h1 class=" text-black font-neucha text-3xl text-center w-[70vw]">Votre avis est important pour nous !</h1>
+                <div class="">
+                    <div class="flex flex-col space-y-2">
+                        <label for="pseudo" class="font-neucha">Pseudo</label>
+                        <div class="border w-[80vw] h-8 flex items-center bg-white rounded-md px-2">
+                            <input type="text" name="pseudo" placeholder="Mon pseudo" class="outline-none flex-1 font-muli bg-transparent">
+                        </div>
+                    </div>
+                    <div class="flex flex-col space-y-2">
+                        <label for="titre" class="font-neucha">titre</label>
+                        <div class="border w-[80vw] h-8 flex items-center bg-white rounded-md px-2">
+                            <input type="text" name="titre" placeholder="Horaire d’ouverture" class="outline-none flex-1 font-muli bg-transparent">
+                        </div>
+                    </div>
+                </div>
+                
+    
+                <div class="flex flex-col space-y-2">
+                    <label for="avis" class="font-neucha">Message</label>
+                    <textarea id="avis" name="avis" rows="4" class="border w-full max-w-[80vw] h-auto min-h-[100px] outline-none bg-white rounded-md p-2" placeholder="Exemple: J’aimerai connaitre vos horaire d’ouverture ...."></textarea>
+    
+                </div>
+    
+                <div class="mx-auto w-fit mt-4 md:mt-10 md:pt-10">
+                    <button type="submit" class="flex items-center justify-center space-x-1 bg-secondary-100 w-32 h-9 md:w-32 rounded-md text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
+                        <p class="font-muli text-sm">Contactez nous</p>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+
+    <footer>
+        <%- include('../components/footer') %>
+    </footer>
+</body>
+</html>

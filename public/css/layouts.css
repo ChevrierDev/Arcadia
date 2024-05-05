@@ -1,0 +1,29 @@
+.footer {
+    background-image: url('../images/footer-BG.jpg');
+    height: 500px; 
+    background-size: cover; 
+    background-position: center; 
+    width: 100%;
+}
+
+.header-services{
+    background-image: url('../images/service-headerBG.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.header-habitat{
+    background-image: url('../images/habitat-header-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.header-contact{
+    background-image: url('../images/contactHeader-BG.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center -55px;
+}
+

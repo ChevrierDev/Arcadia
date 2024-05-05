@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="stylesheet" href="../../../css/layouts.css">
+    <script defer src="../../../js/home.js"></script>
+</head>
+
+<body class="bg-primary-50">
+   
+    <nav class="relative">
+        <div class="flex justify-around md:justify-between md:px-20 items-center min-h-[10vh] bg-primary-50/70 pt-3 relative z-10 md:min-h-[15vh]">
+            <div class="flex items-start justify-start">
+                <a href="/accueil">
+                    <img src="../../../images/Arcadia-logo.png" alt="logo Arcadia" class="min-w-[76px] h-[70px] mr-10 md:w-[150px] md:h-[140px] inline">
+                </a>
+            </div>
+            <div class="md:flex hidden items-center space-x-10 justify-around mr-48">
+                <a href="/accueil"><p class="text-black font-bold font-muli text-lg hover:text-icon duration-150 ease-out">Accueil</p></a>
+                <a href="/services"><p class="text-black font-bold font-muli text-lg hover:text-icon duration-150 ease-out">Service</p></a>
+                <a href="/habitats"><p class="text-black font-bold font-muli text-lg hover:text-icon duration-150 ease-out">Habitats</p></a>
+                <a href="/contact"><p class="text-black font-bold font-muli text-lg hover:text-icon duration-150 ease-out">Contact</p></a>
+            </div>
+            <div class="hidden md:block items-center justify-center hover:scale-95 duration-200 ease-in">
+                <button><svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 256 256"><path fill="black" d="M230.93 220a8 8 0 0 1-6.93 4H32a8 8 0 0 1-6.92-12c15.23-26.33 38.7-45.21 66.09-54.16a72 72 0 1 1 73.66 0c27.39 8.95 50.86 27.83 66.09 54.16a8 8 0 0 1 .01 8"/></svg></button>
+            </div>
+    
+             <!-- mobile menu -->
+             <div class="flex items-center justify-center gap-x-4 md:hidden">
+                <!-- hamburger menu -->
+                <div>
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48"><g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="M7.94971 11.9497H39.9497"/><path d="M7.94971 23.9497H39.9497"/><path d="M7.94971 35.9497H39.9497"/></g></svg>
+                    </button>
+                </div>
+    
+                <!-- login menu -->
+                <div class="pb-0.5 ">
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256"><path fill="black" d="M230.93 220a8 8 0 0 1-6.93 4H32a8 8 0 0 1-6.92-12c15.23-26.33 38.7-45.21 66.09-54.16a72 72 0 1 1 73.66 0c27.39 8.95 50.86 27.83 66.09 54.16a8 8 0 0 1 .01 8"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <header class="w-full h-[70vh] relative top-0   overflow-hidden header-habitat">
+            <!-- <div class="absolute top-[-150px] left-0 w-full h-[35vh] overflow-hidden">
+                <img src="../../../images/service-headerBG.jpg" alt="Service Header Background" class="w-full h-full object-contain top-position">
+            </div> -->
+        </header>
+    </nav>
+ 
+    
+    
+    <!-- habitat presention -->
+   
+    <main class="w-full h-fit pb-9  mt-10">
+        
+        <div class="flex flex-col space-y-20 gap-y-10">
+
+            <div class="flex items-center justify-center flex-col space-y-2">
+                <h1 class="font-neucha text-3xl text-center">Retrouver tous les animaux et leurs habitats</h1>
+            </div>
+        </div>
+
+        <div class="container relative mx-auto flex items-center justify-center pt-5">
+            <img src="../../../images/habitat-map.jpg" width="650" height="650" alt="carte habitat">
+        </div>
+
+    </main>
+
+    <footer>
+        <%- include('../components/footer') %>
+    </footer>
+</body>
+</html>
