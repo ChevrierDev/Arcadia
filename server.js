@@ -6,9 +6,16 @@ require("dotenv").config();
 
 const PORT = process.env.PORT;
 
-const accueilRouter = require('./src/routes/home/accueil.route')
+const accueilRouter = require('./src/routes/home/accueil.routes');
+const serviceRouter = require('./src/routes/services/services.routes');
+const habitatRouter = require('./src/routes/habitat/habitats.routes');
+const contactRouter = require('./src/routes/contact/contact.routes');
 
-app.use('/accueil', accueilRouter)
+//define website principales routes
+app.use('/accueil', accueilRouter);
+app.use('/services', serviceRouter);
+app.use('/habitats', habitatRouter);
+app.use('/contact', contactRouter);
 
 
 //https options
