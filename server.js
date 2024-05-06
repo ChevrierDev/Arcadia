@@ -10,12 +10,14 @@ const accueilRouter = require('./src/routes/home/accueil.routes');
 const serviceRouter = require('./src/routes/services/services.routes');
 const habitatRouter = require('./src/routes/habitat/habitats.routes');
 const contactRouter = require('./src/routes/contact/contact.routes');
+const foodRouter = require('./src/routes/food/food.routes');
 
 //define website principales routes
 app.use('/accueil', accueilRouter);
 app.use('/services', serviceRouter);
 app.use('/habitats', habitatRouter);
 app.use('/contact', contactRouter);
+app.use('/api/v1/foods', foodRouter);
 
 
 //https options
