@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    <link rel="stylesheet" href="../../../css/style.css">
-    <link rel="stylesheet" href="../../../css/layouts.css">
-    <script defer src="../../../js/home.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../../css/style.css">
+    <link type="text/css" rel="stylesheet" href="../../../css/layouts.css">
+    <script type="text/javascript" defer src="../../../js/layouts.js"></script>
 </head>
 <body class="bg-primary-50">
     <nav class="relative">
@@ -22,27 +22,155 @@
                 <a href="/habitats"><p class="text-black font-bold font-muli text-lg hover:text-icon duration-150 ease-out">Habitats</p></a>
                 <a href="/contact"><p class="text-black font-bold font-muli text-lg hover:text-icon duration-150 ease-out">Contact</p></a>
             </div>
-            <div class="hidden md:block items-center justify-center hover:scale-95 duration-200 ease-in">
-                <button><svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 256 256"><path fill="black" d="M230.93 220a8 8 0 0 1-6.93 4H32a8 8 0 0 1-6.92-12c15.23-26.33 38.7-45.21 66.09-54.16a72 72 0 1 1 73.66 0c27.39 8.95 50.86 27.83 66.09 54.16a8 8 0 0 1 .01 8"/></svg></button>
-            </div>
-    
-             <!-- mobile menu -->
-             <div class="flex items-center justify-center gap-x-4 md:hidden">
-                <!-- hamburger menu -->
-                <div>
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48"><g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="M7.94971 11.9497H39.9497"/><path d="M7.94971 23.9497H39.9497"/><path d="M7.94971 35.9497H39.9497"/></g></svg>
+
+            <div class="relative">
+                <!-- login user -->
+                <div class="hidden md:block items-center justify-center hover:scale-95 duration-200 ease-in relative">
+                    <button class="drop-login">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 256 256"><path fill="black" d="M230.93 220a8 8 0 0 1-6.93 4H32a8 8 0 0 1-6.92-12c15.23-26.33 38.7-45.21 66.09-54.16a72 72 0 1 1 73.66 0c27.39 8.95 50.86 27.83 66.09 54.16a8 8 0 0 1 .01 8"/></svg>
                     </button>
                 </div>
     
-                <!-- login menu -->
-                <div class="pb-0.5 ">
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256"><path fill="black" d="M230.93 220a8 8 0 0 1-6.93 4H32a8 8 0 0 1-6.92-12c15.23-26.33 38.7-45.21 66.09-54.16a72 72 0 1 1 73.66 0c27.39 8.95 50.86 27.83 66.09 54.16a8 8 0 0 1 .01 8"/></svg>
-                    </button>
+                <!-- dropdown menu -->
+                <div class="absolute w-56 h-80 rounded-sm left-[-90px] bg-white z-40 py-4 hidden drop-login-menu">
+                    <form action="/accueil" class="p-4 space-y-4">
+                        <div class="space-y-2">
+                            <label for="mail" class="font-muli font-semibold">Email</label>
+                            <div class="border  h-8 flex items-center bg-white rounded-md px-2">
+                                <input type="email" name="email" placeholder="MonMail@hotmail.com" class="outline-none">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="password" class="font-muli font-semibold">Mot de passe</label>
+                            <div class="border  h-8 flex items-center bg-white rounded-md px-2">
+                                <input type="password" name="password" placeholder="motdepasse" class="outline-none">
+                            </div>
+                        </div>
+                        <div class="border w-fit  mx-auto  h-8 flex items-center bg-white rounded-md px-2">
+                            <select name="userType" id="user-type" class="space-y-2 outline-none">
+                                <option value="Admin" class="font-muli outline-none">Administrateur</option>
+                                <option value="veterinarian" class="font-muli outline-none">Vétérinaire</option>
+                                <option value="employee" class="font-muli outline-none">Employé</option>
+                            </select>
+                        </div>
+    
+                        <div class="mx-auto w-fit">
+                            <button type="submit" class="flex items-center justify-center space-x-1 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
+                                <p class="font-muli text-sm">Connexion</p>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
+            
+    
+    
+            <!-- mobile menu -->
+            <div class="flex items-center justify-center gap-x-4 md:hidden">
+    
+                <div class="relative">
+                    <!-- hamburger menu -->
+                    <div>
+                        <button class="open-hamburger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48"><g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="M7.94971 11.9497H39.9497"/><path d="M7.94971 23.9497H39.9497"/><path d="M7.94971 35.9497H39.9497"/></g></svg>
+                        </button>
+                    </div>
+                    <!-- close haburger menu -->
+                    <div class="hidden close-menu">
+                        <button class="close-hamburger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="black" d="M18.36 19.78L12 13.41l-6.36 6.37l-1.42-1.42L10.59 12L4.22 5.64l1.42-1.42L12 10.59l6.36-6.36l1.41 1.41L13.41 12l6.36 6.36z"/></svg>
+                        </button>
+                    </div>
+    
+                    <!-- navigation menu -->
+                    <div class=" absolute hidden bg-white w-56 h-72 -right-3 rounded-sm navigation-mobile-menu">
+    
+                        <div class="flex flex-col justify-center items-center h-full w-full  gap-y-6">
+                            <div >
+                                <a href="/accueil">
+                                    <p class="text-black font-bold font-muli text-lg hover:text-icon hover:border-b-2 hover:border-icon hover:scale-105 hover:-translate-y-2 duration-150 ease-out">
+                                        Accueil
+                                    </p>
+                                </a>
+                            </div>
+        
+                            <div>
+                                <a href="/services">
+                                    <p class="text-black font-bold font-muli text-lg hover:text-icon hover:border-b-2 hover:border-icon hover:scale-105 hover:-translate-y-2  duration-150 ease-out">
+                                        Services
+                                    </p>
+                                </a>
+                                
+                            </div>
+        
+                            <div>
+                                <a href="/habitats">
+                                    <p class="text-black font-bold font-muli text-lg hover:text-icon hover:border-b-2 hover:border-icon hover:scale-105 hover:-translate-y-2  duration-150 ease-out">
+                                        Habitats
+                                    </p>
+                                </a>
+                            </div>
+                           
+                            <div>
+                                <a href="/contact">
+                                    <p class="text-black font-bold font-muli text-lg hover:text-icon hover:border-b-2 hover:border-icon hover:scale-105 hover:-translate-y-2  duration-150 ease-out">
+                                        Contact
+                                    </p>
+                                </a>
+                            </div>
+                    
+                        </div>
+                       
+                    </div>
+        
+                </div>
+                
+              
+                <!-- mobile login menu form -->
+                <div class="relative">
+                    <!-- login menu -->
+                    <div class="pb-0.5 drop-mobile-login ">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256"><path fill="black" d="M230.93 220a8 8 0 0 1-6.93 4H32a8 8 0 0 1-6.92-12c15.23-26.33 38.7-45.21 66.09-54.16a72 72 0 1 1 73.66 0c27.39 8.95 50.86 27.83 66.09 54.16a8 8 0 0 1 .01 8"/></svg>
+                        </button>
+                    </div>
+    
+                    <!-- dropdown mobile menu -->
+                    <div class="absolute w-56 h-80 rounded-sm -right-4 bg-white z-40 py-4 hidden  mobile-login-menu">
+                        <form action="/accueil" class="p-4 space-y-4">
+                            <div class="space-y-2">
+                                <label for="mail" class="font-muli font-semibold">Email</label>
+                                <div class="border  h-8 flex items-center bg-white rounded-md px-2">
+                                    <input type="email" name="email" placeholder="MonMail@hotmail.com" class="outline-none">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="password" class="font-muli font-semibold">Mot de passe</label>
+                                <div class="border  h-8 flex items-center bg-white rounded-md px-2">
+                                    <input type="password" name="password" placeholder="motdepasse" class="outline-none">
+                                </div>
+                            </div>
+                            <div class="border w-fit  mx-auto  h-8 flex items-center bg-white rounded-md px-2">
+                                <select name="userType" id="user-type" class="space-y-2 outline-none">
+                                    <option value="Admin" class="font-muli outline-none">Administrateur</option>
+                                    <option value="veterinarian" class="font-muli outline-none">Vétérinaire</option>
+                                    <option value="employee" class="font-muli outline-none">Employé</option>
+                                </select>
+                            </div>
+    
+                            <div class="mx-auto w-fit">
+                                <button type="submit" class="flex items-center justify-center space-x-1 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
+                                    <p class="font-muli text-sm">Connexion</p>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+    
+                </div>
+                
+            </div>
+            
+            </div>
         <header class="w-full h-[70vh] relative top-0   overflow-hidden header-services">
             <!-- <div class="absolute top-[-150px] left-0 w-full h-[35vh] overflow-hidden">
                 <img src="../../../images/service-headerBG.jpg" alt="Service Header Background" class="w-full h-full object-contain top-position">
