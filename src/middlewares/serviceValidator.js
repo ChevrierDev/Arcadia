@@ -23,18 +23,10 @@ async function validateService(req, res, next) {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  try {
-    const { name, description } = req.body;
-   
-    res.send("Service added successfully.");
-    next();
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal server error !");
-  }
+  next();
 }
 
 module.exports = {
   serviceRules,
-  validateService
+  validateService,
 };

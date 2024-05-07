@@ -1,0 +1,21 @@
+const express = require("express");
+const visitorReviewAPIRouter = express.Router();
+const {
+  getReviews,
+  getReviewByID,
+  postReview,
+  updateReview,
+  deleteReview,
+} = require("../../../controllers/visitorReview/visitorReview.controllers");
+const { reviewRules, validateReview } = require('../../../middlewares/visitorReviewValidator')
+
+
+visitorReviewAPIRouter.get('/', getReviews);
+visitorReviewAPIRouter.get('/:id', getReviewByID);
+visitorReviewAPIRouter.post('/', reviewRules(), validateReview, postReview);
+visitorReviewAPIRouter.put('/:id', reviewRules(), validateReview, updateReview);
+visitorReviewAPIRouter.delete('/:id', deleteReview);
+
+
+
+module.exports = visitorReviewAPIRouter;
