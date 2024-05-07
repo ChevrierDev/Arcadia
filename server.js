@@ -17,6 +17,7 @@ const foodAPIRouter = require('./src/api/v1/food/foodAPI.routes');
 const serviceAPIRouter = require('./src/api/v1/services/serviceAPI.routes');
 const habitatAPIRouter = require('./src/api/v1/habitat/habitatAPI.routes');
 const consommationAPIRouter = require('./src/api/v1/consommation/consommationAPI.routes');
+const animalAPIRouter = require('./src/api/v1/animal/animalAPI.routes')
 
 
 //define website principales routes
@@ -30,6 +31,7 @@ app.use('/api/v1/services', serviceAPIRouter);
 app.use('/api/v1/foods', foodAPIRouter);
 app.use('/api/v1/habitats', habitatAPIRouter);
 app.use('/api/v1/consommation', consommationAPIRouter);
+app.use('/api/v1/animal', animalAPIRouter);
 
 
 //https options

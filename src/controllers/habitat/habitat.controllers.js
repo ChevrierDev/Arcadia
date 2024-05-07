@@ -45,7 +45,7 @@ async function postHabitat(req, res) {
     console.log(req.body);
 
     if (!images) {
-      res.status(400).send("'You must upload an image.");
+      res.status(400).send("You must upload an image.");
       return;
     }
 
