@@ -6,18 +6,28 @@ require("dotenv").config();
 
 const PORT = process.env.PORT;
 
+//web site pages routes
 const accueilRouter = require('./src/routes/home/accueil.routes');
 const serviceRouter = require('./src/routes/services/services.routes');
-const habitatRouter = require('./src/routes/habitat/habitats.routes');
+const habitatRouter = require('./src/routes/habitats/habitats.routes');
 const contactRouter = require('./src/routes/contact/contact.routes');
-const foodRouter = require('./src/routes/food/food.routes');
+
+//Api routes
+const foodAPIRouter = require('./src/api/v1/food/foodAPI.routes');
+const serviceAPIRouter = require('./src/api/v1/services/serviceAPI.routes');
+const habitatAPIRouter = require('./src/api/v1/habitat/habitatAPI.routes');
+
 
 //define website principales routes
 app.use('/accueil', accueilRouter);
 app.use('/services', serviceRouter);
 app.use('/habitats', habitatRouter);
 app.use('/contact', contactRouter);
-app.use('/api/v1/foods', foodRouter);
+
+//Arcadia API
+app.use('/api/v1/services', serviceAPIRouter);
+app.use('/api/v1/foods', foodAPIRouter);
+app.use('/api/v1/habitats', habitatAPIRouter);
 
 
 //https options

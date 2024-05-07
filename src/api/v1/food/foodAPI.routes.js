@@ -6,8 +6,8 @@ const {
   postFood,
   updateFood,
   deleteFood,
-} = require("../../controllers/food/food.controllers");
-const {   foodRules, validateFood } = require('../../middlewares/foodValidator')
+} = require("../../../controllers/food/food.controllers");
+const {   foodRules, validateFood } = require('../../../middlewares/foodValidator')
 
 
 foodRouter.get('/', getFoods);
