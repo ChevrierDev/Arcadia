@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 const db = require('../config/db');
 
 loginRouter.post('/', async (req, res) => {
+    
     const { email, password, userType } = req.body
     try {
         let tableMap = {

@@ -26,7 +26,7 @@ const loginRouter = require('./src/auth/api.login')
 
 
 //define website principales routes
-app.use('/accueil', accueilRouter);
+app.use('/accueil', accueilRouter, loginRouter);
 app.use('/services', serviceRouter);
 app.use('/habitats', habitatRouter);
 app.use('/contact', contactRouter);
