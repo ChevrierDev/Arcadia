@@ -1,12 +1,17 @@
 const express = require('express');
+const passport = require('passport')
 
 const morgan = require('morgan');
 const path = require('path');
 const helmet = require('helmet');
+const strategy = require('./src/config/passportJwtStrategie.config')
 
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
+
+app.use(passport.initialize());
+strategy(passport)
 app.use(express.json());
 
 app.use(helmet())

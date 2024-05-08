@@ -22,6 +22,7 @@ const healthRecordAPIRouter = require('./src/api/v1/healthRecord/healthRecordAPI
 const visitorReviewAPIRouter = require('./src/api/v1/visitorReview/visitorReview.routes');
 const manageEmployeeAPIRouter = require('./src/api/v1/employee/manageEmployeeAPI.routes');
 const manageVeterinarianAPIRouter = require('./src/api/v1/veterinarian/manageVeterinarianAPI.routes');
+const loginRouter = require('./src/auth/api.login')
 
 
 //define website principales routes
@@ -40,6 +41,7 @@ app.use('/api/v1/healthRecord', healthRecordAPIRouter);
 app.use('/api/v1/visitorReview', visitorReviewAPIRouter);
 app.use('/api/v1/manageEmployeeAccount', manageEmployeeAPIRouter);
 app.use('/api/v1/manageVetrinarianAccount', manageVeterinarianAPIRouter);
+app.use('/api/login', loginRouter)
 
 
 //https options
