@@ -59,7 +59,7 @@ async function postAnimal(req, res) {
   };
 };
 
-//update Animal ---> use for quantity ?
+//update Animal 
 async function updateAnimal(req, res) {
   try {
     const { name, race, etat } = req.body;
