@@ -58,7 +58,7 @@ async function postFood(req, res) {
   };
 };
 
-//update food ---> use for quantity ?
+//update food 
 async function updateFood(req, res) {
   try {
     const { name, type, quantity } = req.body;
