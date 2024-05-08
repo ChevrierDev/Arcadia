@@ -1,29 +1,29 @@
 const { body, validationResult } = require("express-validator");
 const db = require('../config/db');
 
-//defines rules to validate employee form input
-const employeeRules = () => {
+//defines rules to validate veterinarian form input
+const veterinarianRules = () => {
   return [
     body("first_name")
       .isString()
       .notEmpty()
-      .withMessage("You must enter employee first name.")
+      .withMessage("You must enter veterinarian first name.")
       .trim()
       .escape(),
     body("last_name")
       .isString()
       .notEmpty()
-      .withMessage("You must enter employee last name.")
+      .withMessage("You must enter veterinarian last name.")
       .escape(),
     body("email")
       .isEmail()
       .notEmpty()
-      .withMessage("You must enter employee email.")
+      .withMessage("You must enter veterinarian email.")
       .isLength({ min: 10, max: 250 })
       .custom(async (value, { req }) => {
         // custom validation that look if email already register in the DB
         const query =
-          "SELECT EXISTS (SELECT 1 FROM employee WHERE email = $1) AS email_exists";
+          "SELECT EXISTS (SELECT 1 FROM veterinarian WHERE email = $1) AS email_exists";
         const result = await db.query(query, [value]);
         const { email_exists } = result.rows[0];
 
@@ -31,7 +31,7 @@ const employeeRules = () => {
           throw new Error("This email address is already registered.");
         }
       })
-      .withMessage("Employee with this adress already exist")
+      .withMessage("Veterinarian with this adress already exist")
       .trim(),
     body("password")
       .isString()
@@ -45,7 +45,7 @@ const employeeRules = () => {
   ];
 };
 
-async function validateEmployee(req, res, next) {
+async function validateVeterinarian(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -54,6 +54,6 @@ async function validateEmployee(req, res, next) {
 }
 
 module.exports = {
-  employeeRules,
-  validateEmployee,
+  veterinarianRules,
+  validateVeterinarian,
 };

@@ -21,6 +21,7 @@ const animalAPIRouter = require('./src/api/v1/animal/animalAPI.routes');
 const healthRecordAPIRouter = require('./src/api/v1/healthRecord/healthRecordAPI.routes');
 const visitorReviewAPIRouter = require('./src/api/v1/visitorReview/visitorReview.routes');
 const manageEmployeeAPIRouter = require('./src/api/v1/employee/manageEmployeeAPI.routes');
+const manageVeterinarianAPIRouter = require('./src/api/v1/veterinarian/manageVeterinarianAPI.routes');
 
 
 //define website principales routes
@@ -38,6 +39,7 @@ app.use('/api/v1/animal', animalAPIRouter);
 app.use('/api/v1/healthRecord', healthRecordAPIRouter);
 app.use('/api/v1/visitorReview', visitorReviewAPIRouter);
 app.use('/api/v1/manageEmployeeAccount', manageEmployeeAPIRouter);
+app.use('/api/v1/manageVetrinarianAccount', manageVeterinarianAPIRouter);
 
 
 //https options

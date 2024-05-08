@@ -8,6 +8,7 @@ async function getEmployeeAccount(req, res) {
     const results = await db.query(query);
     if (results.rows.length === 0) {
       res.status(404).send("There is no employee registered.");
+      return;
     }
     res.send(results.rows)
   } catch (err) {
@@ -24,6 +25,7 @@ async function getEmployeeAccountByID(req, res) {
     const results = await db.query(query, [id]);
     if (results.rows.length === 0) {
       res.status(404).send("There is no employee with this provided ID.");
+      return;
     }
     res.send(results.rows[0])
   } catch (err) {
@@ -38,7 +40,7 @@ async function createEmployeeAccount(req, res) {
     const { first_name, last_name, email, password } = req.body;
     const passwordHash = await hashPassword(password);
     const query =
-      "INSERT INTO employee (first_name, last_name, email, password, role) VALUES ($1, $2, $3, $4, 'employee')";
+      "INSERT INTO employee (first_name, last_name, email, password, role) VALUES ($1, $2, $3, $4, 'employer')";
     await db.query(query, [first_name, last_name, email, passwordHash]);
     res.status(200).send("Employee account successfully created !");
   } catch (err) {
