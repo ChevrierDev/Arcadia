@@ -36,6 +36,8 @@ app.use('/accueil', accueilRouter);
 app.use('/services', serviceRouter);
 app.use('/habitats', habitatRouter);
 app.use('/contact', contactRouter);
+
+// users dashboards routes
 app.use('/admin', adminDashboardRouter);
 app.use('/employee', employeeDashboardRouter);
 app.use('/veterinarian', veterinarianDashboardRouter);
