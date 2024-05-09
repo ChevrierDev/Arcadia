@@ -1,15 +1,13 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-require("dotenv").config();;
+require("dotenv").config({ path: '../../.env' });;
 const db = require('../config/db')
 
 const options = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.JWT_SECRET,
-    algorithms: ['RS256']
+    algorithms: ['HS256'],
 };
-
-
 
 const configureJwtStrategy = (passport) => {
     passport.use(new JwtStrategy(options, async (jwt_payload, done) =>{

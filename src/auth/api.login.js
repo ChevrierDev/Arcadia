@@ -35,6 +35,14 @@ loginRouter.post("/", async (req, res) => {
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "2h",
+      algorithm: 'HS256'
+    });
+
+    
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: true, 
+      maxAge: 2 * 60 * 60 * 1000
     });
 
     switch (userType) {

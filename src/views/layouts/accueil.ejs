@@ -7,7 +7,7 @@
     <title><%= title %></title>
     <link rel="stylesheet" href="../../../css/style.css">
     <link rel="stylesheet" href="../../../css/layouts.css">
-    
+    <!-- <script defer src="../../../js/jwt.js"></script> -->
 </head>
 
 <body class="bg-primary-50 ">
@@ -57,7 +57,7 @@
 
             <!-- dropdown menu -->
             <div class="absolute w-56 h-80 rounded-sm left-[-90px] bg-white z-40 py-4 hidden drop-login-menu">
-                <form action="/accueil" method="post" class="p-4 space-y-4">
+                <form action="/api/login" method="post" class="p-4 space-y-4">
                     <div class="space-y-2">
                         <label for="mail" class="font-muli font-semibold">Email</label>
                         <div class="border  h-8 flex items-center bg-white rounded-md px-2">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="border w-fit  mx-auto  h-8 flex items-center bg-white rounded-md px-2">
-                        <select name="userType" id="user-type" class="space-y-2 outline-none">
+                        <select name="userType" class="space-y-2 outline-none">
                             <option value="admin" class="font-muli outline-none">Administrateur</option>
                             <option value="veterinarian" class="font-muli outline-none">Vétérinaire</option>
                             <option value="employee" class="font-muli outline-none">Employé</option>

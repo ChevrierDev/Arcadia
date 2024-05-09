@@ -1,5 +1,7 @@
 const express = require('express');
-const passport = require('passport')
+const passport = require('passport');
+const session = require('express-session')
+require('dotenv').config()
 
 const morgan = require('morgan');
 const path = require('path');
@@ -7,10 +9,22 @@ const helmet = require('helmet');
 const strategy = require('./src/config/passportJwtStrategie.config')
 
 const app = express();
+const cookieParser = require('cookie-parser');
 
 app.use(express.urlencoded({ extended: false }));
 
 app.use(passport.initialize());
+
+app.use(cookieParser());
+
+app.use(session({
+    secret: process.env.SECRET,
+    name: "session",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
+
 strategy(passport)
 app.use(express.json());
 
