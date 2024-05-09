@@ -11,6 +11,7 @@ const accueilRouter = require('./src/routes/home/accueil.routes');
 const serviceRouter = require('./src/routes/services/services.routes');
 const habitatRouter = require('./src/routes/habitats/habitats.routes');
 const contactRouter = require('./src/routes/contact/contact.routes');
+const adminDashboardRouter = require('./src/routes/dashboard/adminDash.routes');
 
 //Api routes
 const foodAPIRouter = require('./src/api/v1/food/foodAPI.routes');
@@ -22,7 +23,7 @@ const healthRecordAPIRouter = require('./src/api/v1/healthRecord/healthRecordAPI
 const visitorReviewAPIRouter = require('./src/api/v1/visitorReview/visitorReview.routes');
 const manageEmployeeAPIRouter = require('./src/api/v1/employee/manageEmployeeAPI.routes');
 const manageVeterinarianAPIRouter = require('./src/api/v1/veterinarian/manageVeterinarianAPI.routes');
-const loginRouter = require('./src/auth/api.login')
+const loginRouter = require('./src/auth/api.login');
 
 
 //define website principales routes
@@ -30,6 +31,7 @@ app.use('/accueil', accueilRouter, loginRouter);
 app.use('/services', serviceRouter);
 app.use('/habitats', habitatRouter);
 app.use('/contact', contactRouter);
+app.use('/admin', adminDashboardRouter);
 
 //Arcadia API
 app.use('/api/v1/services', serviceAPIRouter);
@@ -41,7 +43,7 @@ app.use('/api/v1/healthRecord', healthRecordAPIRouter);
 app.use('/api/v1/visitorReview', visitorReviewAPIRouter);
 app.use('/api/v1/manageEmployeeAccount', manageEmployeeAPIRouter);
 app.use('/api/v1/manageVetrinarianAccount', manageVeterinarianAPIRouter);
-app.use('/api/login', loginRouter)
+app.use('/api/login', loginRouter);
 
 
 //https options
