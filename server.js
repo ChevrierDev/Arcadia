@@ -31,11 +31,13 @@ const loginRouter = require('./src/auth/api.login');
 const logoutRouter = require('./src/auth/api.logout');
 
 
+
 //define website principales routes
 app.use('/accueil', accueilRouter);
 app.use('/services', serviceRouter);
 app.use('/habitats', habitatRouter);
 app.use('/contact', contactRouter);
+
 
 // users dashboards routes
 app.use('/admin', adminDashboardRouter);

@@ -42,6 +42,13 @@ const employeeRules = () => {
       )
       .notEmpty()
       .trim(),
+    body("confirmPass")
+      .isString()
+      .notEmpty()
+      .custom(value => {
+        value === req.body.password
+      })
+      .withMessage('Your password does not correspond.')
   ];
 };
 

@@ -11,7 +11,8 @@ const strategy = require('./src/config/passportJwtStrategie.config')
 const app = express();
 const cookieParser = require('cookie-parser');
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(passport.initialize());
 
@@ -26,7 +27,6 @@ app.use(session({
 }));
 
 strategy(passport)
-app.use(express.json());
 
 app.use(helmet())
 app.use(morgan('tiny'));
