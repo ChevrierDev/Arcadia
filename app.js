@@ -10,8 +10,12 @@ const strategy = require('./src/config/passportJwtStrategie.config')
 
 const app = express();
 const cookieParser = require('cookie-parser');
+const methodOverride = require('method-override');
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(methodOverride('_method'));
 
 app.use(passport.initialize());
 
@@ -26,7 +30,6 @@ app.use(session({
 }));
 
 strategy(passport)
-app.use(express.json());
 
 app.use(helmet())
 app.use(morgan('tiny'));

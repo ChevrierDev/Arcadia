@@ -40,8 +40,13 @@ const veterinarianRules = () => {
       .withMessage(
         "The password must be at least 8 characters long and include at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special symbol."
       )
-      .notEmpty()
-      .trim(),
+      .trim()
+      .custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error('Your password does not correspond.');
+        }
+        return true; 
+      })
   ];
 };
 
