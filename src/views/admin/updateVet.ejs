@@ -116,25 +116,25 @@
 
                         <div class="container flex flex-col items-center justify-center py-2 h-full">
                             <div class="h1 font-muli font-semibold text-lg">Modifier les information du veterinaire</div>
-                            <form id="updateUserForm" method="post" action="/api/v1/manageEmployeeAccount/<%= employee.employee_id %>?_method=PUT" class="flex flex-col space-y-5 mt-2">
+                            <form id="updateUserForm" method="post" action="/api/v1/manageVetrinarianAccount/<%= vet.veterinarian_id %>?_method=PUT" class="flex flex-col space-y-5 mt-2">
                                 <div class="flex flex-col"> 
                                     <label for="first_name" class="font-muli text-sm">Prénom : </label>
                                     <div class="border border-black bg-white h-10 flex items-center justify-center rounded-sm px-2">
-                                        <input type="text" name="first_name" required class="flex-1 outline-none placeholder:font-muli" placeholder="<%= employee.first_name %>" >
+                                        <input type="text" name="first_name" required class="flex-1 outline-none placeholder:font-muli" placeholder="<%= vet.first_name %>" >
                                     </div>
                                 </div>
                             
                                 <div class="flex flex-col"> 
                                     <label for="last_name" class="font-muli text-sm">Nom : </label>
                                     <div class="border border-black bg-white h-10 flex items-center justify-center rounded-sm px-2">
-                                        <input type="text" name="last_name" required class="flex-1 outline-none placeholder:font-muli" placeholder="<%= employee.last_name %>" >
+                                        <input type="text" name="last_name" required class="flex-1 outline-none placeholder:font-muli" placeholder="<%= vet.last_name %>" >
                                     </div>
                                 </div>
                             
                                 <div class="flex flex-col"> 
                                     <label for="email" class="font-muli text-sm">Email :</label>
                                     <div class="border border-black bg-white h-10 flex items-center justify-center rounded-sm px-2">
-                                        <input type="email" name="email" required class="flex-1 outline-none placeholder:font-muli" placeholder="<%= employee.email%>">
+                                        <input type="email" name="email" required class="flex-1 outline-none placeholder:font-muli" placeholder="<%= vet.email%>">
                                     </div>
                                 </div>
 

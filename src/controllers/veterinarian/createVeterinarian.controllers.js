@@ -29,7 +29,7 @@ async function getVeterinarianAccountByID(req, res) {
       res.status(404).send("There is no veterinarian with this provided ID.");
       return;
     }
-    res.send(results.rows[0]);
+    return results.rows[0]
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal server error !");
@@ -75,7 +75,7 @@ async function UpdateVeterinarianAccount(req, res) {
       "UPDATE veterinarian SET first_name=$1, last_name=$2, email=$3, password=$4 WHERE veterinarian_id = $5";
     await db.query(query, [first_name, last_name, email, passwordHash, id]);
 
-
+    res.redirect('/admin/dashboard');
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal server error !");
