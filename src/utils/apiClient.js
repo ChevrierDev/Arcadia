@@ -28,4 +28,5 @@ async function fetchVeterinarianData() {
   }
 };
 
+
 module.exports = { fetchEmployeeData, fetchVeterinarianData };

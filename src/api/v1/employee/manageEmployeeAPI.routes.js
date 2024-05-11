@@ -15,7 +15,7 @@ const {
 manageEmployeeAPIRouter.get("/", getEmployeeAccount);
 manageEmployeeAPIRouter.get("/:id", getEmployeeAccountByID);
 manageEmployeeAPIRouter.post("/", employeeRules(), validateEmployee, createEmployeeAccount);
-manageEmployeeAPIRouter.put("/:id", employeeRules(), validateEmployee, UpdateEmployeeAccount);
+manageEmployeeAPIRouter.put("/:id", employeeRules(), validateEmployee,  UpdateEmployeeAccount);
 manageEmployeeAPIRouter.delete("/:id", deleteEmployeeAccount);
 
 module.exports = manageEmployeeAPIRouter;

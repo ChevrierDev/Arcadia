@@ -20,21 +20,21 @@ async function getEmployeeAccount(req, res) {
 }
 
 //look for specific employee
-async function getEmployeeAccountByID(req, res) {
+async function getEmployeeAccountByID(req) {
   try {
-    const { id } = req.params;
-    const query = "SELECT * FROM employee WHERE employee_id = $1";
-    const results = await db.query(query, [id]);
-    if (results.rows.length === 0) {
-      res.status(404).send("There is no employee with this provided ID.");
-      return;
-    }
-    res.send(results.rows[0]);
+      const { id } = req.params;
+      const query = "SELECT * FROM employee WHERE employee_id = $1";
+      const results = await db.query(query, [id]);
+      if (results.rows.length === 0) {
+          return null;
+      }
+      return results.rows[0]; 
   } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal server error !");
+      console.error(err);
+      throw new Error("Internal server error");
   }
 }
+
 
 //create employee account
 async function createEmployeeAccount(req, res) {
@@ -69,12 +69,12 @@ async function createEmployeeAccount(req, res) {
 //Update employee account
 async function UpdateEmployeeAccount(req, res) {
   try {
-    const { first_name, last_name, email, password, confirmPass } = req.body;
+    const { first_name, last_name, email, password } = req.body;
     const { id } = req.params;
     const passwordHash = await hashPassword(password);
-    const query =
-      "UPDATE employee SET first_name=$1, last_name=$2, email=$3, password=$4 WHERE employee_id = $5";
+    const query = "UPDATE employee SET first_name=$1, last_name=$2, email=$3, password=$4 WHERE employee_id = $5";
     await db.query(query, [first_name, last_name, email, passwordHash, id]);
+    res.redirect('/admin/dashboard'); 
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal server error !");
@@ -87,7 +87,7 @@ async function deleteEmployeeAccount(req, res) {
     const { id } = req.params;
     const query = "DELETE FROM employee WHERE employee_id = $1";
     await db.query(query, [id]);
-    res.status(200).send("Employee account deleted !");
+    res.redirect('/admin/dashboard');
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal server error !");

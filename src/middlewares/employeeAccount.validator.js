@@ -45,10 +45,12 @@ const employeeRules = () => {
     body("confirmPass")
       .isString()
       .notEmpty()
-      .custom(value => {
-        value === req.body.password
+      .custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error('Your password does not correspond.');
+        }
+        return true; 
       })
-      .withMessage('Your password does not correspond.')
   ];
 };
 

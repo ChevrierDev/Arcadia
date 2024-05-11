@@ -88,7 +88,7 @@ async function deleteVeterinarianAccount(req, res) {
     const { id } = req.params;
     const query = "DELETE FROM veterinarian WHERE veterinarian_id = $1";
     await db.query(query, [id]);
-    res.status(200).send("veterinarian account deleted !");
+    res.redirect('/admin/dashboard');
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal server error !");

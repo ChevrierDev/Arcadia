@@ -6,8 +6,12 @@ const nodemailer = require('nodemailer')
 const { checkAuthenticated, checkRole } = require('../../middlewares/Autorisation/autorisation.middleware');
 const { fetchEmployeeData, fetchVeterinarianData } = require('../../utils/apiClient');
 
-const { createEmployeeAccount } = require('../../controllers/employee/manageEmployeeAccount');
-const { createVeterinarianAccount } = require('../../controllers/veterinarian/createVeterinarian.controllers')
+
+const { createVeterinarianAccount } = require('../../controllers/veterinarian/createVeterinarian.controllers');
+const { getEmployeeAccountByID, UpdateEmployeeAccount, createEmployeeAccount } = require('../../controllers/employee/manageEmployeeAccount');
+
+
+
 
 //render admin dashboard
 adminDashboardRouter.get('/dashboard', checkAuthenticated, checkRole('admin'), async (req, res) => {
@@ -25,6 +29,7 @@ adminDashboardRouter.get('/dashboard', checkAuthenticated, checkRole('admin'), a
     }
 });
 
+//render admin create users dashboard
 adminDashboardRouter.get('/dashboard/create-users', checkAuthenticated, checkRole('admin'), async (req, res) => {
     try {
         res.render('admin/createUserDash', {
@@ -35,7 +40,39 @@ adminDashboardRouter.get('/dashboard/create-users', checkAuthenticated, checkRol
     }
 });
 
-// Pour créer un employé
+//admin update employee features
+adminDashboardRouter.get('/dashboard/update-users/:id', checkAuthenticated, checkRole('admin'), async (req, res) => {
+    try {
+        const employee = await getEmployeeAccountByID(req, res);
+        if (!employee) {
+            return res.status(404).send('Employee not found');
+        }
+        res.render('admin/updateUser', {
+            title: "Modifier les informations de l'utilisateur",
+            employee: employee
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Error fetching employee data");
+    }
+});
+
+// admin post update users features
+adminDashboardRouter.put('/dashboard/update-users/:id', checkAuthenticated, checkRole('admin'), async (req, res) => {
+    try {
+        if (!req.body) {
+            return res.status(400).send('No data sent to the server.');
+        }
+        const result = await UpdateEmployeeAccount(req);         
+    } catch (err) {
+        console.error("Error updating employee data: ", err);
+        res.status(500).send("Internal server error");
+    }
+});
+
+
+
+// admin create employee features
 adminDashboardRouter.post('/dashboard/create-employee', checkAuthenticated, checkRole('admin'), async (req, res) => {
     try {
         await createEmployeeAccount(req, res);
@@ -46,7 +83,7 @@ adminDashboardRouter.post('/dashboard/create-employee', checkAuthenticated, chec
     };
 });
 
-// Pour créer un vétérinaire
+// Admin create veterinarian feature
 adminDashboardRouter.post('/dashboard/create-veterinarian', checkAuthenticated, checkRole('admin'), async (req, res) => {
     try {
         await createVeterinarianAccount(req, res);
@@ -56,9 +93,5 @@ adminDashboardRouter.post('/dashboard/create-veterinarian', checkAuthenticated, 
         res.status(500).send("Internal server error");
     }
 });
-
-
-
-
 
 module.exports = adminDashboardRouter;
