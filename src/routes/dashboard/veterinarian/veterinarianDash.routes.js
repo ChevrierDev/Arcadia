@@ -1,7 +1,7 @@
 const express = require('express');
 const veterinarianDashboardRouter = express.Router();
 
-const { checkAuthenticated, checkRole } = require('../../middlewares/Autorisation/autorisation.middleware')
+const { checkAuthenticated, checkRole } = require('../../../middlewares/Autorisation/autorisation.middleware')
 
 
 //render admin dashboard

@@ -21,17 +21,22 @@ const veterinarianRules = () => {
       .withMessage("You must enter veterinarian email.")
       .isLength({ min: 10, max: 250 })
       .custom(async (value, { req }) => {
-        // custom validation that look if email already register in the DB
-        const query =
-          "SELECT EXISTS (SELECT 1 FROM veterinarian WHERE email = $1) AS email_exists";
-        const result = await db.query(query, [value]);
-        const { email_exists } = result.rows[0];
-
-        if (email_exists) {
+        // Check if it's an update operation and the email hasn't changed
+        const id = req.params.id;
+        if (id) {
+          const existingVet = await db.query("SELECT * FROM veterinarian WHERE veterinarian_id = $1", [id]);
+          if (existingVet.rows.length > 0 && existingVet.rows[0].email === value) {
+            // Email hasn't changed in update, no need to check for existence
+            return true;
+          }
+        }
+        
+        // Check for email existence in the case of new creation or email change in update
+        const result = await db.query("SELECT EXISTS (SELECT 1 FROM veterinarian WHERE email = $1) AS email_exists", [value]);
+        if (result.rows[0].email_exists) {
           throw new Error("This email address is already registered.");
         }
       })
-      .withMessage("Veterinarian with this adress already exist")
       .trim(),
     body("password")
       .isString()
