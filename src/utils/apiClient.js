@@ -73,6 +73,17 @@ async function fetchReviewsData() {
   }
 }
 
+async function fetchFoodData() {
+  try {
+    const API_URL = "https://127.0.0.1:3000/api/v1/foods";
+    const response = await axios.get(`${API_URL}`, { httpsAgent: agent });
+    return response.data;
+  } catch (err) {
+    console.log("Error while getting data:", err)
+  }
+}
+
+
 
 module.exports = {
   fetchEmployeeData,
@@ -81,4 +92,5 @@ module.exports = {
   fetchHabitatData,
   fetchAnimalsData,
   fetchReviewsData,
+  fetchFoodData
 };

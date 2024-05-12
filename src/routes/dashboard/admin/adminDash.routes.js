@@ -12,6 +12,7 @@ const {
   fetchServicesData,
   fetchHabitatData,
   fetchAnimalsData,
+  fetchFoodData,
 } = require("../../../utils/apiClient");
 
 //vet controllers
@@ -49,6 +50,14 @@ const {
   updateAnimal,
   deleteAnimal,
 } = require("../../../controllers/animal/animal.controllers");
+
+const {
+  getFoods,
+  getFoodByID,
+  postFood,
+  updateFood,
+  deleteFood,
+} = require('../../../controllers/food/food.controllers')
 
 //render admin dashboard
 adminDashboardRouter.get(
@@ -130,6 +139,25 @@ adminDashboardRouter.get(
   }
 );
 
+//admin render foods Dashboard
+adminDashboardRouter.get(
+  "/food",
+  checkAuthenticated,
+  checkRole("admin"),
+  async (req, res) => {
+    try {
+      const foods = await fetchFoodData();
+      res.render("admin/food", {
+        title: "Nourriture disponible dans le zoo.",
+        foods: foods,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error fetching service data");
+    }
+  }
+);
+
 //render admin create users dashboard
 adminDashboardRouter.get(
   "/dashboard/create-users",
@@ -187,6 +215,22 @@ adminDashboardRouter.get(
     try {
       res.render("admin/postAnimals", {
         title: "Poster un nouvel animal.",
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+//admin render post new food
+adminDashboardRouter.get(
+  "/post-foods",
+  checkAuthenticated,
+  checkRole("admin"),
+  async (req, res) => {
+    try {
+      res.render("admin/postFood", {
+        title: "Ajouter de la nourriture.",
       });
     } catch (err) {
       console.log(err);
@@ -298,6 +342,26 @@ adminDashboardRouter.get(
   }
 );
 
+//admin render update food
+adminDashboardRouter.get(
+  "/modifier-foods/:id",
+  checkAuthenticated,
+  checkRole("admin"),
+  async (req, res) => {
+    try {
+      const foods = await getFoodByID(req, res);
+      console.log(foods);
+      res.render("admin/updateFood", {
+        title: "Modifier l'aliment.",
+        foods: foods,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Error fetching habitats data");
+    }
+  }
+);
+
 // admin create employee features
 adminDashboardRouter.post(
   "/dashboard/create-employee",
@@ -381,6 +445,25 @@ adminDashboardRouter.post(
       res.redirect("/admin/animaux?success=animalPosted");
     } catch (err) {
       console.error("Error while posting new animals :", err.message);
+      res
+        .status(500)
+        .send("Internal server error.");
+    }
+  }
+);
+
+//admin post food
+adminDashboardRouter.post(
+  "/post-foods",
+  checkAuthenticated,
+  checkRole("admin"),
+  async (req, res) => {
+    try {
+      console.log(req.body)
+      await postFood(req);
+      res.redirect("/admin/food?success=foodPosted");
+    } catch (err) {
+      console.error("Error while posting new foods :", err.message);
       res
         .status(500)
         .send("Internal server error.");
@@ -474,6 +557,22 @@ adminDashboardRouter.put(
   }
 );
 
+//admin update food feature
+adminDashboardRouter.put(
+  "/modifier-food/:id",
+  checkAuthenticated,
+  checkRole("admin"),
+  async (req, res) => {
+    try {
+      await updateFood(req);
+      res.redirect("/admin/food");
+    } catch (err) {
+      console.error("Error updating food data: ", err);
+      res.status(500).send("Internal server error");
+    }
+  }
+);
+
 //delete service
 adminDashboardRouter.delete(
   "/services/:id",
@@ -517,6 +616,22 @@ adminDashboardRouter.delete(
       res.redirect("/admin/animaux?success=animalDeleted");
     } catch (err) {
       console.error("Error deleting animal data: ", err);
+      res.status(500).send("Internal server error");
+    }
+  }
+);
+
+//delete food feature
+adminDashboardRouter.delete(
+  "/delete/:id",
+  checkAuthenticated,
+  checkRole("admin"),
+  async (req, res) => {
+    try {
+      await deleteFood(req, res);
+      res.redirect("/admin/food?success=foodDeleted");
+    } catch (err) {
+      console.error("Error deleting food data: ", err);
       res.status(500).send("Internal server error");
     }
   }

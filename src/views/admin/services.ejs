@@ -23,51 +23,7 @@
                 
                 <div class="flex flex-col flex-1 overflow-y-auto rounded-b-2xl shadow-lg ">
                     <!-- side bar navigation -->
-                    <nav class="flex-1 flex flex-col justify-between px-2 py-7 bg-secondary-100 space-y-6 ">
-                        <div class="container">
-                            <p class="text-white font-light font-muli text sm pl-3"> outils</p>
-                  
-                            <a href="/admin/dashboard" class="flex items-center font-muli px-4 py-2 mt-2 text-gray-100 group hover:bg-white hover:text-black hover:rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 svg-icon text-white group-hover:text-black" width="22" height="22" viewBox="0 0 24 24">
-                                    <g fill="none" stroke-linecap="round" stroke-width="1.5" stroke="currentColor" stroke-linejoin="round">
-                                        <path d="M8.557 2.75H4.682A1.932 1.932 0 0 0 2.75 4.682v3.875a1.942 1.942 0 0 0 1.932 1.942h3.875a1.942 1.942 0 0 0 1.942-1.942V4.682A1.942 1.942 0 0 0 8.557 2.75z"/>
-                                        <path d="M18.318 2.75H14.443a1.942 1.942 0 0 0-1.942 1.932v3.875a1.943 1.943 0 0 0 1.942 1.942h3.875a1.942 1.942 0 0 0 1.932-1.942V4.682a1.932 1.932 0 0 0-1.932-1.932z"/>
-                                        <path d="M8.557 13.5H4.682a1.943 1.943 0 0 0-1.932 1.943v3.875a1.932 1.932 0 0 0 1.932 1.932h3.875a1.942 1.942 0 0 0 1.942-1.932v-3.875a1.942 1.942 0 0 0-1.942-1.942z"/>
-                                        <path d="M17.368 13.817v7.116m-3.551-3.55h7.116"/>
-                                    </g>
-                                </svg>
-                                dashboard
-                            </a>
-                            
-                            <a href="/admin/report" class="flex items-center font-muli px-4 py-2 mt-2 text-gray-100 group hover:bg-white hover:text-black hover:rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg"  class="mr-2 svg-icon text-white group-hover:text-black" width="24" height="24" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M1.44.44A1.5 1.5 0 0 1 2.5 0h6a.5.5 0 0 1 .354.146l4 4A.5.5 0 0 1 13 4.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 1 12.5v-11c0-.398.158-.78.44-1.06m4.53 4.987c0-.216.176-.392.393-.392h1.275c.216 0 .392.176.392.392v1.56h1.56c.217 0 .392.176.392.393v1.275a.392.392 0 0 1-.392.392H8.03v1.56a.392.392 0 0 1-.392.393H6.362a.392.392 0 0 1-.392-.392v-1.56H4.41a.392.392 0 0 1-.392-.393V7.38c0-.217.175-.392.392-.392h1.56z" clip-rule="evenodd"/></svg>
-                                Rapport vétérinaire
-                            </a>
-
-                            <a href="/admin/services" class="flex items-center font-muli px-4 py-2 mt-2 text-gray-100 group hover:bg-white hover:text-black hover:rounded-lg">
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 pb-0.5 svg-icon text-white group-hover:text-black " width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M3 21h2v-6H3v3zm9.46 1l-2.93-.64l-2.93-.69a.73.73 0 0 1-.43-.26a.71.71 0 0 1-.17-.47v-4a.77.77 0 0 1 .17-.47a.8.8 0 0 1 .43-.26l4.78-.59l4.79-.6l.15.56l.15.55a.93.93 0 0 1-.15.52a.9.9 0 0 1-.4.37l-2 .5l-2 .5l1.62.66l1.63.65l2.27-.64l2.21-.69a.78.78 0 0 1 .58.08a.73.73 0 0 1 .36.46l.19.77l.2.76a.77.77 0 0 1-.08.56a.78.78 0 0 1-.46.35l-3.63 1l-3.63 1a1.42 1.42 0 0 1-.36 0a1.1 1.1 0 0 1-.36.02M9 4L7 6L5 8l2 2l2 2l.7-.7l.7-.7l-1.3-1.3L7.8 8l1.3-1.3l1.3-1.3l-.7-.7zm6 0l-.7.7l-.7.7l1.3 1.3L16.2 8l-1.3 1.3l-1.3 1.3l.7.7l.7.7l2-2l2-2l-2-2z"/></svg>
-                                Gérer les services
-                            </a>
-                            
-                            <a href="/admin/animaux" class="flex items-center font-muli px-4 py-2 mt-2 text-gray-100 group hover:bg-white hover:text-black hover:rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 svg-icon text-white group-hover:text-black" width="24" height="24" viewBox="0 0 15 15"><path fill="currentColor" d="M8.388 3.893S7.682 5 7 5H4.5c-.682 0-1.298.409-1.773.864L.5 8c-.269.258-.493.768-.5 1c-.016.5 0 1 0 1s1 0 1-1v-.5l1-1h.5l.158.29s-.953 1.824-.953 3.528c0 .682.681.682.681.682h.682s.341 0 0-.34l-.34-.342C2.727 10.636 3.5 9.667 4 9c0 0 .017 1.158 0 2c-.008.41.272 1 .682 1h.682s.34 0 0-.34l-.341-.342C4.71 10.75 5.5 8.5 5.5 8.5c1.272 0 1.5.5 3 .5l.364 2.318c.111.71.636.682.636.682H11c.34 0 .961-.311.34-.774L11 11V9c1.214-.172 2-1 2-2h1c.321 0 1 0 1-.5v-1l-1.704-1.682C12.544 3.078 12 2.5 11 2.5c-1.453 0-2.136.569-2.612 1.393"/></svg>
-                                Gérer les animaux
-                            </a>
-                            
-                            <a href="/admin/habitats" class="flex items-center font-muli px-4 py-2 mt-2 text-gray-100 group hover:bg-white hover:text-black hover:rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 svg-icon text-white group-hover:text-black" width="24" height="24" viewBox="0 0 512 512"><path fill="currentColor" d="m256 32.951l116.926 35.666l83.185 88.81l30.06 112.33l-24.831 8.839l-87.744-66.914l-25.073 107.062l-14.076 5.01H319.15L256 229.367l-63.15 94.387h-15.297l-14.076-5.01l-25.073-107.062l-87.744 66.914l-24.832-8.838l30.06-112.33l83.186-88.81zm0 18.819l-71.54 21.822l24.51 3.738l.157-.246l.139.291L256 84.502l46.734-7.127l.14-.291l.155.246l24.51-3.738zm108.672 34.367L313.6 93.926l51.023 80.113l18.404-68.305zm-217.344 0l-18.355 19.597l18.404 68.305L198.4 93.926zm146.026 10.877L256 102.71l-37.354-5.697L256 175.217zm11.771 17.115l-42.479 88.933l90.342-13.779zm-98.25 0l-47.863 75.154l90.342 13.78zm190.629 7.06l-15.992 59.352l51.133-21.836zm-283.008 0l-35.14 37.516l51.132 21.838zm327.492 53.098l-56.248 24.02l78.75 60.054zm-371.976 0L47.51 258.361l78.75-60.054zM356.203 207l-84.851 12.941l60.607 90.588zm-200.406 0l24.244 103.53l60.607-90.589zM487 288.264v32.14L334.447 375H177.553L25 320.404v-32.14l149.447 53.49h163.106zM328.193 393l13.43 94H170.377l13.428-94z"/></svg>
-                                Gérer les Habitats
-                            </a>
-
-                            <a href="/admin/stats" class="flex items-center font-muli px-4 py-2 mt-2 text-gray-100 group hover:bg-white hover:text-black hover:rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 svg-icon text-white group-hover:text-black" width="24" height="24" viewBox="0 0 512 512"><path fill="currentColor" d="M104 496H72a24 24 0 0 1-24-24V328a24 24 0 0 1 24-24h32a24 24 0 0 1 24 24v144a24 24 0 0 1-24 24m224 0h-32a24 24 0 0 1-24-24V232a24 24 0 0 1 24-24h32a24 24 0 0 1 24 24v240a24 24 0 0 1-24 24m112 0h-32a24 24 0 0 1-24-24V120a24 24 0 0 1 24-24h32a24 24 0 0 1 24 24v352a24 24 0 0 1-24 24m-224 0h-32a24 24 0 0 1-24-24V40a24 24 0 0 1 24-24h32a24 24 0 0 1 24 24v432a24 24 0 0 1-24 24"/></svg>
-                                Statistique 
-                            </a>
-                            
-                        </div>
-                     
-                    </nav>
+                    <%- include('./components/sidebar') %>
                 </div>
             </div>
         
