@@ -35,8 +35,15 @@ const {
   updateServices,
   deleteServices,
 } = require("../../../controllers/services/services.controllers");
-const multer = require("multer");
 
+const {
+  getHabitatByID,
+  postHabitat,
+  updateHabitat,
+  deleteHabitat,
+} = require("../../../controllers/habitat/habitat.controllers");
+
+const multer = require("multer");
 
 //render admin dashboard
 adminDashboardRouter.get(
@@ -150,6 +157,22 @@ adminDashboardRouter.get(
   }
 );
 
+//admin render post new habitat
+adminDashboardRouter.get(
+  "/post-habitat",
+  checkAuthenticated,
+  checkRole("admin"),
+  async (req, res) => {
+    try {
+      res.render("admin/postHabitats", {
+        title: "Poster un nouvel habitat.",
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 //admin render update-user employee features
 adminDashboardRouter.get(
   "/dashboard/update-users/:id",
@@ -212,6 +235,25 @@ adminDashboardRouter.get(
   }
 );
 
+//admin render update habitat
+adminDashboardRouter.get(
+  "/modifier-habitat/:id",
+  checkAuthenticated,
+  checkRole("admin"),
+  async (req, res) => {
+    try {
+      const habitats = await getHabitatByID(req, res);
+      console.log(habitats)
+      res.render("admin/updateHabitats", {
+        title: "Modifier l'habitat.",
+        habitats: habitats,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Error fetching habitats data");
+    }
+  }
+);
 
 // admin create employee features
 adminDashboardRouter.post(
@@ -245,22 +287,44 @@ adminDashboardRouter.post(
   }
 );
 
-
 // Admin post services feature
-adminDashboardRouter.post('/dashboard/post-services',
-    checkAuthenticated, checkRole('admin'),
-    upload.single('images'), async (req, res) => {
-        try {
-            await postServices(req); 
+adminDashboardRouter.post(
+  "/dashboard/post-services",
+  checkAuthenticated,
+  checkRole("admin"),
+  upload.single("images"),
+  async (req, res) => {
+    try {
+      await postServices(req);
 
-            res.redirect("/admin/services?success=servicePosted");
-        } catch (err) {
-            console.error("Erreur lors de la publication du service :", err.message);
-            res.status(500).send("Une erreur est survenue lors de la publication du service.");
-        }
+      res.redirect("/admin/services?success=servicePosted");
+    } catch (err) {
+      console.error("Erreur lors de la publication du service :", err.message);
+      res
+        .status(500)
+        .send("Une erreur est survenue lors de la publication du service.");
     }
+  }
 );
 
+// Admin post new habitat
+adminDashboardRouter.post(
+  "/post-habitat",
+  checkAuthenticated,
+  checkRole("admin"),
+  upload.single("images"),
+  async (req, res) => {
+    try {
+      await postHabitat(req);
+      res.redirect("/admin/habitats?success=servicePosted");
+    } catch (err) {
+      console.error("Erreur lors de la publication du service :", err.message);
+      res
+        .status(500)
+        .send("Une erreur est survenue lors de la publication du service.");
+    }
+  }
+);
 
 // admin put update veterinarian features
 adminDashboardRouter.put(
@@ -300,15 +364,32 @@ adminDashboardRouter.put(
   "/modifier-services/:id",
   checkAuthenticated,
   checkRole("admin"),
-  upload.single('images'),
+  upload.single("images"),
   async (req, res) => {
     try {
-      console.log(req.body)
-      console.log(req.file)
+      console.log(req.body);
+      console.log(req.file);
       await updateServices(req);
-      res.redirect('/admin/services')
+      res.redirect("/admin/services");
     } catch (err) {
-      console.error("Error updating employee data: ", err);
+      console.error("Error updating services data: ", err);
+      res.status(500).send("Internal server error");
+    }
+  }
+);
+
+//admin update habitat feature
+adminDashboardRouter.put(
+  "/modifier-habitat/:id",
+  checkAuthenticated,
+  checkRole("admin"),
+  upload.single("images"),
+  async (req, res) => {
+    try {
+      await updateHabitat(req);
+      res.redirect("/admin/habitats");
+    } catch (err) {
+      console.error("Error updating habitat data: ", err);
       res.status(500).send("Internal server error");
     }
   }
@@ -322,9 +403,25 @@ adminDashboardRouter.delete(
   async (req, res) => {
     try {
       await deleteServices(req);
-      res.redirect('/admin/services?success=serviceDeleted')
+      res.redirect("/admin/services?success=serviceDeleted");
     } catch (err) {
       console.error("Error deleting services data: ", err);
+      res.status(500).send("Internal server error");
+    }
+  }
+);
+
+//delete Habitat feature
+adminDashboardRouter.delete(
+  "/habitats/:id",
+  checkAuthenticated,
+  checkRole("admin"),
+  async (req, res) => {
+    try {
+      await deleteHabitat(req, res);
+      res.redirect("/admin/habitats?success=habitatDeleted");
+    } catch (err) {
+      console.error("Error deleting habitat data: ", err);
       res.status(500).send("Internal server error");
     }
   }

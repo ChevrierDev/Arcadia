@@ -1,5 +1,5 @@
 const db = require("../../config/db");
-const fs = require("fs");
+const fs = require("fs").promises;
 const path = require("path");
 
 //get all services
@@ -45,22 +45,35 @@ async function postServices(req, res) {
   }
 }
 
-//update a service
+// Update a service
 async function updateServices(req, res) {
   try {
     const { name, description } = req.body;
     const { id } = req.params;
-    const imagePath = req.file ? req.file.path : null;
 
-    const query =
-      "UPDATE service SET name=$1, description=$2, images=$3 WHERE service_id = $4";
-    await db.query(query, [name, description, imagePath, id]);
+    // Get the current image path from the database
+    const currentImageData = await db.query("SELECT images FROM service WHERE service_id = $1", [id]);
+    const currentImagePath = currentImageData.rows[0].images;
+
+    const newImagePath = req.file ? req.file.path : null;
+
+    const query = "UPDATE service SET name = $1, description = $2, images = $3 WHERE service_id = $4";
+    await db.query(query, [name, description, newImagePath, id]);
+
+    // If a new image  uploaded, delete the old image from the filesystem
+    if (newImagePath && currentImagePath && newImagePath !== currentImagePath) {
+      const fullPath = path.isAbsolute(currentImagePath) ? currentImagePath : path.join(__dirname, "..", "..", "..", currentImagePath);
+      try {
+        await fs.unlink(fullPath);
+      } catch (err) {
+        console.error("Failed to delete the old image:", err);
+      }
+    }
   } catch (err) {
-    console.error(err);
+    console.error("Error updating service:", err);
     res.status(500).send("Internal server error !");
   }
 }
-
 //Delete a service services
 async function deleteServices(req, res) {
   try {
@@ -69,7 +82,7 @@ async function deleteServices(req, res) {
     const resultFind = await db.query(queryFind, [id]);
 
     if (resultFind.rows.length === 0) {
-      return res.status(404).send("Le service avec l'ID fourni n'existe pas.");
+      return res.status(404).send("Service with provided ID does not exist.");
     }
 
     const imagePath = resultFind.rows[0].images;
@@ -81,25 +94,25 @@ async function deleteServices(req, res) {
 
       fs.unlink(fullPath, async (err) => {
         if (err) {
-          console.error("Erreur lors de la suppression de l'image:", err);
+          console.error("Error while deleting image:", err);
           return res
             .status(500)
-            .send("Erreur lors de la suppression de l'image.");
+            .send("Error while deleting image.");
         }
 
         const queryDelete = "DELETE FROM service WHERE service_id = $1";
         try {
           await db.query(queryDelete, [id]);
         } catch (err) {
-          console.error("Erreur lors de la suppression du service:", err);
-          res.status(500).send("Erreur interne du serveur");
+          console.error("Error while deleting service:", err);
+          res.status(500).send("Internal server error");
         }
       });
     } else {
       const queryDelete = "DELETE FROM service WHERE service_id = $1";
       try {
         await db.query(queryDelete, [id]);
-        res.status(200).send("Service supprimé avec succès.");
+
       } catch (err) {
         console.error("Erreur lors de la suppression du service:", err);
         res.status(500).send("Erreur interne du serveur");

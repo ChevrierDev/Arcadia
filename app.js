@@ -13,7 +13,6 @@ const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 const multer = require('multer');
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
