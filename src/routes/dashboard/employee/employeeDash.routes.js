@@ -1,7 +1,7 @@
 const express = require('express');
 const employeeDashboardRouter = express.Router();
 
-const { checkAuthenticated, checkRole } = require('../../middlewares/Autorisation/autorisation.middleware')
+const { checkAuthenticated, checkRole } = require('../../../middlewares/Autorisation/autorisation.middleware')
 
 
 //render admin dashboard

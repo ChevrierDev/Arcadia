@@ -109,57 +109,38 @@
                 </div>
 
                 <div class="">
-                <!-- see employee section -->
+                <!-- see services section -->
                 <section class=" w-[80%] h-screen mx-auto pt-2 space-y-10">
                  
                     <div class="container bg-primary-50 border rounded-md shadow-lg border-black w-full h-[100%] md:min-h-[90%] overflow-y-auto ">
 
                         <div class="container flex flex-col items-center justify-center py-2 h-full">
-                            <div class="h1 font-muli font-semibold text-lg">Créer un utilisateur</div>
-                            <form id="createUserForm" method="post" class="flex flex-col  space-y-5 mt-2">
+                            <div class="h1 font-muli font-semibold text-lg">Modifier le service</div>
+                            <form  method="post" enctype="multipart/form-data" action="/admin/modifier-services/<%= services.service_id %>?_method=PUT" class="flex flex-col space-y-5 mt-2">
                                 <div class="flex flex-col"> 
-                                    <label for="first_name" class="font-muli text-sm"> Prénom :</label>
-                                    <div class="border border-black  bg-white h-10 flex items-center justify-center rounded-sm px-2">
-                                        <input type="text" name="first_name" placeholder="Prénom" required class="flex-1 outline-none placeholder:font-muli">
+                                    <label for="name" class="font-muli text-sm">Nom : </label>
+                                    <div class="border border-black bg-white h-10 flex items-center justify-center rounded-sm px-2">
+                                        <input type="text" name="name" required class="flex-1 outline-none placeholder:font-muli" placeholder="<%= services.name %>" >
                                     </div>
                                 </div>
-
+                            
                                 <div class="flex flex-col"> 
-                                    <label for="first_name" class="font-muli text-sm"> Nom :</label>
-                                    <div class="border border-black  bg-white h-10 flex items-center justify-center rounded-sm px-2">
-                                        <input type="text" name="last_name" placeholder="Nom" required class="flex-1 outline-none placeholder:font-muli">
+                                    <label for="description" class="font-muli text-sm">Description : </label>
+                                    <div class="border border-black bg-white h-10 flex items-center justify-center rounded-sm px-2">
+                                        <input type="text" name="description" required class="flex-1 outline-none placeholder:font-muli" placeholder="<%= services.description %>" >
                                     </div>
                                 </div>
-
+                            
                                 <div class="flex flex-col"> 
-                                    <label for="first_name" class="font-muli text-sm"> email :</label>
-                                    <div class="border border-black  bg-white h-10 flex items-center justify-center rounded-sm px-2">
-                                        <input type="email" name="email" placeholder="email@hotmail.com" required class="flex-1 outline-none placeholder:font-muli">
-                                    </div>
+                                    <label for="images" class="font-muli text-sm">images :</label>
+                                        <input type="file" name="images" required class="flex-1 outline-none placeholder:font-muli" placeholder="<%= services.images%>">
                                 </div>
-
-                                <div class="flex flex-col"> 
-                                    <label for="password" class="font-muli text-sm"> Mot de passe :</label>
-                                    <div class="border border-black  bg-white h-10 flex items-center justify-center rounded-sm px-2">
-                                        <input type="password" name="password" placeholder="motdepasse" required class="flex-1 outline-none placeholder:font-muli">
-                                    </div>
-                                </div>
-
-                                <div class="flex flex-col"> 
-                                    <label for="confirmPass" class="font-muli text-sm">Confirmer mot de passe :</label>
-                                    <div class="border border-black  bg-white h-10 flex items-center justify-center rounded-sm px-2">
-                                        <input type="password" name="confirmPass" placeholder="motdepasse" required class="flex-1 outline-none placeholder:font-muli">
-                                    </div>
-                                </div>
-                                
+                            
                                 <div class="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-4">
-                                    <button type="button" id="createEmployeeBtn" class="h-10 w-40 font-muli font-semibold rounded-sm bg-icon text-white mx-auto hover:scale-95 duration-150 ease-in">Créer un Employé</button>
-                                    <button type="button" id="createVeterinarianBtn" class="h-10 w-40 font-muli font-semibold rounded-sm bg-icon text-white mx-auto hover:scale-95 duration-150 ease-in">Créer un Vétérinaire</button>
-
-                                    
+                                    <button type="submit" class="h-10 w-52 font-muli font-semibold rounded-sm bg-icon text-white mx-auto hover:scale-95 duration-150 ease-in">Modifier le service</button>
                                 </div>
-                              
                             </form>
+                            
                         </div>
                         
                     </div>

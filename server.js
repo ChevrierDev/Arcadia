@@ -11,9 +11,9 @@ const accueilRouter = require('./src/routes/home/accueil.routes');
 const serviceRouter = require('./src/routes/services/services.routes');
 const habitatRouter = require('./src/routes/habitats/habitats.routes');
 const contactRouter = require('./src/routes/contact/contact.routes');
-const adminDashboardRouter = require('./src/routes/dashboard/adminDash.routes');
-const employeeDashboardRouter = require('./src/routes/dashboard/employeeDash.routes');
-const veterinarianDashboardRouter = require('./src/routes/dashboard/veterinarianDash.routes');
+const adminDashboardRouter = require('./src/routes/dashboard/admin/adminDash.routes');
+const employeeDashboardRouter = require('./src/routes/dashboard/employee/employeeDash.routes');
+const veterinarianDashboardRouter = require('./src/routes/dashboard/veterinarian/veterinarianDash.routes');
 
 //Api routes
 const foodAPIRouter = require('./src/api/v1/food/foodAPI.routes');
