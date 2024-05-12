@@ -173,7 +173,7 @@
                                             <td class="py-4 px-6"><%=vet.last_name  %></td>
                                             <td class="py-4 px-6"><%=vet.email  %></td>
                                             <td class="py-4 px-6">
-                                                <a href="/dashboard/update-users/<%=vet.veterinarian_id  %>" class="font-medium text-blue-600 hover:underline">Modifier</a>
+                                                <a href="/admin/dashboard/update-vet/<%=vet.veterinarian_id  %>" class="font-medium text-blue-600 hover:underline">Modifier</a>
                                                 <form action="/api/v1/manageVetrinarianAccount/<%= vet.veterinarian_id %>?_method=DELETE" method="POST" style="display: inline;">
                                                     <button type="submit" class="font-medium text-red-600 hover:underline ml-4">Supprimer</button>
                                                 </form> 

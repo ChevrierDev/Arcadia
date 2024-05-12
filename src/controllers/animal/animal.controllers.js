@@ -31,7 +31,7 @@ async function getAnimalByID(req, res) {
       return;
     }
 
-    res.send(results.rows[0]);
+    return results.rows[0]
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");
@@ -42,41 +42,48 @@ async function getAnimalByID(req, res) {
 async function postAnimal(req, res) {
   try {
     const { name, race, etat } = req.body;
-    const { images } = req.file;
-
-    const imgData = fs.readFileSync(images.path);
-
+    const imagePath = req.file ? req.file.path : null;
     const query = "INSERT INTO animal (name, race, images, etat) VALUES ($1, $2, $3, $4)";
-    await db.query(query, [name, race, imgData, etat]);
-
-    fs.unlinkSync(images.path);
-
-    res.send('Animal added.');
-
+    await db.query(query, [name, race, imagePath, etat]);
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");
   };
 };
 
-//update Animal 
+// Update a animal
 async function updateAnimal(req, res) {
   try {
-    const { name, race, etat } = req.body;
-    const id = req.params.id;
-    const { images } = req.file;
+    const { name, race, etat } = req.body; 
+    const { id } = req.params;
+    let newImagePath = null;
 
-    const imgData = fs.readFileSync(images.path);
+    if (req.file) {
+      newImagePath = req.file.path;
+    }
 
-    const query = "UPDATE animal SET name=$1, race=$2, etat=$3, images=$4 WHERE Animal_id = $5";
-    await db.query(query, [ name, race, etat, images, id ]);
+    const currentImageData = await db.query("SELECT images FROM animal WHERE animal_id = $1", [id]);
+    const currentImagePath = currentImageData.rows[0].images;
 
-    res.send('Animal successfully updated');
+
+    const query = "UPDATE animal SET name = $1, race = $2, etat = $3, images = $4 WHERE animal_id = $5";
+    await db.query(query, [name, race, etat, newImagePath, id]);
+
+    if (newImagePath && currentImagePath && newImagePath !== currentImagePath) {
+      const fullPath = path.isAbsolute(currentImagePath) ? currentImagePath : path.join(__dirname, "..", "..", "..", currentImagePath);
+      try {
+        await fs.unlink(fullPath);
+      } catch (err) {
+        console.error("Failed to delete the old image:", err);
+      }
+    }
+
   } catch (err) {
-    console.log(err);
+    console.error("Error updating habitat:", err);
     res.status(500).send("Internal server error !");
   }
 }
+
 
 //delete Animal from DB
 async function deleteAnimal(req, res) {
@@ -92,9 +99,7 @@ async function deleteAnimal(req, res) {
     }
     
     const query = "DELETE FROM animal WHERE Animal_id = $1";
-    const results = await db.query(query, [ id ]);
-
-    res.send('Animal successfully deleted');
+    return await db.query(query, [ id ]);
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");
