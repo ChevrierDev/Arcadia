@@ -46,8 +46,7 @@ async function postReview(req, res) {
     const query =
       "INSERT INTO review (pseudo, description, created_at, email) VALUES ($1, $2, NOW(), $3)";
     await db.query(query, [ pseudo, description, email ]);
-
-    res.send("Review added.");
+    res.redirect('/accueil')
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");
@@ -57,14 +56,12 @@ async function postReview(req, res) {
 //update review
 async function updateReview(req, res) {
   try {
-    const { pseudo, description, email, approved } = req.body;
+    const { approved } = req.body;
     const id = req.params.id;
 
     const query =
-      "UPDATE review SET pseudo=$1, description=$2, email=$3, approved=$4 WHERE review_id = $5";
-    await db.query(query, [ pseudo, description, email, approved,  id]);
-
-    res.send("Review successfully updated");
+      "UPDATE review SET  approved=$1 WHERE review_id = $2";
+    await db.query(query, [ approved,  id]);
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");
@@ -76,19 +73,17 @@ async function deleteReview(req, res) {
   try {
     const id = req.params.id;
 
-    const existsQuery =
-      "SELECT EXISTS(SELECT 1 FROM review WHERE review_id = $1)";
-    const existsResult = await db.query(existsQuery, [id]);
+    // const existsQuery =
+    //   "SELECT EXISTS(SELECT 1 FROM review WHERE review_id = $1)";
+    // const existsResult = await db.query(existsQuery, [id]);
 
-    if (!existsResult.rows[0].exists) {
-      res.status(404).send("Review with the specified ID does not exist.");
-      return;
-    }
+    // if (!existsResult.rows[0].exists) {
+    //   res.status(404).send("Review with the specified ID does not exist.");
+    //   return;
+    // }
 
     const query = "DELETE FROM review WHERE review_id = $1";
     await db.query(query, [id]);
-
-    res.send("Review successfully deleted");
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");

@@ -20,7 +20,7 @@ async function getEmployeeAccount(req, res) {
 }
 
 //look for specific employee
-async function getEmployeeAccountByID(req) {
+async function getEmployeeAccountByID(req, res) {
   try {
       const { id } = req.params;
       const query = "SELECT * FROM employee WHERE employee_id = $1";

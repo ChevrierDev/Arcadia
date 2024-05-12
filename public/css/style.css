@@ -718,6 +718,12 @@ video {
 .h-screen{
   height: 100vh;
 }
+.h-\[80vh\]{
+  height: 80vh;
+}
+.h-\[75vh\]{
+  height: 75vh;
+}
 .min-h-\[100px\]{
   min-height: 100px;
 }
@@ -796,6 +802,21 @@ video {
 }
 .w-10{
   width: 2.5rem;
+}
+.w-24{
+  width: 6rem;
+}
+.w-\[95\%\]{
+  width: 95%;
+}
+.w-\[97\%\]{
+  width: 97%;
+}
+.w-\[99\%\]{
+  width: 99%;
+}
+.w-\[98\%\]{
+  width: 98%;
 }
 .min-w-\[76px\]{
   min-width: 76px;
@@ -1046,6 +1067,9 @@ video {
 .p-4{
   padding: 1rem;
 }
+.p-1{
+  padding: 0.25rem;
+}
 .px-0{
   padding-left: 0px;
   padding-right: 0px;
@@ -1221,6 +1245,22 @@ video {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
+.text-green-600{
+  --tw-text-opacity: 1;
+  color: rgb(22 163 74 / var(--tw-text-opacity));
+}
+.text-green-800{
+  --tw-text-opacity: 1;
+  color: rgb(22 101 52 / var(--tw-text-opacity));
+}
+.text-green-700{
+  --tw-text-opacity: 1;
+  color: rgb(21 128 61 / var(--tw-text-opacity));
+}
+.text-green-500{
+  --tw-text-opacity: 1;
+  color: rgb(34 197 94 / var(--tw-text-opacity));
+}
 .shadow-lg{
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
@@ -1239,6 +1279,9 @@ video {
 .outline-none{
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+.outline-dashed{
+  outline-style: dashed;
 }
 .duration-150{
   transition-duration: 150ms;

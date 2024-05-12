@@ -483,32 +483,34 @@
         <!-- Review Form section -->
         <section class="h-fit mt-14 w-full px-0">
             <div>
-                <div class="container flex flex-col items-center gap-y-4 mx-auto w-full h-[90vh] bg-primary-100 mt-10">
+                <div class="container flex flex-col items-center gap-y-4 mx-auto w-full h-[75vh] bg-primary-100 mt-10">
                     
-                    <form action="/accueil" class="mt-7 space-y-4">
+                    <form action="/api/v1/visitorReview" method="post" class="mt-7 space-y-4">
                         <h1 class=" text-black font-neucha text-3xl text-center w-[70vw]">Votre avis est important pour nous !</h1>
+                        
                         <div class="flex flex-col space-y-2">
                             <label for="pseudo" class="font-neucha">Pseudo</label>
                             <div class="border w-[80vw] h-8 flex items-center bg-white rounded-md px-2">
                                 <input type="text" name="pseudo" placeholder="Mon pseudo" class="outline-none flex-1 font-muli bg-transparent">
                             </div>
                         </div>
+                        
                         <div class="flex flex-col space-y-2">
-                            <label for="email" class="font-neucha">Email</label>
+                            <label for="email" class="font-neucha">email</label>
                             <div class="border w-[80vw] h-8 flex items-center bg-white rounded-md px-2">
                                 <input type="text" name="email" placeholder="Monemail@hotmail.com" class="outline-none flex-1 font-muli bg-transparent">
                             </div>
                         </div>
-
+                 
                         <div class="flex flex-col space-y-2">
-                            <label for="avis" class="font-neucha">Avis</label>
-                            <textarea id="avis" name="avis" rows="4" class="border w-full max-w-[80vw] h-auto min-h-[100px] outline-none bg-white rounded-md p-2" placeholder="Écrivez votre avis ici..."></textarea>
+                            <label for="description" class="font-neucha">Avis</label>
+                            <textarea id="description" name="description" rows="4" class="border w-full max-w-[80vw] h-auto min-h-[100px] outline-none bg-white rounded-md p-2" placeholder="Écrivez votre avis ici..."></textarea>
 
                         </div>
 
                         <div class="mx-auto w-fit mt-4 md:mt-10 md:pt-10">
                             <button type="submit" class="flex items-center justify-center space-x-1 bg-secondary-100 w-32 h-9 md:w-32 rounded-md text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
-                                <p class="font-muli text-sm">Contactez nous</p>
+                                <p class="font-muli text-sm">Poster avis</p>
                             </button>
                         </div>
                     </form>

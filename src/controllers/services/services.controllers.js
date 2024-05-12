@@ -74,55 +74,38 @@ async function updateServices(req, res) {
     res.status(500).send("Internal server error !");
   }
 }
+
 //Delete a service services
 async function deleteServices(req, res) {
+  const { id } = req.params;
   try {
-    const { id } = req.params;
-    const queryFind = "SELECT images FROM service WHERE service_id = $1";
-    const resultFind = await db.query(queryFind, [id]);
-
+    const resultFind = await db.query("SELECT images FROM service WHERE service_id = $1", [id]);
     if (resultFind.rows.length === 0) {
       return res.status(404).send("Service with provided ID does not exist.");
     }
 
     const imagePath = resultFind.rows[0].images;
-
     if (imagePath) {
-      const fullPath = path.isAbsolute(imagePath)
-        ? imagePath
-        : path.join(__dirname, "..", "..", "..", imagePath);
+      const fullPath = path.isAbsolute(imagePath) ? imagePath : path.join(__dirname, '..', '..', '..', imagePath);
 
-      fs.unlink(fullPath, async (err) => {
-        if (err) {
-          console.error("Error while deleting image:", err);
-          return res
-            .status(500)
-            .send("Error while deleting image.");
-        }
-
-        const queryDelete = "DELETE FROM service WHERE service_id = $1";
-        try {
-          await db.query(queryDelete, [id]);
-        } catch (err) {
-          console.error("Error while deleting service:", err);
-          res.status(500).send("Internal server error");
-        }
-      });
-    } else {
-      const queryDelete = "DELETE FROM service WHERE service_id = $1";
       try {
-        await db.query(queryDelete, [id]);
-
+        await fs.unlink(fullPath);
       } catch (err) {
-        console.error("Erreur lors de la suppression du service:", err);
-        res.status(500).send("Erreur interne du serveur");
+        if (err.code === 'ENOENT') {
+          console.log("Image not found, it may have already been deleted:", fullPath);
+        } else {
+          throw err; // Rethrow if a different error occurred
+        }
       }
     }
+
+    await db.query("DELETE FROM service WHERE service_id = $1", [id]);
   } catch (err) {
-    console.error("Erreur lors de la gestion de la suppression:", err);
-    res.status(500).send("Erreur interne du serveur !");
+    console.error("Error deleting service:", err);
+    res.status(500).send("Internal server error.");
   }
 }
+
 
 module.exports = {
   getServices,

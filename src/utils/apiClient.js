@@ -6,6 +6,8 @@ const agent = new https.Agent({
   rejectUnauthorized: false,
 });
 
+const he = require('he')
+
 async function fetchEmployeeData() {
   try {
     const API_URL = "https://127.0.0.1:3000/api/v1/manageEmployeeAccount";
@@ -60,6 +62,17 @@ async function fetchAnimalsData() {
     throw error;
   }
 }
+async function fetchReviewsData() {
+  try {
+    const API_URL = "https://127.0.0.1:3000/api/v1/visitorReview";
+    const response = await axios.get(`${API_URL}`, { httpsAgent: agent });
+    return Array.isArray(response.data) ? response.data : [];
+  } catch (error) {
+    console.error("Error while getting data:", error);
+    return []; 
+  }
+}
+
 
 module.exports = {
   fetchEmployeeData,
@@ -67,4 +80,5 @@ module.exports = {
   fetchServicesData,
   fetchHabitatData,
   fetchAnimalsData,
+  fetchReviewsData,
 };

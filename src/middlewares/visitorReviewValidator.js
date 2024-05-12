@@ -7,13 +7,12 @@ const reviewRules = () => {
       .notEmpty()
       .withMessage("You must enter a pseudo .")
       .isLength({ min: 5, max: 10 })
-      .trim()
       .escape(),
     body("description")
       .isString()
       .notEmpty()
       .withMessage("You must enter a description name.")
-      .isLength({ min: 15, max: 250 })
+      .isLength({ min: 5, max: 250 })
       .trim()
       .escape(),
     body("email")
