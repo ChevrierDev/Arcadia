@@ -71,7 +71,7 @@ async function fetchAnimalsData() {
     console.error("Error fetching animals with habitats:", error);
     throw error;
   }
-}
+};
 
 async function fetchHealthReportData() {
   try {
@@ -98,7 +98,36 @@ async function fetchHealthReportData() {
     console.error("Error fetching animals with habitats:", error);
     throw error;
   }
-}
+};
+
+async function fetchConsommationReportData() {
+  try {
+    const query = `
+        SELECT 
+          c.consommation_id,
+          c.date,
+          c.heure,
+          c.grammage,
+          a.name AS animal_name,
+          e.first_name AS employee_first_name,
+          e.last_name AS employee_last_name,
+          f.name AS food_name
+        FROM 
+          consommation c
+        JOIN 
+          animal a ON c.animal_id = a.animal_id
+        JOIN 
+          employee e ON c.employee_id = e.employee_id
+        JOIN 
+          food f ON c.food_id = f.food_id;
+      `;
+    const { rows } = await db.query(query);
+    return rows;
+  } catch (error) {
+    console.error("Error fetching animals with employee:", error);
+    throw error;
+  }
+};
 
 async function fetchReviewsData() {
   try {
@@ -109,7 +138,7 @@ async function fetchReviewsData() {
     console.error("Error while getting data:", error);
     return [];
   }
-}
+};
 
 async function fetchFoodData() {
   try {
@@ -119,7 +148,7 @@ async function fetchFoodData() {
   } catch (err) {
     console.log("Error while getting data:", err);
   }
-}
+};
 
 module.exports = {
   fetchEmployeeData,
@@ -129,5 +158,6 @@ module.exports = {
   fetchAnimalsData,
   fetchReviewsData,
   fetchFoodData,
-  fetchHealthReportData
+  fetchHealthReportData,
+  fetchConsommationReportData
 };

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link type="text/css" rel="stylesheet" href="../../../css/style.css">
+</head>
+<body class="min-h-screen bg-primary-100 overflow-x-hidden">
+
+    <!-- hero offers content section -->
+    <main class="min-h-full ">
+        <div class="flex h-full p-4">
+
+            <!-- sidebar -->
+            <div class="hidden md:flex flex-col w-64 bg-icon h-fit  rounded-2xl shadow-lg">
+                <div class="flex items-center justify-center h-20 bg-icon  rounded-2xl ">
+                    <a href="/accueil">
+                        <img src="../../../images/Arcadia-logo.png" width="60" height="75" alt="logo-Arcadia" class="h-11">
+                        <p class="text-[0.6em] font-light font-muli text-white ml-4">Arcadia for <%= user.role %>.</p>
+                    </a>
+                </div>
+                <div class="flex flex-col  overflow-y-auto rounded-b-2xl shadow-lg ">
+                    <!-- side bar navigation -->
+                    <%- include('./components/vetSideBar') %>
+                </div>
+            </div>
+        
+            <!-- Main content -->
+            <div class="flex flex-col flex-1 overflow-y-auto ">
+                <div class="flex items-center justify-between h-24  bg-transparent">
+                    <div class=" px-4 hidden md:block">
+                        <div class="px-4 flex items-center">
+                            <h1 class="text-2xl font-muli font-bold"> <span class="font-muli text-gray-700 text-[1.05rem] tracking-wide">Bienvenue, <%= user.first_name %> <%= user.last_name %></span> <br> <span class="font-bold font-muli text-4xl tracking-wide "></span> </h1>
+                        </div>
+                    </div>
+                    <div class="flex items-center pr-4 mr-6">
+
+
+                        <!-- logout button -->
+                        <form action="/api/logout" method="post">
+                            <a href="" class="font-muli text-sm text-white mr-5">
+                                <button type="submit" class="border-2 shadow-sm border-icon text-black  font-semibold font-muli w-32 h-10 rounded-lg hover:scale-105 duration-300 ease-in-out">
+                                déconnexion
+                                </button>
+                            </a>
+                        </form>
+                      
+                    </div>
+                </div>
+            
+               
+                 <!-- see employee section -->
+                 <section class=" w-[80%] h-screen mx-auto pt-2 space-y-10">
+                 
+                    <div class="container bg-primary-50 border rounded-md shadow-lg border-black w-full h-40 md:h-[50%] overflow-y-auto ">
+                        <div class="w-full flex items-center justify-center border-b border-b-black h-10 md:h-16 rounded-t-md">
+                            <h2 class="font-muli font-semibold">Liste des rapport de consommation</h2>
+                        </div>
+                        <div class="p-4">
+                            <table class="w-full text-sm text-left text-gray-500">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="py-3 px-6">ID</th>
+                                        <th scope="col" class="py-3 px-6">DATE</th>
+                                        <th scope="col" class="py-3 px-6">HEURE</th>
+                                        <th scope="col" class="py-3 px-6">ANIMAL</th>
+                                        <th scope="col" class="py-3 px-6">ALIMENT</th>
+                                        <th scope="col" class="py-3 px-6 text-nowrap">GRAMMAGE (en kg)</th>
+                                        <th scope="col" class="py-3 px-6">EMPLOYE</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    <% consommations.forEach(consommation=> { %>
+                                        <tr class="bg-white border-b">
+                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= consommation.consommation_id  %></th>
+                                            <td class="py-4 px-6"><%= new Date(consommation.date).toLocaleDateString('fr-FR') %></td>
+                                            <td class="py-4 px-6"><%= new Date('1970-01-01T' + consommation.heure + 'Z').toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', hour12: false }) %></td>
+                                            <td class="py-4 px-6"><%= consommation.animal_name %></td>
+                                            <td class="py-4 px-6"><%= consommation.food_name %></td>
+                                            <td class="py-4 px-6"><%= consommation.grammage %></td>                                      
+                                            <td class="py-4 px-6 text-nowrap"><%=consommation.employee_first_name  %> <%=consommation.employee_last_name  %></td>                                        
+                                        </tr>
+                                    <% }); %>
+                                </tbody>
+                                
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                                 
+                </section>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+    
+    <!-- footer section -->
+    <%- include('../components/footer') %>
+        
+</body>
+</html>

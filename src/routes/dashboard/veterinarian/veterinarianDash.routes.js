@@ -14,6 +14,7 @@ const {
   fetchAnimalsData,
   fetchHealthReportData,
   fetchHabitatData,
+  fetchConsommationReportData
 } = require("../../../utils/apiClient");
 
 const {
@@ -22,10 +23,7 @@ const {
 
 const {
   getHabitatByID,
-  postHabitat,
   vetUpdateHabitat,
-  updateHabitat,
-  deleteHabitat,
 } = require("../../../controllers/habitat/habitat.controllers");
 
 const {
@@ -85,6 +83,26 @@ veterinarianDashboardRouter.get(
         title: "Faite un rapport.",
         user: req.user.details,
         animals: animals,
+      });
+    } catch (err) {
+      console.log("error while fetchin animal data", err);
+    }
+  }
+);
+
+//render veterinarian consommation historical report
+veterinarianDashboardRouter.get(
+  "/consommation",
+  checkAuthenticated,
+  checkRole("veterinarian"),
+  enrichVetUserWithInfo,
+  async (req, res) => {
+    try {
+      const consommations = await fetchConsommationReportData();
+      res.render("veterinarian/consommationReport", {
+        title: "Consultez l'historique de la consommation des animaux.",
+        user: req.user.details,
+        consommations: consommations,
       });
     } catch (err) {
       console.log("error while fetchin animal data", err);
