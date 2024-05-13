@@ -13,6 +13,7 @@ const {
   fetchHabitatData,
   fetchAnimalsData,
   fetchFoodData,
+  fetchHealthReportData
 } = require("../../../utils/apiClient");
 
 //vet controllers
@@ -150,6 +151,25 @@ adminDashboardRouter.get(
       res.render("admin/food", {
         title: "Nourriture disponible dans le zoo.",
         foods: foods,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error fetching service data");
+    }
+  }
+);
+
+//admin render vet report Dashboard
+adminDashboardRouter.get(
+  "/rapport",
+  checkAuthenticated,
+  checkRole("admin"),
+  async (req, res) => {
+    try {
+      const reports = await fetchHealthReportData()
+      res.render("admin/vetReport", {
+        title: "Rapport vétérinaire.",
+        reports: reports
       });
     } catch (err) {
       console.error(err);

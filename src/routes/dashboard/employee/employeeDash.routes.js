@@ -84,7 +84,7 @@ employeeDashboardRouter.get(
   }
 );
 
-//render employee consommation management
+//render employee Consumption management
 employeeDashboardRouter.get(
   "/reportAlimentation",
   checkAuthenticated,
@@ -145,7 +145,7 @@ employeeDashboardRouter.get(
   }
 );
 
-//employee render post consommation
+//employee render post Consumption
 employeeDashboardRouter.get(
   "/nourrir-animal/:id",
   checkAuthenticated,
@@ -189,7 +189,7 @@ employeeDashboardRouter.post(
   }
 );
 
-//employee post consommation transaction
+//employee post Consumption transaction
 employeeDashboardRouter.post(
   "/post-consommation",
   checkAuthenticated,
