@@ -13,7 +13,7 @@ const { reviewRules, validateReview } = require('../../../middlewares/visitorRev
 visitorReviewAPIRouter.get('/', getReviews);
 visitorReviewAPIRouter.get('/:id', getReviewByID);
 visitorReviewAPIRouter.post('/', reviewRules(), validateReview, postReview);
-visitorReviewAPIRouter.put('/:id', reviewRules(), validateReview, updateReview);
+visitorReviewAPIRouter.put('/:id', updateReview);
 visitorReviewAPIRouter.delete('/:id', deleteReview);
 
 

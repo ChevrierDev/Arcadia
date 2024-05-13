@@ -30,7 +30,7 @@ async function getFoodByID(req, res) {
       return;
     }
 
-    res.send(results.rows[0]);
+    return results.rows[0];
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");
@@ -41,43 +41,22 @@ async function getFoodByID(req, res) {
 async function postFood(req, res) {
   try {
     const { name, type, quantity } = req.body;
-
-    if (!name || !type || quantity == null) {
-        res.status(400).send('You must enter all values (name, type, and quantity).');
-        return;
-    }
-
     const query = "INSERT INTO food (name, type, quantity) VALUES ($1, $2, $3)";
     await db.query(query, [name, type, quantity]);
-
-    res.send('Food added.');
-
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");
-  };
-};
+  }
+}
 
-//update food 
+//update food
 async function updateFood(req, res) {
   try {
     const { name, type, quantity } = req.body;
-    const id  = req.params.id;
-
-    if (!id) {
-        res.status(404).send("You must enter a valid ID.");
-        return;
-    }
-
-    if (!name || !type || quantity == null) {
-        res.status(400).send('You must enter all values (name, type, and quantity).');
-        return;
-    }
-
-    const query = "UPDATE food SET name=$1, type=$2, quantity=$3 WHERE food_id = $4";
-    await db.query(query, [ name, type, quantity, id ]);
-
-    res.send('Food successfully updated');
+    const id = req.params.id;
+    const query =
+      "UPDATE food SET name=$1, type=$2, quantity=$3 WHERE food_id = $4";
+    await db.query(query, [name, type, quantity, id]);
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");
@@ -90,14 +69,12 @@ async function deleteFood(req, res) {
     const id = req.params.id;
 
     if (!id) {
-        res.status(404).send("You must enter a valid ID.");
-        return;
+      res.status(404).send("You must enter a valid ID.");
+      return;
     }
-    
-    const query = "DELETE FROM food WHERE food_id = $1";
-    const results = await db.query(query, [ id ]);
 
-    res.send('Food successfully deleted');
+    const query = "DELETE FROM food WHERE food_id = $1";
+    await db.query(query, [id]);
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");
