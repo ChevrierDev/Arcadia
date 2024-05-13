@@ -1423,6 +1423,10 @@ video {
     width: 12rem;
   }
 
+  .md\:w-52{
+    width: 13rem;
+  }
+
   .md\:w-\[10vw\]{
     width: 10vw;
   }
@@ -1457,10 +1461,6 @@ video {
 
   .md\:w-full{
     width: 100%;
-  }
-
-  .md\:w-52{
-    width: 13rem;
   }
 
   .md\:max-w-56{
