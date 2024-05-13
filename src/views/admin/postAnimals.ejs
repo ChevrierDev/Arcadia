@@ -78,14 +78,20 @@
                                     </div>
                                 </div>
 
-
                                 <div class="flex flex-col"> 
                                     <label for="images" class="font-muli text-sm">Images :</label>
                                         <input type="file" name="images" required class="flex-1 outline-none placeholder:font-muli">
                                 </div>
 
-                                
-                                
+                                <div class="flex flex-col space-y-1">
+                                    <label for="habitatSelect">Choisir un habitat:</label>
+                                    <select id="habitatSelect" name="habitat_id" class="h-10">
+                                        <% habitats.forEach(habitat => { %>
+                                        <option value="<%= habitat.habitat_id %>"><%= habitat.name %></option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+
                                 <div class="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-4">
                                     <button type="submit" class="h-10 w-40 font-muli font-semibold rounded-sm bg-icon text-white mx-auto hover:scale-95 duration-150 ease-in">Poster animal</button>  
                                 </div>

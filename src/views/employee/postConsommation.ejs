@@ -62,29 +62,27 @@
                     <div class="container bg-primary-50 border rounded-md shadow-lg border-black w-full h-[80%] md:min-h-[80%] overflow-y-auto ">
 
                         <div class="container flex flex-col items-center justify-center py-2 h-full">
-                            <div class="h1 font-muli font-semibold text-lg">Poster un service</div>
-                            <form action="/employee/post-services" enctype="multipart/form-data" method="post" class="flex flex-col  space-y-5 mt-2">
-                                <div class="flex flex-col"> 
-                                    <label for="Name" class="font-muli text-sm">Nom :</label>
-                                    <div class="border border-black  bg-white h-10 flex items-center justify-center rounded-sm px-2">
-                                        <input type="text" name="name" placeholder="Nom du services" required class="flex-1 outline-none placeholder:font-muli">
-                                    </div>
-                                </div>
-
-                                <div class="flex flex-col"> 
-                                    <label for="Description" class="font-muli text-sm">Description :</label>
-                                    <div class="border border-black  bg-white h-10 flex items-center justify-center rounded-sm px-2">
-                                        <input type="text" name="description" placeholder="Description du services" required class="flex-1 outline-none placeholder:font-muli">
-                                    </div>
-                                </div>
-
-
-                                <div class="flex flex-col"> 
-                                    <label for="images" class="font-muli text-sm">Images :</label>
-                                        <input type="file" name="images" placeholder="motdepasse" required class="flex-1 outline-none placeholder:font-muli">
-                                </div>
-
+                            <div class="h1 font-muli font-semibold text-lg">Information sur la consommation de <%= animals.name %></div>
+                            <form action="/employee/post-consommation" method="post" class="flex flex-col  space-y-5 mt-2">
                                 
+                                <div class="flex flex-col"> 
+                                    <label for="Description" class="font-muli text-sm">Aliments :</label>
+                                    <select name="food_id" required>
+                                        <% foods.forEach(food => { %>
+                                            <option value="<%= food.food_id %>"><%= food.name %> - Disponible: <%= food.quantity %> kg</option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+
+                                <div class="flex flex-col"> 
+                                    <label for="grammage" class="font-muli text-sm">Grammage (en kg) :</label>
+                                    <div class="border border-black  bg-white h-10 flex items-center justify-center rounded-sm px-2">
+                                        <input type="text" name="grammage" required class="flex-1 outline-none placeholder:font-muli">
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="employee_id" value="<%= user.employee_id %>" />
+                                <input type="hidden" name="animal_id" value="<%= animals.animal_id %>" />
                                 
                                 <div class="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-4">
                                     <button type="submit" id="createEmployeeBtn" class="h-10 w-40 font-muli font-semibold rounded-sm bg-icon text-white mx-auto hover:scale-95 duration-150 ease-in">Poster Service</button>  

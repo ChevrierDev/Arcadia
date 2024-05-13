@@ -2,11 +2,13 @@ const axios = require("axios");
 
 const https = require("https");
 
+const db = require("../config/db");
+
 const agent = new https.Agent({
   rejectUnauthorized: false,
 });
 
-const he = require('he')
+const he = require("he");
 
 async function fetchEmployeeData() {
   try {
@@ -54,14 +56,50 @@ async function fetchHabitatData() {
 
 async function fetchAnimalsData() {
   try {
-    const API_URL = "https://127.0.0.1:3000/api/v1/animal";
-    const response = await axios.get(`${API_URL}`, { httpsAgent: agent });
-    return response.data;
+    const query = `
+          SELECT 
+              animal.*, 
+              habitat.name as habitat_name 
+          FROM 
+              animal
+          JOIN 
+              habitat ON animal.habitat_id = habitat.habitat_id;
+      `;
+    const { rows } = await db.query(query);
+    return rows;
   } catch (error) {
-    console.error("Error while getting data:", error);
+    console.error("Error fetching animals with habitats:", error);
     throw error;
   }
 }
+
+async function fetchHealthReportData() {
+  try {
+    const query = `
+    SELECT 
+        hr.*, 
+        a.name AS animal_name, 
+        h.name AS habitat_name, 
+        h.habitat_id, 
+        v.first_name, 
+        v.last_name
+    FROM 
+        health_record hr
+    JOIN 
+        animal a ON hr.animal_id = a.animal_id
+    JOIN 
+        habitat h ON a.habitat_id = h.habitat_id
+    JOIN 
+        veterinarian v ON hr.veterinarian_id = v.veterinarian_id;
+`;
+    const { rows } = await db.query(query);
+    return rows;
+  } catch (error) {
+    console.error("Error fetching animals with habitats:", error);
+    throw error;
+  }
+}
+
 async function fetchReviewsData() {
   try {
     const API_URL = "https://127.0.0.1:3000/api/v1/visitorReview";
@@ -69,7 +107,7 @@ async function fetchReviewsData() {
     return Array.isArray(response.data) ? response.data : [];
   } catch (error) {
     console.error("Error while getting data:", error);
-    return []; 
+    return [];
   }
 }
 
@@ -79,11 +117,9 @@ async function fetchFoodData() {
     const response = await axios.get(`${API_URL}`, { httpsAgent: agent });
     return response.data;
   } catch (err) {
-    console.log("Error while getting data:", err)
+    console.log("Error while getting data:", err);
   }
 }
-
-
 
 module.exports = {
   fetchEmployeeData,
@@ -92,5 +128,6 @@ module.exports = {
   fetchHabitatData,
   fetchAnimalsData,
   fetchReviewsData,
-  fetchFoodData
+  fetchFoodData,
+  fetchHealthReportData
 };

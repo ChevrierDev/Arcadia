@@ -52,6 +52,7 @@ async function postHabitat(req, res) {
   }
 }
 
+
 // Update a habitat
 async function updateHabitat(req, res) {
   try {
@@ -63,10 +64,8 @@ async function updateHabitat(req, res) {
     if (req.file) {
       newImagePath = req.file.path;
     }
-
     const currentImageData = await db.query("SELECT images FROM habitat WHERE habitat_id = $1", [id]);
     const currentImagePath = currentImageData.rows[0].images;
-
     // Update the habitat details in the database
     const query = "UPDATE habitat SET name = $1, description = $2, veterinarian_comment = $3, images = $4 WHERE habitat_id = $5";
     await db.query(query, [name, description, veterinarian_comment, newImagePath, id]);
@@ -86,6 +85,31 @@ async function updateHabitat(req, res) {
     res.status(500).send("Internal server error !");
   }
 }
+
+//vet update comment habitat
+async function vetUpdateHabitat(req, res) {
+  try {
+    const { id } = req.params;
+    const { veterinarian_comment } = req.body;  // Assuming only comment is editable
+
+    // Fetch current data to prevent overwriting other fields with null
+    const result = await db.query("SELECT name, description, images FROM habitat WHERE habitat_id = $1", [id]);
+    if (result.rows.length === 0) {
+      res.status(404).send("Habitat not found.");
+      return;
+    }
+    const { name, description, images } = result.rows[0];
+
+    // Update only the comment, keep other fields the same if not provided new values
+    const query = "UPDATE habitat SET veterinarian_comment = $1 WHERE habitat_id = $2";
+    await db.query(query, [veterinarian_comment || result.rows[0].veterinarian_comment, id]);  // Use existing comment if not provided
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal server error !");
+  }
+}
+
 
 //Delete a habitat habitats
 async function deleteHabitat(req, res) {
@@ -125,6 +149,7 @@ module.exports = {
   getHabitats,
   getHabitatByID,
   postHabitat,
+  vetUpdateHabitat,
   updateHabitat,
   deleteHabitat,
 };

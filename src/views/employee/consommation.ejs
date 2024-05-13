@@ -77,37 +77,27 @@
                                     <tr>
                                         <th scope="col" class="py-3 px-6">ID</th>
                                         <th scope="col" class="py-3 px-6">NAME</th>
-                                        <th scope="col" class="py-3 px-6">DESCRIPTION</th>
-                                        <th scope="col" class="py-3 px-6">images</th>
-                                        <th scope="col" class="py-3 px-6">Actions</th>
+                                        <th scope="col" class="py-3 px-6">RACE</th>
+                                        <th scope="col" class="py-3 px-6">ENCLOS</th>
+                                        <th scope="col" class="py-3 px-6">ACTION</th>
                                     </tr>
                                 </thead>
                                 
-                                <% if (services) { %>
-                                    <tbody>
-                                        <% services.forEach(service => { %>
-                                            <tr class="bg-white border-b">
-                                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= service.service_id  %></th>
-                                                <td class="py-4 px-6"><%= service.name %></td>
-                                                <td class="py-4 px-6"><%= service.description %></td>
-                                                <% if (service.images ) { %>
-                                                    <td class="py-4 px-6"><%= service.images %></td>
-                                                <% } else { %>
-                                                    <td class="py-4 px-6">Aucune</td>
-                                                <% } %>                                            
-                                                <td class="py-4 px-6 flex flex-col items-center justify-center md:flex-row">
-                                                    <a href="/employee/modifier-services/<%= service.service_id %>" class="font-medium text-blue-600 hover:underline">Modifier</a>
-                                                    <form action="/employee//services/<%= service.service_id %>?_method=DELETE" method="POST" style="display: inline;">
-                                                        <button type="submit" class="font-medium text-red-600 hover:underline ml-4">Supprimer</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        <% }); %> 
-                                    </tbody>
-                                <% } else { %>
-                                    <h1>Pas de services</h1>
-                                <% } %> 
-                                         
+                                <tbody>
+
+                                    <% animals.forEach(animal => { %>
+                                        <tr class="bg-white border-b">
+                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= animal.animal_id  %></th>
+                                            <td class="py-4 px-6"><%=animal.name  %></td>
+                                            <td class="py-4 px-6"><%=animal.race  %></td>                     
+                                            <td class="py-4 px-6 text-nowrap"><%=animal.habitat_name  %></td>                       
+                                            <td class="py-4 px-6 flex flex-col items-center justify-center space-y-1 md:flex-row md:space-y-0">
+                                            <a href="/employee/nourrir-animal/<%= animal.animal_id %>" class="font-medium text-blue-600 hover:underline">Nourrir</a>
+                                            </td>
+                                        </tr>
+                                    <% }); %> 
+                                   
+                                </tbody>
                             </table>
                         </div>
                     </div>

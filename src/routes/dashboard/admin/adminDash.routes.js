@@ -213,8 +213,10 @@ adminDashboardRouter.get(
   checkRole("admin"),
   async (req, res) => {
     try {
+      const habitats = await fetchHabitatData()
       res.render("admin/postAnimals", {
         title: "Poster un nouvel animal.",
+        habitats:habitats
       });
     } catch (err) {
       console.log(err);

@@ -55,7 +55,7 @@
                  
                     <div class="container bg-primary-50 border rounded-md shadow-lg border-black w-full h-40 md:h-[50%] overflow-y-auto ">
                         <div class="w-full flex items-center justify-center border-b border-b-black h-10 md:h-16 rounded-t-md">
-                            <h2 class="font-muli font-semibold">Liste des animaux</h2>
+                            <h2 class="font-muli font-semibold">Liste des Habitat</h2>
                         </div>
                         <div class="p-4">
                             <table class="w-full text-sm text-left text-gray-500">
@@ -63,22 +63,20 @@
                                     <tr>
                                         <th scope="col" class="py-3 px-6">ID</th>
                                         <th scope="col" class="py-3 px-6">NAME</th>
-                                        <th scope="col" class="py-3 px-6">RACE</th>
-                                        <th scope="col" class="py-3 px-6">ENCLOS</th>
+                                        <th scope="col" class="py-3 px-6">COMMENTAIRE</th>
                                         <th scope="col" class="py-3 px-6">ACTION</th>
                                     </tr>
                                 </thead>
                                 
                                 <tbody>
 
-                                    <% animals.forEach(animal => { %>
+                                    <% habitats.forEach(habitat => { %>
                                         <tr class="bg-white border-b">
-                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= animal.animal_id  %></th>
-                                            <td class="py-4 px-6"><%=animal.name  %></td>
-                                            <td class="py-4 px-6"><%=animal.race  %></td>                     
-                                            <td class="py-4 px-6 text-nowrap"><%=animal.habitat_name  %></td>                       
+                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= habitat.habitat_id  %></th>
+                                            <td class="py-4 px-6"><%=habitat.name  %></td>
+                                            <td class="py-4 px-6"><%=habitat.veterinarian_comment  %></td>                                        
                                             <td class="py-4 px-6 flex flex-col items-center justify-center space-y-1 md:flex-row md:space-y-0">
-                                            <a href="/veterinarian/healthReport/<%= animal.animal_id %>" class="font-medium text-blue-600 hover:underline">rapport</a>
+                                            <a href="/veterinarian/habitat-comment/<%= habitat.habitat_id %>" class="font-medium text-blue-600 hover:underline">Commenter</a>
                                             </td>
                                         </tr>
                                     <% }); %> 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="flex-1 flex flex-col justify-between px-2 py-7 bg-secondary-100 space-y-6 ">
+        <div class="container">
+            <p class="text-white font-light font-muli text sm pl-3"><%= user.role %> outils</p>
+  
+            <a href="/veterinarian/dashboard" class="flex items-center px-4 py-2 mt-2 text-gray-100 group hover:bg-white hover:text-black hover:rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 svg-icon text-white group-hover:text-black" width="22" height="22" viewBox="0 0 24 24">
+                    <g fill="none" stroke-linecap="round" stroke-width="1.5" stroke="currentColor" stroke-linejoin="round">
+                        <path d="M8.557 2.75H4.682A1.932 1.932 0 0 0 2.75 4.682v3.875a1.942 1.942 0 0 0 1.932 1.942h3.875a1.942 1.942 0 0 0 1.942-1.942V4.682A1.942 1.942 0 0 0 8.557 2.75z"/>
+                        <path d="M18.318 2.75H14.443a1.942 1.942 0 0 0-1.942 1.932v3.875a1.943 1.943 0 0 0 1.942 1.942h3.875a1.942 1.942 0 0 0 1.932-1.942V4.682a1.932 1.932 0 0 0-1.932-1.932z"/>
+                        <path d="M8.557 13.5H4.682a1.943 1.943 0 0 0-1.932 1.943v3.875a1.932 1.932 0 0 0 1.932 1.932h3.875a1.942 1.942 0 0 0 1.942-1.932v-3.875a1.942 1.942 0 0 0-1.942-1.942z"/>
+                        <path d="M17.368 13.817v7.116m-3.551-3.55h7.116"/>
+                    </g>
+                </svg>
+                dashboard
+            </a>
+            
+            <a href="/veterinarian/habitats" class="flex items-center font-muli px-4 py-2 mt-2 text-gray-100 group hover:bg-white hover:text-black hover:rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 svg-icon text-white group-hover:text-black" width="24" height="24" viewBox="0 0 512 512"><path fill="currentColor" d="m256 32.951l116.926 35.666l83.185 88.81l30.06 112.33l-24.831 8.839l-87.744-66.914l-25.073 107.062l-14.076 5.01H319.15L256 229.367l-63.15 94.387h-15.297l-14.076-5.01l-25.073-107.062l-87.744 66.914l-24.832-8.838l30.06-112.33l83.186-88.81zm0 18.819l-71.54 21.822l24.51 3.738l.157-.246l.139.291L256 84.502l46.734-7.127l.14-.291l.155.246l24.51-3.738zm108.672 34.367L313.6 93.926l51.023 80.113l18.404-68.305zm-217.344 0l-18.355 19.597l18.404 68.305L198.4 93.926zm146.026 10.877L256 102.71l-37.354-5.697L256 175.217zm11.771 17.115l-42.479 88.933l90.342-13.779zm-98.25 0l-47.863 75.154l90.342 13.78zm190.629 7.06l-15.992 59.352l51.133-21.836zm-283.008 0l-35.14 37.516l51.132 21.838zm327.492 53.098l-56.248 24.02l78.75 60.054zm-371.976 0L47.51 258.361l78.75-60.054zM356.203 207l-84.851 12.941l60.607 90.588zm-200.406 0l24.244 103.53l60.607-90.589zM487 288.264v32.14L334.447 375H177.553L25 320.404v-32.14l149.447 53.49h163.106zM328.193 393l13.43 94H170.377l13.428-94z"/></svg>
+                Voir les Habitats
+            </a>
+             
+            <a href="/veterinarian/report-historical" class="flex items-center font-muli px-4 py-2 mt-2 text-gray-100 group hover:bg-white hover:text-black hover:rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg"  class="mr-2 svg-icon text-white group-hover:text-black" width="24" height="24" viewBox="0 0 15 15"><path fill="currentColor" d="M7.5 1c-1 0-1 1-2 1H2c-.545 0-1 .455-1 1v7c0 .545.455 1 1 1h5v2.5s0 .5.5.5s.5-.5.5-.5V11h5c.545 0 1-.455 1-1V3c0-.545-.455-1-1-1H9.5c-1 0-1-1-2-1M3 5V4h9v1zm0 1h4v1H3zm0 2h7v1H3z"/></svg>
+                 <p class=" text-nowrap">Historique des Rapports</p>
+            </a>
+             
+        </div>
+
+    </nav>
+</body>
+</html>

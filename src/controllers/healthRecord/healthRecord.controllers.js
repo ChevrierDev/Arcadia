@@ -21,7 +21,7 @@ async function getHealthRecords(req, res) {
 async function getHealthRecordsByID(req, res) {
   try {
     const id = req.params.id;
-    
+
     const query = `SELECT * FROM health_record WHERE health_record_id = $1`;
     const results = await db.query(query, [id]);
 
@@ -40,29 +40,40 @@ async function getHealthRecordsByID(req, res) {
 //post new record
 async function postHealthRecords(req, res) {
   try {
-    const { content, detail_etat } = req.body;
+    const {
+      content,
+      detail_etat,
+      animal_id,
+      veterinarian_id,
+      food_offered,
+      food_amount,
+    } = req.body;
 
-    const query = "INSERT INTO health_record (date, content, detail_etat) VALUES (NOW(), $1, $2)";
-    await db.query(query, [content, detail_etat]);
-
-    res.send('record added.');
-
+    const query =
+      "INSERT INTO health_record (date, content, detail_etat, animal_id, veterinarian_id, food_offered, food_amount) VALUES (NOW(), $1, $2, $3, $4, $5, $6)";
+    await db.query(query, [
+      content,
+      detail_etat,
+      animal_id,
+      veterinarian_id,
+      food_offered,
+      food_amount,
+    ]);
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");
-  };
-};
+  }
+}
 
-//update record 
+//update record
 async function updateHealthRecords(req, res) {
   try {
-    const {content, detail_etat } = req.body;
+    const { content, detail_etat } = req.body;
     const id = req.params.id;
 
-    const query = "UPDATE health_record SET date=NOW(), content=$1, detail_etat=$2 WHERE health_record_id = $3";
-    await db.query(query, [ content, detail_etat, id ]);
-
-    res.send('Record successfully updated');
+    const query =
+      "UPDATE health_record SET date=NOW(), content=$1, detail_etat=$2 WHERE health_record_id = $3";
+      await db.query(query, [content, detail_etat, id]);
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");
@@ -72,20 +83,21 @@ async function updateHealthRecords(req, res) {
 //delete record from DB
 async function deleteHealthRecords(req, res) {
   try {
-    const  id  = req.params.id;
+    const id = req.params.id;
 
-    const existsQuery = "SELECT EXISTS(SELECT 1 FROM health_record WHERE health_record_id = $1)";
+    const existsQuery =
+      "SELECT EXISTS(SELECT 1 FROM health_record WHERE health_record_id = $1)";
     const existsResult = await db.query(existsQuery, [id]);
-    
+
     if (!existsResult.rows[0].exists) {
       res.status(404).send("Record with the specified ID does not exist.");
       return;
     }
-    
-    const query = "DELETE FROM health_record WHERE health_record_id = $1";
-    await db.query(query, [ id ]);
 
-    res.send('Record successfully deleted');
+    const query = "DELETE FROM health_record WHERE health_record_id = $1";
+    await db.query(query, [id]);
+
+    res.send("Record successfully deleted");
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");
