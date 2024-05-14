@@ -41,10 +41,10 @@ async function getAnimalByID(req, res) {
 //post new Animal
 async function postAnimal(req, res) {
   try {
-    const { name, race, etat, habitat_id } = req.body;
+    const { name, race, habitat_id } = req.body;
     const imagePath = req.file ? req.file.path : null;
-    const query = "INSERT INTO animal (name, race, images, etat, habitat_id ) VALUES ($1, $2, $3, $4, $5)";
-    await db.query(query, [ name, race, imagePath, etat, habitat_id ]);
+    const query = "INSERT INTO animal (name, race, images, habitat_id ) VALUES ($1, $2, $3, $4)";
+    await db.query(query, [ name, race, imagePath, habitat_id ]);
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal server error !");

@@ -71,46 +71,52 @@
                         <div class="w-full flex items-center justify-center border-b border-b-black h-10 md:h-16 rounded-t-md">
                             <h2 class="font-muli font-semibold">Liste des animaux</h2>
                         </div>
-                        <div class="p-4">
-                            <table class="w-full text-sm text-left text-gray-500">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="py-3 px-6">ID</th>
-                                        <th scope="col" class="py-3 px-6">NAME</th>
-                                        <th scope="col" class="py-3 px-6">RACE</th>
-                                        <th scope="col" class="py-3 px-6">IMAGE</th>
-                                        <th scope="col" class="py-3 px-6">ETAT</th>
-                                        <th scope="col" class="py-3 px-6">ENCLOS</th>
-                                        <th scope="col" class="py-3 px-6">ACTION</th>
-                                    </tr>
-                                </thead>
-                                
-                                <tbody>
-
-                                    <% animals.forEach(animal => { %>
-                                        <tr class="bg-white border-b">
-                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= animal.animal_id  %></th>
-                                            <td class="py-4 px-6"><%=animal.name  %></td>
-                                            <td class="py-4 px-6"><%=animal.race  %></td>
-                                            <% if (animal.images) { %>
-                                                <td class="py-4 px-6"><%= animal.images %></td>
-                                            <% } else { %>
-                                                <td class="py-4 px-6">Aucune</td>
-                                            <% } %>    
-                                            <td class="py-4 px-6"><%=animal.etat  %></td>                       
-                                            <td class="py-4 px-6 text-nowrap"><%=animal.habitat_name  %></td>                       
-                                            <td class="py-4 px-6 flex flex-col items-center justify-center space-y-1 md:flex-row md:space-y-0">
-                                                <a href="/admin/animal/<%=animal.animal_id  %>" class="font-medium text-blue-600 hover:underline">Modifier</a>
-                                                <form action="/admin/animal/<%= animal.animal_id %>?_method=DELETE" method="POST" style="display: inline;">
-                                                    <button type="submit" class="font-medium text-red-600 hover:underline ml-4">Supprimer</button>
-                                                </form>
-                                            </td>
+                        <% if (animals.length > 0) { %>
+                            <div class="p-4">
+                             
+                                <table class="w-full text-sm text-left text-gray-500">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="py-3 px-6">ID</th>
+                                            <th scope="col" class="py-3 px-6">NAME</th>
+                                            <th scope="col" class="py-3 px-6">RACE</th>
+                                            <th scope="col" class="py-3 px-6">IMAGE</th>
+                                            <th scope="col" class="py-3 px-6">ENCLOS</th>
+                                            <th scope="col" class="py-3 px-6">ACTION</th>
                                         </tr>
-                                    <% }); %> 
-                                   
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    
+                                    <tbody>
+    
+                                        <% animals.forEach(animal => { %>
+                                            <tr class="bg-white border-b">
+                                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= animal.animal_id  %></th>
+                                                <td class="py-4 px-6"><%=animal.name  %></td>
+                                                <td class="py-4 px-6"><%=animal.race  %></td>
+                                                <% if (animal.images) { %>
+                                                    <td class="py-4 px-6"><%= animal.images %></td>
+                                                <% } else { %>
+                                                    <td class="py-4 px-6">Aucune</td>
+                                                <% } %>                       
+                                                <td class="py-4 px-6 text-nowrap"><%=animal.habitat_name  %></td>                       
+                                                <td class="py-4 px-6 flex flex-col items-center justify-center space-y-1 md:flex-row md:space-y-0">
+                                                    <a href="/admin/animal/<%=animal.animal_id  %>" class="font-medium text-blue-600 hover:underline">Modifier</a>
+                                                    <form action="/admin/animal/<%= animal.animal_id %>?_method=DELETE" method="POST" style="display: inline;">
+                                                        <button type="submit" class="font-medium text-red-600 hover:underline ml-4">Supprimer</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <% }); %> 
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                            <% } else { %>
+                                <div class="flex items-center justify-center mt-10">
+                                    <h1 class="text-2xl font-muli font-bold text-red-500">Aucun Animal</h1>
+                                </div>
+                            <% } %>
+                       
                     </div>
                                  
                 </section>

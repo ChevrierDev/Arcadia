@@ -71,43 +71,46 @@
                         <div class="w-full flex items-center justify-center border-b border-b-black h-10 md:h-16 rounded-t-md">
                             <h2 class="font-muli font-semibold">Liste des habitats</h2>
                         </div>
-                        <div class="p-4">
-                            <table class="w-full text-sm text-left text-gray-500">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="py-3 px-6">ID</th>
-                                        <th scope="col" class="py-3 px-6">NOM</th>
-                                        <th scope="col" class="py-3 px-6">DESCRIPTION</th>
-                                        <th scope="col" class="py-3 px-6">COMMENTAIRE</th>
-                                        <th scope="col" class="py-3 px-6">IMAGES</th>
-                                        <th scope="col" class="py-3 px-6">ACTION</th>
-                                    </tr>
-                                </thead>
-                                
-                                <tbody>
-
-                                    <% habitats.forEach(habitat => { %>
-                                        <tr class="bg-white border-b">
-                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= habitat.habitat_id  %></th>
-                                            <td class="py-4 px-6 text-nowrap"><%=habitat.name  %></td>
-                                            <td class="py-4 px-6 "><%=habitat.description  %></td>
-                                            <td class="py-4 px-6"><%=habitat.veterinarian_comment  %></td>                       
-                                            <% if (habitat.images) { %>
-                                                <td class="py-4 px-6"><%= habitat.images %></td>
-                                            <% } else { %>
-                                                <td class="py-4 px-6">Aucune</td>
-                                            <% } %>    
-                                            <td class="py-4 px-6 flex">
-                                                <a href="/admin/modifier-habitat/<%=habitat.habitat_id  %>" class="font-medium text-blue-600 hover:underline">Modifier</a>
-                                                <form action="/admin/habitats/<%= habitat.habitat_id %>?_method=DELETE" method="POST" style="display: inline;">
-                                                    <button type="submit" class="font-medium text-red-600 hover:underline ml-4">Supprimer</button>
-                                                </form>
-                                            </td>
+                        <div class="container mx-auto">
+                            <% if (habitats && habitats.length > 0) { %>
+                                <table class="w-full text-sm text-left text-gray-500">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="py-3 px-6">ID</th>
+                                            <th scope="col" class="py-3 px-6">NOM</th>
+                                            <th scope="col" class="py-3 px-6">DESCRIPTION</th>
+                                            <th scope="col" class="py-3 px-6">COMMENTAIRE</th>
+                                            <th scope="col" class="py-3 px-6">IMAGES</th>
+                                            <th scope="col" class="py-3 px-6">ACTION</th>
                                         </tr>
-                                    <% }); %> 
-                                   
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <% habitats.forEach(habitat => { %>
+                                            <tr class="bg-white border-b">
+                                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= habitat.habitat_id %></th>
+                                                <td class="py-4 px-6 text-nowrap"><%= habitat.name %></td>
+                                                <td class="py-4 px-6 text-nowrap"><%= habitat.description %></td>
+                                                <td class="py-4 px-6"><%= habitat.veterinarian_comment %></td>
+                                                <% if (habitat.images) { %>
+                                                    <td class="py-4 px-6"><%= habitat.images %></td>
+                                                <% } else { %>
+                                                    <td class="py-4 px-6">Aucune</td>
+                                                <% } %>
+                                                <td class="py-4 px-6 flex">
+                                                    <a href="/admin/modifier-habitat/<%= habitat.habitat_id %>" class="font-medium text-blue-600 hover:underline">Modifier</a>
+                                                    <form action="/admin/habitats/<%= habitat.habitat_id %>?_method=DELETE" method="POST" style="display: inline;">
+                                                        <button type="submit" class="font-medium text-red-600 hover:underline ml-4">Supprimer</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            <% } else { %>
+                                <div class="flex items-center justify-center mt-10">
+                                    <h1 class="text-2xl font-muli font-bold text-red-500">Aucun Habitat</h1>
+                                </div>
+                            <% } %>
                         </div>
                     </div>
                                  

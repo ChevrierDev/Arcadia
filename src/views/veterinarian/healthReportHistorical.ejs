@@ -68,7 +68,6 @@
                                         <th scope="col" class="py-3 px-6">ETAT</th>
                                         <th scope="col" class="py-3 px-6">ALIMENT</th>
                                         <th scope="col" class="py-3 px-6 text-nowrap">QUANTITER (en kg)</th>
-                                        <th scope="col" class="py-3 px-6">ACTION</th>
                                     </tr>
                                 </thead>
                                 
@@ -83,9 +82,7 @@
                                             <td class="py-4 px-6 text-nowrap"><%= report.detail_etat %></td>                       
                                             <td class="py-4 px-6 text-nowrap"><%= report.food_offered %></td>                       
                                             <td class="py-4 px-6 text-nowrap"><%= report.food_amount %></td>                       
-                                            <td class="py-4 px-6 flex flex-col items-center justify-center space-y-1 md:flex-row md:space-y-0">
-                                            <a href="/veterinarian/healthReport/<%= report.report_id %>" class="font-medium text-blue-600 hover:underline">rapport</a>
-                                            </td>
+                                           
                                         </tr>
                                     <% }); %> 
                                    
