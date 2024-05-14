@@ -26,6 +26,9 @@ const healthRecordAPIRouter = require("./src/api/v1/healthRecord/healthRecordAPI
 const visitorReviewAPIRouter = require("./src/api/v1/visitorReview/visitorReview.routes");
 const manageEmployeeAPIRouter = require("./src/api/v1/employee/manageEmployeeAPI.routes");
 const manageVeterinarianAPIRouter = require("./src/api/v1/veterinarian/manageVeterinarianAPI.routes");
+const animalViewsRouter = require('./src/api/v1/animal/animalViewsAPI.routes');
+const testRouter = require('./src/api/v1/animal/animalTest.routes')
+
 
 //login & logout router
 const loginRouter = require("./src/auth/api.login");
@@ -52,6 +55,9 @@ app.use("/api/v1/healthRecord", healthRecordAPIRouter);
 app.use("/api/v1/visitorReview", visitorReviewAPIRouter);
 app.use("/api/v1/manageEmployeeAccount", manageEmployeeAPIRouter);
 app.use("/api/v1/manageVetrinarianAccount", manageVeterinarianAPIRouter);
+app.use('/api/v1/', animalViewsRouter);
+
+app.use('/test', testRouter);
 
 //login logout
 app.use("/api/login", loginRouter);
@@ -61,7 +67,7 @@ app.use("/api/logout", logoutRouter);
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => console.log("Connexion à MongoDB réussie !"))
-  .catch((error) => console.log("Connexion à MongoDB échouée !", error));
+  .catch((err) => console.log("Connexion à MongoDB échouée !", err));
 
 //https options
 const options = {
