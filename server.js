@@ -27,7 +27,7 @@ const visitorReviewAPIRouter = require("./src/api/v1/visitorReview/visitorReview
 const manageEmployeeAPIRouter = require("./src/api/v1/employee/manageEmployeeAPI.routes");
 const manageVeterinarianAPIRouter = require("./src/api/v1/veterinarian/manageVeterinarianAPI.routes");
 const animalViewsRouter = require('./src/api/v1/animal/animalViewsAPI.routes');
-const testRouter = require('./src/api/v1/animal/animalTest.routes')
+const testRouter = require('./src/api/v1/animal/animalTest.routes');
 
 
 //login & logout router
@@ -59,7 +59,7 @@ app.use('/api/v1/', animalViewsRouter);
 
 app.use('/test', testRouter);
 
-//login logout
+//login logout features
 app.use("/api/login", loginRouter);
 app.use("/api/logout", logoutRouter);
 

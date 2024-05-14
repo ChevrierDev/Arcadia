@@ -1,6 +1,7 @@
 const express = require("express");
 const adminDashboardRouter = express.Router();
 const upload = require("../../../utils/multer.config");
+const Animal = require('../../../models/animalViews.schema');
 
 const {
   checkAuthenticated,
@@ -97,7 +98,6 @@ adminDashboardRouter.get(
       });
     } catch (err) {
       console.error(err);
-      res.status(500).send("Error fetching service data");
     }
   }
 );
@@ -174,6 +174,24 @@ adminDashboardRouter.get(
     } catch (err) {
       console.error(err);
       res.status(500).send("Error fetching service data");
+    }
+  }
+);
+
+//admin render  stats Dashboard
+adminDashboardRouter.get(
+  "/stats",
+  checkAuthenticated,
+  checkRole("admin"),
+  async (req, res) => {
+    try {
+      const animals = await Animal.find({});
+      res.render("admin/stats", {
+        title: "Consulter les vues de vos animaux.",
+        animals
+      });
+    } catch (err) {
+      console.error(err);
     }
   }
 );
