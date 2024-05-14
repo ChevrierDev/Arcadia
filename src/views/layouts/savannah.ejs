@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link type="text/css" rel="stylesheet" href="../../../css/style.css">
+    <link type="text/css" rel="stylesheet" href="../../../css/layouts.css">
+    <script defer src="../../../js/layouts.js"></script>
+</head>
+<body class="bg-primary-50">
+   
+    <!-- Navigation bar -->
+    <nav class="relative">
+        <%- include('../components/navBar') %>
+        <header class="w-full h-[70vh] relative top-0 overflow-hidden header-savannah">
+            <!-- Optional background image for the header -->
+            <!-- <div class="absolute top-[-150px] left-0 w-full h-[35vh] overflow-hidden">
+                <img src="../../../images/service-headerBG.jpg" alt="Service Header Background" class="w-full h-full object-contain top-position">
+            </div> -->
+        </header>
+    </nav>
+ 
+    <!-- Habitat presentation section -->
+    <main class="w-full h-fit pb-9 space-y-4 mt-10">
+        
+        <!-- Introduction section for the habitat -->
+        <div class="flex flex-col space-y-20 gap-y-10">
+            <div class="flex items-center justify-center flex-col space-y-4">
+                <h1 class="font-neucha text-3xl text-center">Savannah Sanctuary</h1>
+                <p class="font-muli text-center max-w-[70%]">
+                    Bienvenue au Savannah Sanctuary, une réplique vibrante et réaliste des vastes plaines de la savane africaine. Cet habitat est conçu pour offrir aux visiteurs une immersion totale dans l'environnement naturel de certains des animaux les plus emblématiques de l'Afrique. Vous pourrez y admirer des panoramas à couper le souffle, ponctués de baobabs majestueux et d'acacias épineux.
+                </p>
+            </div>
+        </div>
+
+        <!-- Animals cards section -->
+        <div class="container flex flex-col justify-center h-full mx-auto pt-5">
+            <!-- Cards container -->
+            <div class="h-full w-full space-y-8 md:space-y-0 md:pt-2 md:px-14 md:flex md:flex-row">
+
+                <div class="container mx-auto">
+                    <div class="flex flex-wrap justify-center gap-5">
+
+                        <!-- Card for Lion -->
+                        <div class="flex flex-col relative items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
+                            <div class="w-full h-3/5">
+                                <img src="../../../images/savannah-lion.jpg" alt="Photo d'un lion" class="rounded-t-md w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h1 class="font-muli text-xl text-center">Alex</h1>
+                            </div>
+                            <div class="flex items-center justify-center w-full h-1/5">
+                                <button class="dropDown-id-card flex items-center justify-center space-x-3 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
+                                    <p class="font-muli text-sm">Découvrir</p>
+                                </button>
+                            </div>
+
+                            <!-- Additional info dropdown for Lion -->
+                            <div class="absolute w-56 h-96 bottom-0 bg-black/80 rounded-md p-2 flex flex-col items-center justify-center space-y-3 card-id hidden">
+                                <button class="absolute top-2 right-2 closeDropDown-card-id">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+                                        <path fill="white" d="M3.64 2.27L7.5 6.13l3.84-3.84A.92.92 0 0 1 12 2a1 1 0 0 1 1 1a.9.9 0 0 1-.27.66L8.84 7.5l3.89 3.89A.9.9 0 0 1 13 12a1 1 0 0 1-1 1a.92.92 0 0 1-.69-.27L7.5 8.87l-3.85 3.85A.92.92 0 0 1 3 13a1 1 0 0 1-1-1a.9.9 0 0 1 .27-.66L6.16 7.5L2.27 3.61A.9.9 0 0 1 2 3a1 1 0 0 1 1-1c.24.003.47.1.64.27"/>
+                                    </svg>
+                                </button>
+                                <div class="flex space-x-1">
+                                    <h1 class="font-muli text-white font-bold text-xl">Prénom :</h1>
+                                    <h1 class="font-muli text-white text-xl">Alex</h1>
+                                </div>
+                                <div class="flex space-x-1">
+                                    <h1 class="font-muli text-white font-bold text-xl">Race :</h1>
+                                    <h1 class="font-muli text-white text-xl">Lion</h1>
+                                </div>
+                                <div class="flex flex-col space-y-2">
+                                    <h1 class="font-muli text-white font-bold text-xl">Note du vétérinaire :</h1>
+                                    <h1 class="font-muli text-white text-center text-sm">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam rem cumque qui atque, similique enim aliquam architecto minus ratione officiis illo placeat distinctio quaerat consectetur autem sed iste est. Itaque.
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- Card for Giraffe -->
+                        <div class="flex relative flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
+                            <div class="w-full h-3/5">
+                                <img src="../../../images/savannah-girafe.jpg" alt="Photo d'une girafe" class="rounded-t-md w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h1 class="font-muli text-xl text-center">Melman</h1>
+                            </div>
+                            <div class="flex items-center justify-center w-full h-1/5">
+                                <button class="dropDown-id-card flex items-center justify-center space-x-1 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
+                                    <p class="font-muli text-sm">Découvrir</p>
+                                </button>
+                            </div>
+
+                            <!-- Additional info dropdown for Giraffe -->
+                            <div class="absolute w-56 h-96 bottom-0 bg-black/80 rounded-md p-2 flex flex-col items-center justify-center space-y-3 card-id hidden">
+                                <button class="absolute top-2 right-2 closeDropDown-card-id">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+                                        <path fill="white" d="M3.64 2.27L7.5 6.13l3.84-3.84A.92.92 0 0 1 12 2a1 1 0 0 1 1 1a.9.9 0 0 1-.27.66L8.84 7.5l3.89 3.89A.9.9 0 0 1 13 12a1 1 0 0 1-1 1a.92.92 0 0 1-.69-.27L7.5 8.87l-3.85 3.85A.92.92 0 0 1 3 13a1 1 0 0 1-1-1a.9.9 0 0 1 .27-.66L6.16 7.5L2.27 3.61A.9.9 0 0 1 2 3a1 1 0 0 1 1-1c.24.003.47.1.64.27"/>
+                                    </svg>
+                                </button>
+                                <div class="flex space-x-1">
+                                    <h1 class="font-muli text-white font-bold text-xl">Prénom :</h1>
+                                    <h1 class="font-muli text-white text-xl">Melman</h1>
+                                </div>
+                                <div class="flex space-x-1">
+                                    <h1 class="font-muli text-white font-bold text-xl">Race :</h1>
+                                    <h1 class="font-muli text-white text-xl">Girafe</h1>
+                                </div>
+                                <div class="flex flex-col space-y-2">
+                                    <h1 class="font-muli text-white font-bold text-xl">Note du vétérinaire :</h1>
+                                    <h1 class="font-muli text-white text-center text-sm">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam rem cumque qui atque, similique enim aliquam architecto minus ratione officiis illo placeat distinctio quaerat consectetur autem sed iste est. Itaque.
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- Card for Elephant -->
+                        <div class="flex relative flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
+                            <div class="w-full h-3/5">
+                                <img src="../../../images/savannah-elephant.jpg" alt="Photo d'un éléphant" class="rounded-t-md w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h1 class="font-muli text-xl text-center">Berta</h1>
+                            </div>
+                            <div class="flex items-center justify-center w-full h-1/5">
+                                <button class="dropDown-id-card flex items-center justify-center space-x-1 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
+                                    <p class="font-muli text-sm">Découvrir</p>
+                                </button>
+                            </div>
+
+                            <!-- Additional info dropdown for Elephant -->
+                            <div class="absolute w-56 h-96 bottom-0 bg-black/80 rounded-md p-2 flex flex-col items-center justify-center space-y-3 card-id hidden">
+                                <button class="absolute top-2 right-2 closeDropDown-card-id">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+                                        <path fill="white" d="M3.64 2.27L7.5 6.13l3.84-3.84A.92.92 0 0 1 12 2a1 1 0 0 1 1 1a.9.9 0 0 1-.27.66L8.84 7.5l3.89 3.89A.9.9 0 0 1 13 12a1 1 0 0 1-1 1a.92.92 0 0 1-.69-.27L7.5 8.87l-3.85 3.85A.92.92 0 0 1 3 13a1 1 0 0 1-1-1a.9.9 0 0 1 .27-.66L6.16 7.5L2.27 3.61A.9.9 0 0 1 2 3a1 1 0 0 1 1-1c.24.003.47.1.64.27"/>
+                                    </svg>
+                                </button>
+                                <div class="flex space-x-1">
+                                    <h1 class="font-muli text-white font-bold text-xl">Prénom :</h1>
+                                    <h1 class="font-muli text-white text-xl">Berta</h1>
+                                </div>
+                                <div class="flex space-x-1">
+                                    <h1 class="font-muli text-white font-bold text-xl">Race :</h1>
+                                    <h1 class="font-muli text-white text-xl">Éléphant</h1>
+                                </div>
+                                <div class="flex flex-col space-y-2">
+                                    <h1 class="font-muli text-white font-bold text-xl">Note du vétérinaire :</h1>
+                                    <h1 class="font-muli text-white text-center text-sm">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam rem cumque qui atque, similique enim aliquam architecto minus ratione officiis illo placeat distinctio quaerat consectetur autem sed iste est. Itaque.
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+  
+    </main>
+
+    <footer>
+        <%- include('../components/footer') %>
+    </footer>
+
+  
+</body>
+</html>
