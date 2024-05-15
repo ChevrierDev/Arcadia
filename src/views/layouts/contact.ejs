@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,58 +8,44 @@
     <link type="text/css" rel="stylesheet" href="../../../css/layouts.css">
     <script defer src="../../../js/layouts.js"></script>
 </head>
-
 <body class="bg-primary-50">
-   
     <nav class="relative">
         <%- include('../components/navBar') %>
-        <header class="w-full h-[70vh] relative top-0   overflow-hidden header-contact">
-            <!-- <div class="absolute top-[-150px] left-0 w-full h-[35vh] overflow-hidden">
-                <img src="../../../images/service-headerBG.jpg" alt="Service Header Background" class="w-full h-full object-contain top-position">
-            </div> -->
-        </header>
+        <header class="w-full h-[70vh] relative top-0 overflow-hidden header-contact"></header>
     </nav>
  
-    
-    
     <!-- contact presention -->
-    <main class="w-full h-fit pb-9  mt-10">
-
+    <main class="w-full h-fit pb-9 mt-10">
         <div class="container flex flex-col justify-center items-center mx-auto bg-primary-100">
-            <form action="/contact" class="mt-7 space-y-4">
-                <h1 class=" text-black font-neucha text-3xl text-center w-[70vw]">Votre avis est important pour nous !</h1>
+            <form action="/contact" method="post" class="mt-7 space-y-4">
+                <h1 class="text-black font-neucha text-3xl text-center w-[70vw]">Contactez nous !</h1>
                 <div class="">
                     <div class="flex flex-col space-y-2">
-                        <label for="pseudo" class="font-neucha">Pseudo</label>
+                        <label for="email" class="font-neucha">Email</label>
                         <div class="border w-[80vw] h-8 flex items-center bg-white rounded-md px-2">
-                            <input type="text" name="pseudo" placeholder="Mon pseudo" class="outline-none flex-1 font-muli bg-transparent">
+                            <input type="email" name="email" placeholder="Monemail@hotmail.com" class="outline-none flex-1 font-muli bg-transparent" required>
                         </div>
                     </div>
                     <div class="flex flex-col space-y-2">
-                        <label for="titre" class="font-neucha">titre</label>
+                        <label for="titre" class="font-neucha">Titre</label>
                         <div class="border w-[80vw] h-8 flex items-center bg-white rounded-md px-2">
-                            <input type="text" name="titre" placeholder="Horaire d’ouverture" class="outline-none flex-1 font-muli bg-transparent">
+                            <input type="text" name="titre" placeholder="Horaire d’ouverture" class="outline-none flex-1 font-muli bg-transparent" required>
                         </div>
                     </div>
                 </div>
-                
-    
                 <div class="flex flex-col space-y-2">
                     <label for="avis" class="font-neucha">Message</label>
-                    <textarea id="avis" name="avis" rows="4" class="border w-full max-w-[80vw] h-auto min-h-[100px] outline-none bg-white rounded-md p-2" placeholder="Exemple: J’aimerai connaitre vos horaire d’ouverture ...."></textarea>
-    
+                    <textarea id="avis" name="avis" rows="4" class="border w-full max-w-[80vw] h-auto min-h-[100px] outline-none bg-white rounded-md p-2" placeholder="Exemple: J’aimerai connaitre vos horaire d’ouverture ...." required></textarea>
                 </div>
-    
                 <div class="mx-auto w-fit mt-4 md:mt-10 md:pt-10">
                     <button type="submit" class="flex items-center justify-center space-x-1 bg-secondary-100 w-32 h-9 md:w-32 rounded-md text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
                         <p class="font-muli text-sm">Contactez nous</p>
                     </button>
                 </div>
             </form>
+      
         </div>
-
     </main>
-
 
     <footer>
         <%- include('../components/footer') %>
