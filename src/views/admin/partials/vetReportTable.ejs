@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <div>
+    <% if (reports.length > 0) { %>
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+          <tr>
+            <th scope="col" class="py-3 px-6">ID</th>
+            <th scope="col" class="py-3 px-6">DATE</th>
+            <th scope="col" class="py-3 px-6">ANIMAL</th>
+            <th scope="col" class="py-3 px-6">HABITAT</th>
+            <th scope="col" class="py-3 px-6">RAPPORT</th>
+            <th scope="col" class="py-3 px-6">ÉTAT</th>
+            <th scope="col" class="py-3 px-6">ALIMENT</th>
+            <th scope="col" class="py-3 px-6 text-nowrap">QUANTITÉ (en kg - journalier)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% reports.forEach(report => { %>
+            <tr class="bg-white border-b">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= report.health_record_id %></th>
+              <td class="py-4 px-6"><%= report.date.toLocaleDateString('fr-FR') %></td>
+              <td class="py-4 px-6"><%= report.animal_name %></td>                                       
+              <td class="py-4 px-6 text-nowrap"><%= report.habitat_name %></td>                                       
+              <td class="py-4 px-6 text-nowrap"><%= report.content %></td>                                       
+              <td class="py-4 px-6 text-nowrap"><%= report.detail_etat %></td>                                       
+              <td class="py-4 px-6"><%= report.food_offered %></td>                                       
+              <td class="py-4 px-6"><%= report.food_amount %> kg</td>                                       
+            </tr>
+          <% }); %> 
+        </tbody>
+      </table>
+      <% } else { %>
+      <div class="flex items-center justify-center mt-10">
+        <h1 class="text-2xl font-muli font-bold text-red-500">Pas de rapport</h1>
+      </div>
+      <% } %>
+  </div>
+   
+</body>
+</html>

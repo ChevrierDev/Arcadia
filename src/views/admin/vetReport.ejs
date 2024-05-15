@@ -1,61 +1,69 @@
+<!-- admin/vetReport.ejs -->
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> <%= title %> </title>
+    <title><%= title %></title>
     <link type="text/css" rel="stylesheet" href="../../../css/style.css">
+    <script defer src="../../../js/vetReport.js"></script>
 </head>
 <body class="min-h-screen bg-primary-100 overflow-x-hidden overflow-y-auto">
 
-    <!-- hero offers content section -->
-    <main class="min-h-full ">
+    <!-- Main content -->
+    <main class="min-h-full">
         <div class="flex h-full p-4">
 
-            <!-- sidebar -->
-            <div class="hidden md:flex flex-col w-64 bg-icon  rounded-2xl shadow-lg">
-                <div class="flex items-center justify-center h-20 bg-icon  rounded-2xl ">
+            <!-- Sidebar -->
+            <div class="hidden md:flex flex-col w-64 bg-icon rounded-2xl shadow-lg">
+                <div class="flex items-center justify-center h-20 bg-icon rounded-2xl">
                     <a href="/accueil">
                         <img src="../../../images/Arcadia-logo.png" width="60" height="75" alt="logo-Arcadia" class="h-11">
                         <p class="text-[0.6em] font-light font-muli text-white ml-4">Arcadia for admin.</p>
                     </a>
                 </div>
                 
-                <div class="flex flex-col flex-1 overflow-y-auto rounded-b-2xl shadow-lg ">
-                    <!-- side bar navigation -->
+                <div class="flex flex-col flex-1 overflow-y-auto rounded-b-2xl shadow-lg">
+                    <!-- Sidebar navigation -->
                     <%- include('./components/sidebar') %>
                 </div>
             </div>
         
             <!-- Main content -->
-            <div class="flex flex-col flex-1 overflow-y-hidden pb-10 ">
-                <div class="flex items-center justify-between h-24  bg-transparent">
-                    <div class=" px-4 hidden md:block">
+            <div class="flex flex-col flex-1 overflow-y-hidden pb-10">
+                <div class="flex items-center justify-between h-24 bg-transparent">
+                    <div class="px-4 hidden md:block">
                         <div class="px-4 flex items-center">
-                            <h1 class="text-2xl font-muli font-bold"> <span class="font-muli text-gray-700 text-[1.05rem] tracking-wide">Bienvenue, Jose</span> <br> <span class="font-bold font-muli text-4xl tracking-wide "></span> </h1>
+                            <h1 class="text-2xl font-muli font-bold">
+                                <span class="font-muli text-gray-700 text-[1.05rem] tracking-wide">Bienvenue, Jose</span>
+                                <br>
+                                <span class="font-bold font-muli text-4xl tracking-wide"></span>
+                            </h1>
                         </div>
                     </div>
 
-                    <!-- create user and deconnection desktop button -->
-                    <div class=" md:flex">
-
-                        <div class="flex items-center pr-4 ">
-                            <a href="/admin/dashboard/post-services" class="font-muli text-sm  text-white mr-5">
-                                <button  class="bg-icon shadow-sm flex items-center justify-around px-3 h-10 rounded-lg w-40 md:w-48  hover:scale-105 duration-300 ease-in-out">
+                    <!-- Create user and deconnection desktop button -->
+                    <div class="md:flex">
+                        <div class="flex items-center pr-4">
+                            <a href="/admin/dashboard/post-services" class="font-muli text-sm text-white mr-5">
+                                <button class="bg-icon shadow-sm flex items-center justify-around px-3 h-10 rounded-lg w-40 md:w-48 hover:scale-105 duration-300 ease-in-out">
                                     <div class="pb-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24"><g fill="none"><path d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="white" d="M16 14a5 5 0 0 1 5 5v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1a5 5 0 0 1 5-5zm4-6a1 1 0 0 1 1 1v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 1 1 0-2h1V9a1 1 0 0 1 1-1m-8-6a5 5 0 1 1 0 10a5 5 0 0 1 0-10"/></g></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24">
+                                            <g fill="none">
+                                                <path d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                                                <path fill="white" d="M16 14a5 5 0 0 1 5 5v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1a5 5 0 0 1 5-5zm4-6a1 1 0 0 1 1 1v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 1 1 0-2h1V9a1 1 0 0 1 1-1m-8-6a5 5 0 1 1 0 10a5 5 0 0 1 0-10" />
+                                            </g>
+                                        </svg>
                                     </div>
-                                    <p class="text-white font-muli font-semibold">
-                                        Poster un services
-                                    </p>
+                                    <p class="text-white font-muli font-semibold">Poster un service</p>
                                 </button>
                             </a>
     
-                            <!-- logout button -->
+                            <!-- Logout button -->
                             <form action="/api/logout" method="post">
                                 <a href="" class="font-muli text-sm text-white mr-5">
-                                    <button type="submit" class="border-2 shadow-sm border-icon text-black  font-semibold font-muli w-32 h-10 rounded-lg hover:scale-105 duration-300 ease-in-out">
-                                    déconnexion
+                                    <button type="submit" class="border-2 shadow-sm border-icon text-black font-semibold font-muli w-32 h-10 rounded-lg hover:scale-105 duration-300 ease-in-out">
+                                        Déconnexion
                                     </button>
                                 </a>
                             </form>
@@ -64,65 +72,45 @@
                 </div>
 
                 <div class="">
-                    <!-- see employee section -->
-                    <section class=" w-[95%] h-screen mx-auto pt-2 space-y-10">
-                        
-                        <div class="container bg-primary-50 border rounded-md shadow-lg border-black w-full h-40 md:h-[50%] overflow-y-auto ">
+                    <!-- See employee section -->
+                    <section class="w-[95%] h-screen mx-auto pt-2 space-y-10">
+                        <div class="container bg-primary-50 border rounded-md shadow-lg border-black w-full h-40 md:h-[80%] overflow-y-auto">
                             <div class="w-full flex items-center justify-center border-b border-b-black h-10 md:h-16 rounded-t-md">
                                 <h2 class="font-muli font-semibold">Liste des Rapports vétérinaire</h2>
                             </div>
-                            <div class="p-4">
-                            <% if (reports.length > 0) { %>
-                            <table class="w-full text-sm text-left text-gray-500">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="py-3 px-6">ID</th>
-                                        <th scope="col" class="py-3 px-6">DATE</th>
-                                        <th scope="col" class="py-3 px-6">ANIMAL</th>
-                                        <th scope="col" class="py-3 px-6">HABITAT</th>
-                                        <th scope="col" class="py-3 px-6">RAPPORT</th>
-                                        <th scope="col" class="py-3 px-6">ETAT</th>
-                                        <th scope="col" class="py-3 px-6">ALIMENT</th>
-                                        <th scope="col" class="py-3 px-6 text-nowrap">QUANTITER (en kg - journalier)</th>
-                                    </tr>
-                                </thead>
-                                
-                                    <tbody>
-                                        <% reports.forEach(report => { %>
-                                            <tr class="bg-white border-b">
-                                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= report.health_record_id %></th>
-                                                <td class="py-4 px-6"><%= report.date.toLocaleDateString('fr-FR') %></td>
-                                                <td class="py-4 px-6"><%= report.animal_name %></td>                                       
-                                                <td class="py-4 px-6 text-nowrap"><%= report.habitat_name %></td>                                       
-                                                <td class="py-4 px-6 text-nowrap"><%= report.content %></td>                                       
-                                                <td class="py-4 px-6 text-nowrap"><%= report.detail_etat %></td>                                       
-                                                <td class="py-4 px-6"><%= report.food_offered %></td>                                       
-                                                <td class="py-4 px-6"><%= report.food_amount %> kg</td>                                       
-                                            </tr>
-                                        <% }); %> 
-                                    </tbody>
-                                <% } else { %>
-                                    <div class="flex items-center justify-center mt-10">
-                                        <h1 class="text-2xl font-muli font-bold text-red-500">Pas de rapport</h1>
+                            <div class="p-4 space-y-3">
+                                <form id="filter-form" class="space-y-4 md:flex md:justify-around md:items-center ">
+                                    <div class="flex space-x-4">
+                                        <div>
+                                            <label for="start-date" class="block text-sm font-medium text-gray-900">Date de début</label>
+                                            <input type="date" id="start-date" name="startDate" class="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                                        </div>
+                                        <div>
+                                            <label for="end-date" class="block text-sm font-medium text-gray-900">Date de fin</label>
+                                            <input type="date" id="end-date" name="endDate" class="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                                        </div>
+                                        <div>
+                                            <label for="animal-name" class="block text-sm font-medium text-gray-900">Nom de l'animal</label>
+                                            <select id="animal-name" name="animalName" class="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                                                <option value="">Tous les animaux</option>
+                                                <% reports.forEach(report => { %>
+                                                    <option value="<%= report.animal_name %>"><%= report.animal_name %></option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
                                     </div>
-                                <% } %> 
-                                         
-                            </table>
-                        </div>
-                    </div>
-                                 
-                </section>
+                                    <button type="submit" class="mt-4 px-4 py-2 bg-icon text-white rounded-lg md:w-40 hover:scale-105 duration-150 ease-out">Filtrer</button>
+                                </form>
+
+                                <div id="report-container">
+                                    <%- include('partials/vetReportTable', { reports: reports }) %>
+                                </div>
+                            </div>
+                        </div>         
+                    </section>
                 </div>
-             
-
             </div>
-      
         </div>
-
-      
     </main>
-    
-   
-        
 </body>
 </html>

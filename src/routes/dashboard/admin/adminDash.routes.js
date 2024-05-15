@@ -167,24 +167,46 @@ adminDashboardRouter.get(
   }
 );
 
-//admin render vet report Dashboard
-adminDashboardRouter.get(
-  "/rapport",
-  checkAuthenticated,
-  checkRole("admin"),
-  async (req, res) => {
-    try {
-      const reports = await fetchHealthReportData()
-      res.render("admin/vetReport", {
-        title: "Rapport vétérinaire.",
-        reports: reports
+// Render vet report Dashboard
+adminDashboardRouter.get('/rapport', checkAuthenticated, checkRole('admin'), async (req, res) => {
+  try {
+    const { startDate, endDate, animalName, ajax } = req.query;
+
+    let reports = await fetchHealthReportData();
+    const animals = await fetchAnimalsData();
+
+    // Filter reports by date
+    if (startDate && endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      start.setHours(0, 0, 0, 0);
+      end.setHours(23, 59, 59, 999);
+
+      reports = reports.filter(report => {
+        const reportDate = new Date(report.date);
+        return reportDate >= start && reportDate <= end;
       });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Error fetching service data");
     }
+
+    // Filter reports by animal name
+    if (animalName) {
+      reports = reports.filter(report => report.animal_name === animalName);
+    }
+
+    if (ajax) {
+      res.render('admin/partials/vetReportTable', { reports });
+    } else {
+      res.render('admin/vetReport', {
+        title: 'Rapport vétérinaire.',
+        reports: reports,
+        animals: animals,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching report data');
   }
-);
+});
 
 //admin render  stats Dashboard
 adminDashboardRouter.get(
