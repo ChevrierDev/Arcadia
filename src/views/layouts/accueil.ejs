@@ -340,45 +340,43 @@
         </section>
 
       
-        <!-- Habitat section -->
-        <section class="h-fit mt-[545px] md:mt-0">
-            <div class="flex items-center justify-center flex-col space-y-2">
-                <h1 class="font-neucha text-3xl text-center">Visiter autrement</h1>
-                <p class="font-muli text-center">Vous rêvez d’en apprendre plus sur les animaux et de découvrir les Habitats du Zoo ?</p>
-            </div>
-            <div class="container relative mx-auto md:mt-10">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <% if (habitats) { %>
-                            <% habitats.forEach(habitat => { %>
-                                <div class="swiper-slide">
-                                    <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
-                                        <div class="w-full h-3/5">
-                                            <img src="<%= habitat.images %>" alt="Photo habitat" class="rounded-t-md w-full h-full object-cover">
-                                        </div>
-                                        <div>
-                                            <h1 class="font-muli text-xl text-center"><%= habitat.name %></h1>
-                                        </div>
-                                        <div class="flex items-center justify-center w-full h-1/5">
-                                            <a href="/habitats/<%= habitat.habitat_id %>">
-                                                <button class="flex items-center justify-center space-x-3 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
-                                                    <p class="font-muli text-sm">Découvrir</p>
-                                                </button>
-                                            </a>
+           <!-- Habitat section -->
+            <section class="h-fit mt-[545px] md:mt-[-55px]">
+                <div class="flex items-center justify-center flex-col space-y-2">
+                    <h1 class="font-neucha text-3xl text-center">Visiter autrement</h1>
+                    <p class="font-muli text-center">Vous rêvez d’en apprendre plus sur les animaux et de découvrir les Habitats du Zoo ?</p>
+                </div>
+                <div class="container relative mx-auto md:mt-10">
+                    <div class="swiper-container-habitats"> 
+                        <div class="swiper-wrapper">
+                            <% if (habitats) { %>
+                                <% habitats.forEach(habitat => { %>
+                                    <div class="swiper-slide">
+                                        <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
+                                            <div class="w-full h-3/5">
+                                                <img src="<%= habitat.images %>" alt="Photo habitat" class="rounded-t-md w-full h-full object-cover">
+                                            </div>
+                                            <div class="flex flex-col items-center justify-center w-full h-1/5 space-y-2">
+                                                <h1 class="font-muli text-center"><%= habitat.name %></h1>
+                                                <a href="/habitats/<%= habitat.habitat_id %>">
+                                                    <button class="flex items-center justify-center space-x-3 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
+                                                        <p class="font-muli text-sm">Découvrir</p>
+                                                    </button>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            <% }) %>
-                        <% } %>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                        <!-- Add Navigation -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
-                    <!-- Add Navigation -->
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
                 </div>
-            </div>
-        </section>
+            </section>
 
         <!-- animaux section -->
         <section class="h-fit mt-10 md:mt-14">
@@ -387,73 +385,68 @@
                 <h1 class="font-neucha text-3xl text-center">Découvrez nos animaux</h1>
             </div>
 
-            <!-- animaux card  -->
-            <div class="container flex flex-col justify-center  h-full mx-auto pt-5">
-                <!-- cards -->
-                <div class="h-full w-full space-y-8 md:space-y-0  md:pt-2 md:px-14 md:flex md:flex-row">
-
+            <!-- animaux card -->
+            <div class="container flex flex-col justify-center h-full mx-auto pt-5">
+                <div class="h-full w-full space-y-8 md:space-y-0 md:pt-2 md:px-14 md:flex md:flex-row">
                     <div class="container mx-auto">
                         <div class="flex flex-wrap justify-center gap-5">
-
-                            <% if (animals.habitat !== 0) { %>
-                             <% animals.forEach(animal => { %>
-                                <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
-                                    <div class="w-full h-3/5">
-                                        <img src="<%= animal.images %>" alt="Photo de <%= animal.name %>" class="rounded-t-md w-full h-full object-cover"> 
+                            <% if (animals.length > 0) { %>
+                                <% for (let i = 0; i < 3 && i < animals.length; i++) { %>
+                                    <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
+                                        <div class="w-full h-3/5">
+                                            <img src="<%= animals[i].images %>" alt="Photo de <%= animals[i].name %>" class="rounded-t-md w-full h-full object-cover">
+                                        </div>
+                                        <div>
+                                            <h1 class="font-muli text-xl text-center"><%= animals[i].name %></h1>
+                                        </div>
+                                        <div class="flex items-center justify-center w-full h-1/5">
+                                            <a href="/habitats">
+                                                <button class="flex items-center justify-center space-x-3 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
+                                                    <p class="font-muli text-sm">Découvrir</p>
+                                                </button>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h1 class="font-muli text-xl text-center"><%= animal.name %></h1>
-                                    </div>
-                                    <div class="flex items-center justify-center w-full h-1/5"> 
-                                        <a href="/habitats">
-                                            <button class="flex items-center justify-center space-x-3 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
-                                                <p class="font-muli text-sm">Découvrir</p>
-                                            </button>
-                                        </a>
-                                    </div>
-                                </div>
-                        
-                             <% }) %>
+                                <% } %>
                             <% } %>
-
                         </div>
                     </div>
-                    
                 </div>
+            </div>
             </div>
         </section>
 
         <!-- review section -->
         <section class="h-fit mt-14 w-full px-0">
-            <!-- mobile reviews -->
             <div>
                 <div class="flex items-center justify-center flex-col space-y-2">
-                    <h1 class="font-muli text-icon font-bold text-3xl text-center">Arcadia</h1>
-                    <p class="font-muli  text-center">Notre organisation dédiée à la préservation des espèces menacées.</p>
+                    <h1 class="font-muli text-icon font-bold text-4xl text-center">Arcadia</h1>
+                    <p class="font-muli text-xl  text-center">Notre organisation dédiée à la préservation des espèces menacées.</p>
+                    <h1 class="font-muli text-lg">il nous ont laissez un avis :</h1>
                 </div>
-    
-                <div class="container flex flex-col items-center justify-center gap-y-4 mx-auto w-full h-[50vh] bg-primary-100 mt-10">
-                    <p class="font-muli  text-center">
-                    "Superbe visite au zoo Arcadia ! Les animaux sont visiblement bien soignés et les habitats comme la jungle et la savane sont impressionnants. Le petit train a beaucoup plu aux enfants. Un endroit parfait pour une journée en famille. On reviendra !"
-                    </p>
-                    <div class="flex space-x-4 mt-5">
-    
+
+                <!-- Swiper -->
+                <div class="swiper-container swiper-container-avis bg-white shadow-md rounded-lg py-4 mx-auto  mt-3 max-w-full">
+                    <div class="swiper-wrapper">
+                        <% reviews.forEach(review => { %>
+                            <div class="swiper-slide">
+                                <div class="text-center p-4 space-y-3">
+                                    <p class="font-muli">"<%= review.description %>"</p>
+                                    <p class="font-muli text-icon">- <%= review.pseudo %></p>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+
+                    <div class="flex space-x-4 justify-center mt-5">
                         <a href="#review-form">
-                            <button class="flex items-center justify-center space-x-1 bg-icon w-32 h-9 md:w-32 rounded-sm text-white hover:text-white hover:bg-orange-300 hover:scale-95 duration-150 ease-in">
-                                <p class="font-muli text-sm">Laisser un avis</p>
-                            </button>
+                            <button class="bg-icon w-32 h-9 rounded-sm text-white hover:bg-orange-300">Laisser un avis</button>
                         </a>
-    
                         <a href="/contact">
-                            <button class="flex items-center justify-center space-x-1 bg-icon w-32 h-9 md:w-32 rounded-sm text-white hover:text-white hover:bg-orange-300 hover:scale-95 duration-150 ease-in">
-                                <p class="font-muli text-sm">Contactez nous</p>
-                            </button>
+                            <button class="bg-icon w-32 h-9 rounded-sm text-white hover:bg-orange-300">Contactez nous</button>
                         </a>
                     </div>
-                </div>
             </div>
-
-            <!-- desktop reviews -->
         </section>
 
         <!-- Review Form section -->

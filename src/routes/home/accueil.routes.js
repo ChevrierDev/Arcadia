@@ -4,6 +4,7 @@ const {
   fetchServicesData,
   fetchAnimalsData,
   fetchHabitatData,
+  fetchReviewsData
 } = require("../../utils/apiClient");
 
 accueilRouter.get("/", async (req, res) => {
@@ -11,11 +12,13 @@ accueilRouter.get("/", async (req, res) => {
     const animals = await fetchAnimalsData();
     const services = await fetchServicesData();
     const habitats = await fetchHabitatData();
+    const reviews = await fetchReviewsData()
     res.render("layouts/accueil", {
       title: "Page d'accueil",
       animals: animals,
       services: services,
       habitats: habitats,
+      reviews: reviews
     });
   } catch (err) {
     console.log(err);
@@ -23,6 +26,7 @@ accueilRouter.get("/", async (req, res) => {
       title: "Page d'accueil",
       animals: [],
       services: [],
+      reviews: []
     });
   }
 });
