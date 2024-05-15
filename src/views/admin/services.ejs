@@ -72,6 +72,7 @@
                             <h2 class="font-muli font-semibold">Liste des services</h2>
                         </div>
                         <div class="p-4">
+                            <% if (services !== 0) { %>
                             <table class="w-full text-sm text-left text-gray-500">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                     <tr>
@@ -83,13 +84,12 @@
                                     </tr>
                                 </thead>
                                 
-                                <% if (services) { %>
                                     <tbody>
                                         <% services.forEach(service => { %>
                                             <tr class="bg-white border-b">
                                                 <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= service.service_id  %></th>
-                                                <td class="py-4 px-6"><%= service.name %></td>
-                                                <td class="py-4 px-6"><%= service.description %></td>
+                                                <td class="py-4 px-6 text-nowrap"><%= service.name %></td>
+                                                <td class="py-4 px-6 text-nowrap"><%= service.description %></td>
                                                 <% if (service.images ) { %>
                                                     <td class="py-4 px-6"><%= service.images %></td>
                                                 <% } else { %>
@@ -104,11 +104,13 @@
                                             </tr>
                                         <% }); %> 
                                     </tbody>
+                                </table>
                                 <% } else { %>
-                                    <h1>Pas de services</h1>
+                                    <div class="w-full flex items-center justify-center mt-10">
+                                        <h1 class="font-muli text-xl font-bold text-red-500">Pas de services</h1>
+                                    </div>
                                 <% } %> 
                                          
-                            </table>
                         </div>
                     </div>
                                  

@@ -12,6 +12,7 @@ const accueilRouter = require("./src/routes/home/accueil.routes");
 const serviceRouter = require("./src/routes/services/services.routes");
 const habitatRouter = require("./src/routes/habitats/habitats.routes");
 const contactRouter = require("./src/routes/contact/contact.routes");
+const savannahRouter = require('./src/routes/savannah/savannah.routes')
 const adminDashboardRouter = require("./src/routes/dashboard/admin/adminDash.routes");
 const employeeDashboardRouter = require("./src/routes/dashboard/employee/employeeDash.routes");
 const veterinarianDashboardRouter = require("./src/routes/dashboard/veterinarian/veterinarianDash.routes");
@@ -39,6 +40,7 @@ app.use("/accueil", accueilRouter);
 app.use("/services", serviceRouter);
 app.use("/habitats", habitatRouter);
 app.use("/contact", contactRouter);
+app.use('/savannah', savannahRouter);
 
 // users dashboards routes
 app.use("/admin", adminDashboardRouter);
@@ -55,9 +57,10 @@ app.use("/api/v1/healthRecord", healthRecordAPIRouter);
 app.use("/api/v1/visitorReview", visitorReviewAPIRouter);
 app.use("/api/v1/manageEmployeeAccount", manageEmployeeAPIRouter);
 app.use("/api/v1/manageVetrinarianAccount", manageVeterinarianAPIRouter);
-app.use('/api/v1/', animalViewsRouter);
 
-app.use('/test', testRouter);
+app.use('/api/v1/animalCount/', animalViewsRouter);
+
+
 
 //login logout features
 app.use("/api/login", loginRouter);

@@ -311,59 +311,34 @@
                 <!-- cards -->
                 <div class="h-full w-full space-y-8 md:space-y-0  md:pt-2 md:px-14 md:flex md:flex-row">
 
-                    <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-4">
-                        <div class="w-full h-3/5"> <!-- Taille fixe pour les images -->
-                            <img src="../../../images/trainservice.jpg" alt="Photo du service de visite en train" class="rounded-t-md w-full h-full object-cover"> <!-- Utilisation de object-cover pour maintenir les proportions -->
-                        </div>
-                        <div>
-                            <h1 class="font-muli text-xl text-center">Visite en train</h1>
-                        </div>
-                        <div class="flex items-center justify-center w-full h-1/5"> <!-- Centrage du bouton -->
-                            <a href="/services">
-                                <button class="flex items-center justify-center space-x-1 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
-                                    <p class="font-muli text-sm">En savoir +</p>
-                                </button>
-                            </a>
-                        </div>
-                    </div>
+                    <% if (services !== 0) { %>
+                        <% services.forEach(service => { %>
+                            <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-4">
+                                <div class="w-full h-3/5">
+                                    <img src="<%= service.images %>" alt="Photo du service de <%= service.name %>" class="rounded-t-md w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h1 class="font-muli text-xl text-center"><%= service.name %></h1>
+                                </div>
+                                <div class="flex items-center justify-center w-full h-1/5"> 
+                                    <a href="/services">
+                                        <button class="flex items-center justify-center space-x-1 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
+                                            <p class="font-muli text-sm">En savoir +</p>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        <% }) %>
+                    <% } %>
+
                 
-                    <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-4">
-                        <div class="w-full h-3/5">
-                            <img src="../../../images/habitat-service.jpg" alt="Photo du service de visite des habitats" class="rounded-t-md w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <h1 class="font-muli text-xl text-center">Visite des habitats</h1>
-                        </div>
-                        <div class="flex items-center justify-center w-full h-1/5">
-                            <a href="/services">
-                                <button class="flex items-center justify-center space-x-1 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
-                                    <p class="font-muli text-sm">En savoir +</p>
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                
-                    <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-4">
-                        <div class="w-full h-3/5">
-                            <img src="../../../images/restauration-srvice.jpg" alt="Photo du service de restauration" class="rounded-t-md w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <h1 class="font-muli text-xl text-center">Restauration</h1>
-                        </div>
-                        <div class="flex items-center justify-center w-full h-1/5">
-                            <a href="/services">
-                                <button class="flex items-center justify-center space-x-1 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
-                                    <p class="font-muli text-sm">En savoir +</p>
-                                </button>
-                            </a>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </section>
 
         <!-- habitat section -->
-        <section  class="h-fit mt-[545px] md:mt-14">
+        <section  class="h-fit mt-[545px] md:mt-0">
 
             <div class="flex items-center justify-center flex-col space-y-2">
                 <h1 class="font-neucha text-3xl text-center">Visiter autrement</h1>
@@ -393,53 +368,27 @@
                     <div class="container mx-auto">
                         <div class="flex flex-wrap justify-center gap-5">
 
-                            <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
-                                <div class="w-full h-3/5"> <!-- Taille fixe pour les images -->
-                                    <img src="../../../images/gorille.jpg" alt="Photo d'un gorille" class="rounded-t-md w-full h-full object-cover"> <!-- Utilisation de object-cover pour maintenir les proportions -->
+                            <% if (animals !== 0) { %>
+                             <% animals.forEach(animal => { %>
+                                <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
+                                    <div class="w-full h-3/5">
+                                        <img src="<%= animal.images %>" alt="Photo de <%= animal.name %>" class="rounded-t-md w-full h-full object-cover"> 
+                                    </div>
+                                    <div>
+                                        <h1 class="font-muli text-xl text-center"><%= animal.name %></h1>
+                                    </div>
+                                    <div class="flex items-center justify-center w-full h-1/5"> 
+                                        <a href="/habitats">
+                                            <button class="flex items-center justify-center space-x-3 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
+                                                <p class="font-muli text-sm">Découvrir</p>
+                                            </button>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h1 class="font-muli text-xl text-center">Gorille d'Afrique</h1>
-                                </div>
-                                <div class="flex items-center justify-center w-full h-1/5"> <!-- Centrage du bouton -->
-                                    <a href="/habitats">
-                                        <button class="flex items-center justify-center space-x-3 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
-                                            <p class="font-muli text-sm">Découvrir</p>
-                                        </button>
-                                    </a>
-                                </div>
-                            </div>
-                    
-                            <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
-                                <div class="w-full h-3/5">
-                                    <img src="../../../images/Koala.jpg" alt="Photo d'un koala" class="rounded-t-md w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h1 class="font-muli text-xl text-center">Koala Australien</h1>
-                                </div>
-                                <div class="flex items-center justify-center w-full h-1/5">
-                                    <a href="/habitats">
-                                        <button class="flex items-center justify-center space-x-1 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
-                                            <p class="font-muli text-sm">Découvrir</p>
-                                        </button>
-                                    </a>
-                                </div>
-                            </div>
-                    
-                            <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
-                                <div class="w-full h-3/5">
-                                    <img src="../../../images/our-habitat.jpg" alt="Photo d'un ours brun" class="rounded-t-md w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h1 class="font-muli text-xl text-center">Ours Brun</h1>
-                                </div>
-                                <div class="flex items-center justify-center w-full h-1/5">
-                                    <a href="/habitats">
-                                        <button class="flex items-center justify-center space-x-1 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
-                                            <p class="font-muli text-sm">Découvrir</p>
-                                        </button>
-                                    </a>
-                                </div>
-                            </div>
+                        
+                             <% }) %>
+                            <% } %>
+
                         </div>
                     </div>
                     
@@ -482,10 +431,10 @@
 
         <!-- Review Form section -->
         <section class="h-fit mt-14 w-full px-0">
-            <div>
+            <div id="review-form">
                 <div class="container flex flex-col items-center gap-y-4 mx-auto w-full h-[75vh] bg-primary-100 mt-10">
                     
-                    <form action="/api/v1/visitorReview" method="post" class="mt-7 space-y-4">
+                    <form action="/api/v1/visitorReview" method="post" class="mt-7 space-y-4" >
                         <h1 class=" text-black font-neucha text-3xl text-center w-[70vw]">Votre avis est important pour nous !</h1>
                         
                         <div class="flex flex-col space-y-2">

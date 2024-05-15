@@ -64,14 +64,15 @@
                 </div>
 
                 <div class="">
-                <!-- see employee section -->
-                <section class=" w-[95%] h-screen mx-auto pt-2 space-y-10">
-                 
-                    <div class="container bg-primary-50 border rounded-md shadow-lg border-black w-full h-40 md:h-[50%] overflow-y-auto ">
-                        <div class="w-full flex items-center justify-center border-b border-b-black h-10 md:h-16 rounded-t-md">
-                            <h2 class="font-muli font-semibold">Liste des Rapports vétérinaire</h2>
-                        </div>
-                        <div class="p-4">
+                    <!-- see employee section -->
+                    <section class=" w-[95%] h-screen mx-auto pt-2 space-y-10">
+                        
+                        <div class="container bg-primary-50 border rounded-md shadow-lg border-black w-full h-40 md:h-[50%] overflow-y-auto ">
+                            <div class="w-full flex items-center justify-center border-b border-b-black h-10 md:h-16 rounded-t-md">
+                                <h2 class="font-muli font-semibold">Liste des Rapports vétérinaire</h2>
+                            </div>
+                            <div class="p-4">
+                            <% if (reports.length > 0) { %>
                             <table class="w-full text-sm text-left text-gray-500">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                     <tr>
@@ -86,7 +87,6 @@
                                     </tr>
                                 </thead>
                                 
-                                <% if (reports.length > 0) { %>
                                     <tbody>
                                         <% reports.forEach(report => { %>
                                             <tr class="bg-white border-b">
@@ -102,7 +102,9 @@
                                         <% }); %> 
                                     </tbody>
                                 <% } else { %>
-                                    <h1>Pas de rapport</h1>
+                                    <div class="flex items-center justify-center mt-10">
+                                        <h1 class="text-2xl font-muli font-bold text-red-500">Pas de rapport</h1>
+                                    </div>
                                 <% } %> 
                                          
                             </table>

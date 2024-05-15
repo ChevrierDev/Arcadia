@@ -36,18 +36,29 @@ async function fetchServicesData() {
   try {
     const API_URL = "https://127.0.0.1:3000/api/v1/services";
     const response = await axios.get(`${API_URL}`, { httpsAgent: agent });
-    return response.data;
+    const data =  response.data || []; 
+    const services = data.map(services => {
+      services.images = services.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\', '');
+      return services;
+    });
+    return services
   } catch (error) {
     console.error("Error while getting data:", error);
     throw error;
   }
 }
 
+// Function to fetch all habitats
 async function fetchHabitatData() {
   try {
     const API_URL = "https://127.0.0.1:3000/api/v1/habitats";
-    const response = await axios.get(`${API_URL}`, { httpsAgent: agent });
-    return response.data;
+    const response = await axios.get(API_URL, { httpsAgent: agent });
+    const data =  response.data || []; 
+    const habitats = data.map(habitat => {
+      habitat.images = habitat.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\', '');
+      return habitat;
+    });
+    return habitats
   } catch (error) {
     console.error("Error while getting data:", error);
     throw error;
@@ -57,21 +68,30 @@ async function fetchHabitatData() {
 async function fetchAnimalsData() {
   try {
     const query = `
-          SELECT 
-              animal.*, 
-              habitat.name as habitat_name 
-          FROM 
-              animal
-          JOIN 
-              habitat ON animal.habitat_id = habitat.habitat_id;
-      `;
+      SELECT 
+        animal.*, 
+        habitat.name AS habitat_name 
+      FROM 
+        animal
+      JOIN 
+        habitat ON animal.habitat_id = habitat.habitat_id;
+    `;
     const { rows } = await db.query(query);
-    return rows;
+
+    // Convert absolute paths to relative paths
+    const animals = rows.map(animal => {
+      console.log('Original path:', animal.images);
+      animal.images = animal.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\uploads\\', 'uploads/');
+      console.log('Updated path:', animal.images);
+      return animal;
+    });
+
+    return animals;
   } catch (error) {
     console.error("Error fetching animals with habitats:", error);
     throw error;
   }
-};
+}
 
 async function fetchHealthReportData() {
   try {

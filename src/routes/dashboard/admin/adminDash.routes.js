@@ -97,7 +97,11 @@ adminDashboardRouter.get(
         services: services,
       });
     } catch (err) {
-      console.error(err);
+      console.log(err)
+      res.render("admin/services", {
+        title: "Liste des services disponibles",
+        services: [],
+      });
     }
   }
 );
@@ -121,7 +125,7 @@ adminDashboardRouter.get(
   }
 );
 
-//admin render habitats Dashboard
+// Admin render habitats Dashboard
 adminDashboardRouter.get(
   "/habitats",
   checkAuthenticated,
@@ -130,12 +134,16 @@ adminDashboardRouter.get(
     try {
       const habitats = await fetchHabitatData();
       res.render("admin/habitats", {
-        title: "Liste des habitat.",
+        title: "Liste des habitats",
         habitats: habitats,
       });
     } catch (err) {
       console.error(err);
-      res.status(500).send("Error fetching service data");
+      res.status(500).render("admin/habitats", {
+        title: "Liste des habitats",
+        habitats: [],
+        error: "Error fetching habitat data",
+      });
     }
   }
 );
@@ -256,8 +264,13 @@ adminDashboardRouter.get(
         title: "Poster un nouvel animal.",
         habitats:habitats
       });
-    } catch (err) {
-      console.log(err);
+    } catch (err) {      
+      console.error(err);
+      res.status(500).render("admin/postAnimals", {
+        title: "Liste des habitats",
+        habitats: [],
+        error: "Error fetching habitat data",
+      });
     }
   }
 );

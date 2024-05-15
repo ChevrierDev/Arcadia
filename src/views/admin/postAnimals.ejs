@@ -85,11 +85,17 @@
 
                                 <div class="flex flex-col space-y-1">
                                     <label for="habitatSelect">Choisir un habitat:</label>
-                                    <select id="habitatSelect" name="habitat_id" class="h-10">
-                                        <% habitats.forEach(habitat => { %>
-                                        <option value="<%= habitat.habitat_id %>"><%= habitat.name %></option>
-                                        <% }) %>
-                                    </select>
+                                    <% if (habitats.length > 0) { %>
+                                        <select id="habitatSelect" name="habitat_id" class="h-10">
+                                            <% habitats.forEach(habitat => { %>
+                                            <option value="<%= habitat.habitat_id %>"><%= habitat.name %></option>
+                                            <% }) %>
+                                        </select>
+                                    <% } else { %>
+                                        <div class="flex items-center justify-center mt-10">
+                                            <h1 class="text-xl font-muli font-bold text-red-500">Aucun habitat</h1>
+                                        </div>
+                                    <% } %>
                                 </div>
 
                                 <div class="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-4">
