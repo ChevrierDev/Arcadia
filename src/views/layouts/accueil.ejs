@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    <link rel="stylesheet" href="../../../css/style.css">
-    <link rel="stylesheet" href="../../../css/layouts.css">
-    <!-- <script defer src="../../../js/jwt.js"></script> -->
+    <link type="text/css " rel="stylesheet" href="../../../css/style.css">
+    <link  type="text/css "rel="stylesheet" href="../../../css/layouts.css">
+    <link rel="stylesheet" href="../../../css/swiper-bundle.min.css">
+    <script defer src="../../../js/swiper-bundle.min.js"></script>
+    <script defer src="../../../js/swiperInit.js"></script>
 </head>
 
 <body class="bg-primary-50 ">
@@ -337,20 +339,45 @@
             </div>
         </section>
 
-        <!-- habitat section -->
-        <section  class="h-fit mt-[545px] md:mt-0">
-
+      
+        <!-- Habitat section -->
+        <section class="h-fit mt-[545px] md:mt-0">
             <div class="flex items-center justify-center flex-col space-y-2">
                 <h1 class="font-neucha text-3xl text-center">Visiter autrement</h1>
-                <p class="font-muli  text-center">
-                    Vous rêvez d’en apprendre plus sur les animaux et de découvrir les Habitat du Zoo  ?
-                </p>
+                <p class="font-muli text-center">Vous rêvez d’en apprendre plus sur les animaux et de découvrir les Habitats du Zoo ?</p>
             </div>
             <div class="container relative mx-auto md:mt-10">
-                <div class="h-fit w-full mx-auto mt-2">
-                    <img src="../../../images/lion-swipper.jpg" class="w-full md:w-full h-auto object-cover" alt="images habitat Arcadia">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <% if (habitats) { %>
+                            <% habitats.forEach(habitat => { %>
+                                <div class="swiper-slide">
+                                    <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
+                                        <div class="w-full h-3/5">
+                                            <img src="<%= habitat.images %>" alt="Photo habitat" class="rounded-t-md w-full h-full object-cover">
+                                        </div>
+                                        <div>
+                                            <h1 class="font-muli text-xl text-center"><%= habitat.name %></h1>
+                                        </div>
+                                        <div class="flex items-center justify-center w-full h-1/5">
+                                            <a href="/habitats/<%= habitat.habitat_id %>">
+                                                <button class="flex items-center justify-center space-x-3 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
+                                                    <p class="font-muli text-sm">Découvrir</p>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        <% } %>
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                    <!-- Add Navigation -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
-            </div>  
+            </div>
         </section>
 
         <!-- animaux section -->
@@ -368,7 +395,7 @@
                     <div class="container mx-auto">
                         <div class="flex flex-wrap justify-center gap-5">
 
-                            <% if (animals !== 0) { %>
+                            <% if (animals.habitat !== 0) { %>
                              <% animals.forEach(animal => { %>
                                 <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
                                     <div class="w-full h-3/5">

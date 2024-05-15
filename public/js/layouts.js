@@ -1,3 +1,4 @@
+//handke dropDown menu on home page
 document.addEventListener("DOMContentLoaded", function () {
   const dropDownLoginBtn = document.querySelector(".drop-login");
   const dropDownLoginMenu = document.querySelector(".drop-login-menu");
@@ -68,26 +69,28 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("resize", handleResize);
 });
 
-// Function to show dropdown content
+// Function to show dropdown content on habitat-details
 function showCardDetails(button) {
   const card = button.closest(".relative");
   const dropdown = card.querySelector(".card-id");
   dropdown.classList.remove("hidden");
 }
 
-// Function to hide dropdown content
+// Function to hide dropdown content on habitat-details
 function hideCardDetails(button) {
   const card = button.closest(".relative");
   const dropdown = card.querySelector(".card-id");
   dropdown.classList.add("hidden");
 }
 
-// Add event listeners to the "Découvrir" buttons
+// Add event listeners to the "Découvrir" buttons on habitat-details
 document.querySelectorAll(".dropDown-id-card").forEach((button) => {
   button.addEventListener("click", () => showCardDetails(button));
 });
 
-// Add event listeners to the "Close" buttons
+// Add event listeners to the "Close" buttons on habitat-details
 document.querySelectorAll(".closeDropDown-card-id").forEach((button) => {
   button.addEventListener("click", () => hideCardDetails(button));
 });
+
+
