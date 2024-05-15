@@ -1556,6 +1556,10 @@ video {
     width: auto;
   }
 
+  .md\:w-full{
+    width: 100%;
+  }
+
   .md\:max-w-56{
     max-width: 14rem;
   }
