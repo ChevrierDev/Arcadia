@@ -97,7 +97,11 @@ adminDashboardRouter.get(
         services: services,
       });
     } catch (err) {
-      console.error(err);
+      console.log(err)
+      res.render("admin/services", {
+        title: "Liste des services disponibles",
+        services: [],
+      });
     }
   }
 );

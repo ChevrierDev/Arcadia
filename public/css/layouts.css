@@ -13,27 +13,6 @@
     background-position: center;
 }
 
-.header-savannah{
-    background-image: url('../images/savannah-BG.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
-.header-rainforest{
-    background-image: url('../images/rainforest-BG.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
-.header-arctic{
-    background-image: url('../images/arctic-BG.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
 .header-habitat{
     background-image: url('../images/habitat-header-bg.jpg');
     background-repeat: no-repeat;

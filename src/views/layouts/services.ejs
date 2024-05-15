@@ -17,10 +17,6 @@
             </div> -->
         </header>
     </nav>
- 
-    
-    
-    
 
     <main class="w-full h-fit pb-9  mt-10">
         
@@ -33,47 +29,24 @@
                 </p>
             </div>
 
-            <div class="container md:flex md:mx-auto">
-                <div class="h-fit w-fit mx-auto md:ml-10 md:mt-3">
-                    <img src="../../../images/trainservice.jpg" class="w-[90vw] md:w-[40vw]" alt="images services Arcadia">
-                </div>
-                <div class="mt-3 w-[80vw] md:w-[40vw] md:mx-0 md:ml-10 space-y-3 mx-auto">
-                    <h1 class="font-neucha text-3xl text-center">
-                        Visite du zoo en petit train
-                    </h1>
-                    <p class="font-muli text-center">
-                        Montez à bord de notre petit train pour une aventure captivante à travers les divers habitats d'Arcadia ! Cette visite vous emmène dans un périple relaxant à travers le zoo, vous offrant une vue panoramique des animaux dans leur environnement naturel. Parfait pour les familles, ce trajet est une excellente manière d'apprendre sur les différentes espèces que nous chérissons tout en profitant d'une promenade confortable. Rejoignez-nous pour découvrir la magie d'Arcadia de manière ludique et instructive.
-                    </p>
-                </div>
-            </div>
-
-            <div class="container md:flex md:mx-auto">
-                <div class="h-fit w-fit mx-auto md:ml-10 md:mt-3 md:order-2">
-                    <img src="../../../images/restauration-srvice.jpg" class="w-[90vw] md:w-[40vw]" alt="images services Arcadia">
-                </div>
-                <div class="mt-3 w-[80vw] md:w-[40vw] md:mx-0 md:ml-10 space-y-3 mx-auto">
-                    <h1 class="font-neucha text-3xl text-center">
-                        Service de restauration
-                    </h1>
-                    <p class="font-muli text-center">
-                        Dégustez nos délicieux plats éco-responsables au restaurant du zoo Arcadia ! Nous proposons des options saines et savoureuses, préparées à partir d'ingrédients locaux et durables. Parfait pour reprendre des forces tout en profitant d'une ambiance relaxante avec vue sur le zoo. Un repas chez nous est un pas de plus vers la préservation de notre belle planète.
-                    </p>
-                </div>
-            </div>
-
-            <div class="container md:flex md:mx-auto">
-                <div class="h-fit w-fit mx-auto md:ml-10 md:mt-3">
-                    <img src="../../../images/habitat-service.jpg" class="w-[90vw] md:w-[40vw]" alt="images services Arcadia">
-                </div>
-                <div class="mt-3 w-[80vw] md:w-[40vw] md:mx-0 md:ml-10 space-y-3 mx-auto">
-                    <h1 class="font-neucha text-3xl text-center">
-                        Visite des habitats
-                    </h1>
-                    <p class="font-muli text-center">
-                        Explorez les habitats naturels d'Arcadia lors de nos visites guidées éco-responsables. Découvrez la savane, la jungle, et les marais tout en apprenant sur la faune et la flore locales. Nos guides experts vous feront partager leur passion pour la conservation et vous montreront comment nous aidons à protéger ces écosystèmes précieux. Une expérience enrichissante et respectueuse de l'environnement vous attend !
-                    </p>
-                </div>
-            </div>
+            <% if (services !== 0) { %>
+                <% services.forEach(service => { %>
+                    <div class="container md:flex md:mx-auto">
+                        <div class="h-fit w-fit mx-auto md:ml-10 md:mt-3">
+                            <img src="<%= service.images  %>" class="w-[90vw] md:w-[40vw]" alt="images services Arcadia">
+                        </div>
+                        <div class="mt-3 w-[80vw] md:w-[40vw] md:mx-0 md:ml-10 space-y-3 mx-auto">
+                            <h1 class="font-neucha text-3xl text-center">
+                                <%= service.name  %>
+                            </h1>
+                            <p class="font-muli text-center">
+                                <%= service.description  %>
+                            </p>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } %>
+           
         </div>
     </main>
 

@@ -5,7 +5,7 @@ const animalViewsRouter = express.Router();
 
 
 // Increment the visit count for a specific animal
-animalViewsRouter.get('/visit-animal/:name',async (req, res) => {
+animalViewsRouter.get('/:name',async (req, res) => {
   const name = req.params.name;
   const animal = await Animal.findOneAndUpdate(
     { name: name },

@@ -57,9 +57,10 @@ app.use("/api/v1/healthRecord", healthRecordAPIRouter);
 app.use("/api/v1/visitorReview", visitorReviewAPIRouter);
 app.use("/api/v1/manageEmployeeAccount", manageEmployeeAPIRouter);
 app.use("/api/v1/manageVetrinarianAccount", manageVeterinarianAPIRouter);
-app.use('/api/v1/', animalViewsRouter);
 
-app.use('/test', testRouter);
+app.use('/api/v1/animalCount/', animalViewsRouter);
+
+
 
 //login logout features
 app.use("/api/login", loginRouter);

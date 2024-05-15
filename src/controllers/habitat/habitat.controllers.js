@@ -19,22 +19,18 @@ async function getHabitats(req, res) {
   }
 }
 
-async function getHabitatByID(req, res) {
+async function getHabitatByID(req) {
   try {
-    const id = req.params.id;
-
-    const query = `SELECT * FROM habitat WHERE habitat_id = $1`;
-    const results = await db.query(query, [id]);
-
-    if (results.rows.length === 0) {
-      res.status(404).send("The habitat with this provided ID does not exist");
-      return;
+    const habitatId = req.params.id;
+    const query = 'SELECT * FROM habitat WHERE habitat_id = $1';
+    const { rows } = await db.query(query, [habitatId]);
+    if (rows.length === 0) {
+      throw new Error('Habitat not found');
     }
-
-    return results.rows[0];
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal server error !");
+    return rows[0];
+  } catch (error) {
+    console.error('Error fetching habitat by ID:', error);
+    throw error;
   }
 }
 

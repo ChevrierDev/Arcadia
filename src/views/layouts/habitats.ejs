@@ -42,53 +42,26 @@
                 <div class="container mx-auto">
                     <div class="flex flex-wrap justify-center gap-5">
 
-                        <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
-                            <div class="w-full h-3/5">
-                                <img src="../../../images/lion-swipper.jpg" alt="Photo d'un gorille" class="rounded-t-md w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <h1 class="font-muli text-xl text-center">Savannah Sanctuary</h1>
-                            </div>
-                            <div class="flex items-center justify-center w-full h-1/5">
-                                <a href="/savannah">
-                                    <button class="flex items-center justify-center space-x-3 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
-                                        <p class="font-muli text-sm">Découvrir</p>
-                                    </button>
-                                </a>
-                            </div>
-                        </div>
-                
-                        <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
-                            <div class="w-full h-3/5">
-                                <img src="../../../images/rainforest.jpg" alt="Photo d'un koala" class="rounded-t-md w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <h1 class="font-muli text-xl text-center">Rainforest Retreat</h1>
-                            </div>
-                            <div class="flex items-center justify-center w-full h-1/5">
-                                <a href="/rainforest">
-                                    <button class="flex items-center justify-center space-x-1 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
-                                        <p class="font-muli text-sm">Découvrir</p>
-                                    </button>
-                                </a>
-                            </div>
-                        </div>
-                
-                        <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
-                            <div class="w-full h-3/5">
-                                <img src="../../../images/artic.jpg" alt="Photo d'un ours brun" class="rounded-t-md w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <h1 class="font-muli text-xl text-center">Arctic Adventure</h1>
-                            </div>
-                            <div class="flex items-center justify-center w-full h-1/5">
-                                <a href="/arctic">
-                                    <button class="flex items-center justify-center space-x-1 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
-                                        <p class="font-muli text-sm">Découvrir</p>
-                                    </button>
-                                </a>
-                            </div>
-                        </div>
+                        <% if (habitats) { %>
+                            <% habitats.forEach(habitat => { %>
+                                <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
+                                    <div class="w-full h-3/5">
+                                        <img src="<%= habitat.images %>" alt="Photo habitat" class="rounded-t-md w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h1 class="font-muli text-xl text-center"><%= habitat.name %></h1>
+                                    </div>
+                                    <div class="flex items-center justify-center w-full h-1/5">
+                                        <a href="/habitats/<%= habitat.habitat_id %>">
+                                            <button class="flex items-center justify-center space-x-3 bg-secondary-100 w-36 h-9 md:w-32 rounded-sm text-white hover:text-black hover:bg-secondary-50 hover:scale-95 duration-150 ease-in">
+                                                <p class="font-muli text-sm">Découvrir</p>
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        <% } %>
+
                     </div>
                 </div>
                 

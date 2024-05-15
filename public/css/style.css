@@ -569,23 +569,20 @@ video {
 .right-0{
   right: 0px;
 }
+.right-2{
+  right: 0.5rem;
+}
 .top-0{
   top: 0px;
+}
+.top-2{
+  top: 0.5rem;
 }
 .top-64{
   top: 16rem;
 }
 .top-\[-150px\]{
   top: -150px;
-}
-.right-2{
-  right: 0.5rem;
-}
-.top-1{
-  top: 0.25rem;
-}
-.top-2{
-  top: 0.5rem;
 }
 .z-0{
   z-index: 0;
@@ -1035,8 +1032,8 @@ video {
 .bg-black\/50{
   background-color: rgb(0 0 0 / 0.5);
 }
-.bg-black\/70{
-  background-color: rgb(0 0 0 / 0.7);
+.bg-black\/80{
+  background-color: rgb(0 0 0 / 0.8);
 }
 .bg-gray-50{
   --tw-bg-opacity: 1;
@@ -1068,9 +1065,6 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
-.bg-black\/80{
-  background-color: rgb(0 0 0 / 0.8);
-}
 .object-contain{
   -o-object-fit: contain;
      object-fit: contain;
@@ -1084,9 +1078,6 @@ video {
 }
 .p-4{
   padding: 1rem;
-}
-.p-3{
-  padding: 0.75rem;
 }
 .px-0{
   padding-left: 0px;
@@ -1259,6 +1250,10 @@ video {
   --tw-text-opacity: 1;
   color: rgb(255 181 52 / var(--tw-text-opacity));
 }
+.text-red-500{
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
 .text-red-600{
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
@@ -1266,13 +1261,6 @@ video {
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-.text-red-500{
-  --tw-text-opacity: 1;
-  color: rgb(239 68 68 / var(--tw-text-opacity));
-}
-.bg-blend-saturation{
-  background-blend-mode: saturation;
 }
 .shadow-lg{
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -1292,10 +1280,6 @@ video {
 .outline-none{
   outline: 2px solid transparent;
   outline-offset: 2px;
-}
-.blur-sm{
-  --tw-blur: blur(4px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .duration-150{
   transition-duration: 150ms;
@@ -1426,6 +1410,14 @@ video {
 
   .md\:mt-3{
     margin-top: 0.75rem;
+  }
+
+  .md\:mt-4{
+    margin-top: 1rem;
+  }
+
+  .md\:mt-0{
+    margin-top: 0px;
   }
 
   .md\:block{
