@@ -1,4 +1,5 @@
 const express = require("express");
+const db = require('../../config/db');
 const {
   fetchHealthReportData,
   fetchAnimalsData,
@@ -17,35 +18,53 @@ habitatRouter.get("/", async (req, res) => {
   });
 });
 
-// Render habitat detail
+// Render habitat details
 habitatRouter.get("/:id", async (req, res) => {
   try {
-    const habitatId = req.params.id;
-    const reports = await fetchHealthReportData();
-    const animals = await fetchAnimalsData();
-    const habitat = await getHabitatByID(req);
+      const habitatId = req.params.id;
 
-    // Filter animals by habitat_id
-    const animalsInHabitat = animals.filter(animal => animal.habitat_id === parseInt(habitatId, 10));
+      // Query to get animals with their most recent report
+      const animalsQuery = `
+          SELECT 
+              a.*, 
+              hr.content AS recent_report,
+              hr.date AS report_date
+          FROM 
+              animal a
+          LEFT JOIN LATERAL (
+              SELECT content, date
+              FROM health_record hr
+              WHERE hr.animal_id = a.animal_id
+              ORDER BY hr.date DESC
+              LIMIT 1
+          ) hr ON true
+          WHERE a.habitat_id = $1
+      `;
+      const { rows: animals } = await db.query(animalsQuery, [habitatId]);
 
-    const animalsWithReports = animalsInHabitat.map(animal => {
-      const report = reports.find(report => report.animal_id === animal.animal_id);
-      return { ...animal, report };
-    });
+      // Query to get habitat details
+      const habitatQuery = `
+          SELECT *
+          FROM habitat
+          WHERE habitat_id = $1
+      `;
+      const { rows: [habitat] } = await db.query(habitatQuery, [habitatId]);
 
-    res.render("layouts/habitat-detail", {
-      title: `Découvrez ${habitat.name}.`,
-      animals: animalsWithReports,
-      habitat: habitat
-    });
+      res.render("layouts/habitat-detail", {
+          title: `Découvrez ${habitat.name}.`,
+          animals,
+          habitat
+      });
   } catch (err) {
-    console.log(err);
-    res.render("layouts/habitat-detail", {
-      title: "Découvrez nos habitats.",
-      animals: [],
-      habitat: {}
-    });
+      console.log(err);
+      res.render("layouts/habitat-detail", {
+          title: "Découvrez nos habitats.",
+          animals: [],
+          habitat: {}
+      });
   }
 });
+
+
 
 module.exports = habitatRouter;

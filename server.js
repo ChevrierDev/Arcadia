@@ -12,7 +12,6 @@ const accueilRouter = require("./src/routes/home/accueil.routes");
 const serviceRouter = require("./src/routes/services/services.routes");
 const habitatRouter = require("./src/routes/habitats/habitats.routes");
 const contactRouter = require("./src/routes/contact/contact.routes");
-const savannahRouter = require('./src/routes/savannah/savannah.routes')
 const adminDashboardRouter = require("./src/routes/dashboard/admin/adminDash.routes");
 const employeeDashboardRouter = require("./src/routes/dashboard/employee/employeeDash.routes");
 const veterinarianDashboardRouter = require("./src/routes/dashboard/veterinarian/veterinarianDash.routes");
@@ -28,7 +27,7 @@ const visitorReviewAPIRouter = require("./src/api/v1/visitorReview/visitorReview
 const manageEmployeeAPIRouter = require("./src/api/v1/employee/manageEmployeeAPI.routes");
 const manageVeterinarianAPIRouter = require("./src/api/v1/veterinarian/manageVeterinarianAPI.routes");
 const animalViewsRouter = require('./src/api/v1/animal/animalViewsAPI.routes');
-const testRouter = require('./src/api/v1/animal/animalTest.routes');
+
 
 
 //login & logout router
@@ -40,7 +39,6 @@ app.use("/accueil", accueilRouter);
 app.use("/services", serviceRouter);
 app.use("/habitats", habitatRouter);
 app.use("/contact", contactRouter);
-app.use('/savannah', savannahRouter);
 
 // users dashboards routes
 app.use("/admin", adminDashboardRouter);

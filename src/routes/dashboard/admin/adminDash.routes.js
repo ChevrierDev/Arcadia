@@ -208,23 +208,25 @@ adminDashboardRouter.get('/rapport', checkAuthenticated, checkRole('admin'), asy
   }
 });
 
-//admin render  stats Dashboard
+// admin render stats Dashboard
 adminDashboardRouter.get(
   "/stats",
   checkAuthenticated,
   checkRole("admin"),
   async (req, res) => {
     try {
-      const animals = await Animal.find({});
+      const animals = await Animal.find({}).sort({ visits: -1 }).exec(); 
       res.render("admin/stats", {
         title: "Consulter les vues de vos animaux.",
         animals
       });
     } catch (err) {
       console.error(err);
+      res.status(500).send("Error fetching animal data");
     }
   }
 );
+
 
 //render admin create users dashboard
 adminDashboardRouter.get(
