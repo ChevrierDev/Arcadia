@@ -6,25 +6,28 @@ const serviceRules = () => {
     body("name")
       .isString()
       .notEmpty()
-      .withMessage("You must enter a name.")
+      .withMessage("Vous devez entrer un nom.")
+      .isLength({ min: 10, max: 50 })
       .trim()
       .escape(),
     body("description")
       .isString()
       .notEmpty()
-      .withMessage("You must enter a description.")
+      .withMessage("Vous devez entrer une description.")
+      .isLength({ min: 10, max: 250 })
       .escape(),
   ];
 };
 
-async function validateService(req, res, next) {
+const validateService = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    const errorMessages = errors.array().map((err) => err.msg);
+    req.flash("error_msg", errorMessages);
+    return res.redirect(req.body.redirectTo || "/");
   }
-
   next();
-}
+};
 
 module.exports = {
   serviceRules,

@@ -7,7 +7,9 @@ const {
   updateReview,
   deleteReview,
 } = require("../../../controllers/visitorReview/visitorReview.controllers");
-const { reviewRules, validateReview } = require('../../../middlewares/visitorReviewValidator')
+const { reviewRules, validateReview } = require('../../../middlewares/visitorReviewValidator');
+
+const { checkAuthenticated, checkRole } = require('../../../middlewares/Autorisation/autorisation.middleware');
 
 
 visitorReviewAPIRouter.get('/', getReviews);

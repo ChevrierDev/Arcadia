@@ -10,6 +10,8 @@ const {
 const  { serviceRules, validateService } = require('../../../middlewares/serviceValidator');
 const upload = require("../../../utils/multer.config");
 
+const { checkRole } = require('../../../middlewares/Autorisation/autorisation.middleware');
+
 
 serviceAPIRouter.get("/", getServices);
 serviceAPIRouter.get("/:id", getServicesByID);

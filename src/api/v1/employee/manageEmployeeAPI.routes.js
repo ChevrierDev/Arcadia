@@ -12,6 +12,8 @@ const {
   validateEmployee,
 } = require("../../../middlewares/employeeAccount.validator");
 
+const { checkAuthenticated, checkRole } = require('../../../middlewares/Autorisation/autorisation.middleware');
+
 manageEmployeeAPIRouter.get("/", getEmployeeAccount);
 manageEmployeeAPIRouter.get("/:id", getEmployeeAccountByID);
 manageEmployeeAPIRouter.post("/", employeeRules(), validateEmployee, createEmployeeAccount);

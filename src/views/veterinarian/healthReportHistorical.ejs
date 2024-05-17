@@ -72,7 +72,7 @@
                                 </thead>
                                 
                                 <tbody>
-
+                                    <% if (reports) { %>
                                     <% reports.forEach(report => { %>
                                         <tr class="bg-white border-b">
                                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= report.health_record_id  %></th>
@@ -85,6 +85,11 @@
                                            
                                         </tr>
                                     <% }); %> 
+                                    <% } else {%>
+                                        <div class="container flex items-center justify-center">
+                                            <p class="text-xl font-muli font-bold">Aucun Rapport.</p>
+                                        </div>
+                                        <% } %>
                                    
                                 </tbody>
                             </table>

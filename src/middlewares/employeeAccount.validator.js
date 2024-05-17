@@ -1,5 +1,5 @@
 const { body, validationResult } = require("express-validator");
-const db = require('../config/db');
+const db = require("../config/db");
 
 //defines rules to validate employee form input
 const employeeRules = () => {
@@ -7,18 +7,18 @@ const employeeRules = () => {
     body("first_name")
       .isString()
       .notEmpty()
-      .withMessage("You must enter employee first name.")
+      .withMessage("Vous devez entrer un prénom.")
       .trim()
       .escape(),
     body("last_name")
       .isString()
       .notEmpty()
-      .withMessage("You must enter employee last name.")
+      .withMessage("Vous devez entrer un nom")
       .escape(),
     body("email")
       .isEmail()
       .notEmpty()
-      .withMessage("You must enter employee email.")
+      .withMessage("Vous devez entrer un email")
       .isLength({ min: 10, max: 250 })
       .custom(async (value, { req }) => {
         // custom validation that look if email already register in the DB
@@ -31,14 +31,14 @@ const employeeRules = () => {
           throw new Error("This email address is already registered.");
         }
       })
-      .withMessage("Employee with this adress already exist")
+      .withMessage("Un employer avec cette adresse email existe déjà.")
       .trim(),
     body("password")
       .isString()
       .notEmpty()
       .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{10,}$/)
       .withMessage(
-        "The password must be at least 8 characters long and include at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special symbol."
+        "Votre mot de passe doit contenir au moins 10 caractères, avec au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial."
       )
       .notEmpty()
       .trim(),
@@ -47,20 +47,24 @@ const employeeRules = () => {
       .notEmpty()
       .custom((value, { req }) => {
         if (value !== req.body.password) {
-          throw new Error('Your password does not correspond.');
+          throw new Error("Your password does not correspond.");
         }
-        return true; 
+        return true;
       })
+      .withMessage("Votre mot de passe ne correspond pas."),
   ];
 };
 
-async function validateEmployee(req, res, next) {
+const validateEmployee = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    const errorMessages = errors.array().map((err) => err.msg);
+    req.flash("error_msg", errorMessages);
+    return res.redirect(req.body.redirectTo || "/");
   }
   next();
-}
+};
+
 
 module.exports = {
   employeeRules,

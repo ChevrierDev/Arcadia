@@ -72,7 +72,7 @@
                             <h2 class="font-muli font-semibold">Liste des habitats</h2>
                         </div>
                         <div class="container mx-auto">
-                            <% if (habitats && habitats.length > 0) { %>
+                            <% if (habitats) { %>
                                 <table class="w-full text-sm text-left text-gray-500">
                                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                         <tr>
@@ -90,7 +90,7 @@
                                                 <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= habitat.habitat_id %></th>
                                                 <td class="py-4 px-6 text-nowrap"><%= habitat.name %></td>
                                                 <td class="py-4 px-6 text-nowrap"><%= habitat.description %></td>
-                                                <td class="py-4 px-6"><%= habitat.veterinarian_comment %></td>
+                                                <td class="py-4 px-6 text-nowrap"><%= habitat.veterinarian_comment %></td>
                                                 <% if (habitat.images) { %>
                                                     <td class="py-4 px-6"><%= habitat.images %></td>
                                                 <% } else { %>

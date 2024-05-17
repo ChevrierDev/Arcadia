@@ -7,18 +7,18 @@ const veterinarianRules = () => {
     body("first_name")
       .isString()
       .notEmpty()
-      .withMessage("You must enter veterinarian first name.")
+      .withMessage("Vous devez entrer un prénom.")
       .trim()
       .escape(),
     body("last_name")
       .isString()
       .notEmpty()
-      .withMessage("You must enter veterinarian last name.")
+      .withMessage("Vous devez entrer un nom")
       .escape(),
     body("email")
       .isEmail()
       .notEmpty()
-      .withMessage("You must enter veterinarian email.")
+      .withMessage("Vous devez entrer un email")
       .isLength({ min: 10, max: 250 })
       .custom(async (value, { req }) => {
         // Check if it's an update operation and the email hasn't changed
@@ -37,13 +37,14 @@ const veterinarianRules = () => {
           throw new Error("This email address is already registered.");
         }
       })
+      .withMessage("Un employer avec cette adresse email existe déjà.")
       .trim(),
     body("password")
       .isString()
       .notEmpty()
       .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{10,}$/)
       .withMessage(
-        "The password must be at least 8 characters long and include at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special symbol."
+        "Votre mot de passe doit contenir au moins 10 caractères, avec au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial."
       )
       .trim()
       .custom((value, { req }) => {
@@ -52,16 +53,20 @@ const veterinarianRules = () => {
         }
         return true; 
       })
+      .withMessage("Votre mot de passe ne correspond pas."),
   ];
 };
 
-async function validateVeterinarian(req, res, next) {
+const validateVeterinarian = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    const errorMessages = errors.array().map((err) => err.msg);
+    req.flash("error_msg", errorMessages);
+    return res.redirect(req.body.redirectTo || "/");
   }
   next();
-}
+};
+
 
 module.exports = {
   veterinarianRules,

@@ -5,39 +5,36 @@ const foodRules = () => {
     body("name")
       .isString()
       .notEmpty()
-      .withMessage("You must enter a food name.")
+      .withMessage("Vous devez entrer un nom.")
       .trim()
       .escape(),
     body("type")
       .isString()
       .notEmpty()
-      .withMessage("You must enter a type name.")
+      .withMessage("Vous devez entrer un type.")
       .trim()
       .escape(),
     body("quantity")
-      .isInt()
-      .withMessage('Value must be a int.')
+      .isInt({ min: 1 })
+      .withMessage('La valeur doit être un entier supérieur à 1.')
       .notEmpty()
-      .withMessage("You must enter a food quantity.")
-      .trim()
-      .escape(),
+      .withMessage("Vous devez entrer une quantité.")
+      .toInt(),
   ];
 };
 
-const validateFood = async (req, res, next) => {
+
+const validateFood = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(404).json({ errors: errors.array() });
+    const errorMessages = errors.array().map((err) => err.msg);
+    req.flash("error_msg", errorMessages);
+    return res.redirect(req.body.redirectTo || "/");
   }
+  next();
+};
 
-  try {
-    const { name, type, quantity } = req.body;
-    next();
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal server error !");
-  }
-}
+
 
 module.exports = {
   foodRules,

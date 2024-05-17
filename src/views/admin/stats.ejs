@@ -82,14 +82,18 @@
                                 </thead>
 
                                     <tbody>
+                                        <% if (animals) { %>
                                         <% animals.forEach(animal => { %>
                                             <tr class="bg-white border-b">
                                                 <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                                    <button onclick="visitAnimal('<%= animal.name %>')"><%= animal.name %></button>
+                                                   <%= animal.name %>
                                                 </th>
                                                 <td class="py-4 px-6"><%= animal.visits %></td>     
                                             </tr>
                                         <% }) %>
+                                        <% } else { %>
+                                            <h1>Aucun animal.</h1>
+                                        <% } %> 
                                     </tbody>
                             </table>
                         </div>

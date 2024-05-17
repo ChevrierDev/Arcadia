@@ -7,15 +7,17 @@ const {
   updateFood,
   deleteFood,
 } = require("../../../controllers/food/food.controllers");
-const {   foodRules, validateFood } = require('../../../middlewares/foodValidator')
+const {
+  foodRules,
+  validateFood,
+} = require("../../../middlewares/foodValidator");
 
+const { checkAuthenticated, checkRole } = require('../../../middlewares/Autorisation/autorisation.middleware');
 
-foodRouter.get('/', getFoods);
-foodRouter.get('/:id', getFoodByID);
-foodRouter.post('/', foodRules(), validateFood, postFood);
-foodRouter.put('/:id', foodRules(), validateFood, updateFood);
-foodRouter.delete('/:id', deleteFood);
-
-
+foodRouter.get("/", getFoods);
+foodRouter.get("/:id", getFoodByID);
+foodRouter.post("/", foodRules(), validateFood, postFood);
+foodRouter.put("/:id", foodRules(), validateFood, updateFood);
+foodRouter.delete("/:id", deleteFood);
 
 module.exports = foodRouter;

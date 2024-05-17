@@ -12,7 +12,9 @@ const {
   validateVeterinarian,
 } = require("../../../middlewares/veterinarianAccount");
 
-manageVeterinarianAPIRouter.get("/", getVeterinarianAccount);
+const { checkAuthenticated, checkRole } = require('../../../middlewares/Autorisation/autorisation.middleware');
+
+manageVeterinarianAPIRouter.get("/",  getVeterinarianAccount);
 manageVeterinarianAPIRouter.get("/:id", getVeterinarianAccountByID);
 manageVeterinarianAPIRouter.post("/", veterinarianRules(), validateVeterinarian, createVeterinarianAccount);
 manageVeterinarianAPIRouter.put("/:id", veterinarianRules(), validateVeterinarian, UpdateVeterinarianAccount);
