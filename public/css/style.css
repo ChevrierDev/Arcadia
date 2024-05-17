@@ -1540,6 +1540,10 @@ video {
     height: 60%;
   }
 
+  .md\:h-\[0\%\]{
+    height: 0%;
+  }
+
   .md\:min-h-\[15vh\]{
     min-height: 15vh;
   }
