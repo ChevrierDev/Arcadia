@@ -1,13 +1,11 @@
 const express = require('express');
 const logoutRouter = express.Router();
 
-// deconnection routes
+// Handle logout request
 logoutRouter.post('/', (req, res) => {
     console.log("Déconnection wanted");
-    res.clearCookie('token');
-    res.redirect('/accueil');
+    res.clearCookie('token'); // Clear the JWT cookie
+    res.redirect('/accueil'); 
 });
-
-
 
 module.exports = logoutRouter;

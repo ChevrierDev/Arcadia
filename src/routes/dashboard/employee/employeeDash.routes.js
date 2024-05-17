@@ -16,20 +16,14 @@ const {
   fetchAnimalsData,
 } = require("../../../utils/apiClient");
 
-//get reviews controllers
+// Controllers
 const {
-  getReviewByID,
-  postReview,
   updateReview,
   deleteReview,
 } = require("../../../controllers/visitorReview/visitorReview.controllers");
 
 const {
-  getAnimals,
   getAnimalByID,
-  postAnimal,
-  updateAnimal,
-  deleteAnimal,
 } = require("../../../controllers/animal/animal.controllers");
 
 const {
@@ -39,9 +33,19 @@ const {
   deleteServices,
 } = require("../../../controllers/services/services.controllers");
 
+const {
+  consommationRules,
+  validateConsommation,
+} = require("../../../middlewares/consommationValidator");
+
+const {
+  serviceRules,
+  validateService,
+} = require("../../../middlewares/serviceValidator");
+
 const decodeData = require("../../../utils/decodeData");
 
-//render employee dashboard
+// Render employee dashboard
 employeeDashboardRouter.get(
   "/dashboard",
   checkAuthenticated,
@@ -52,7 +56,7 @@ employeeDashboardRouter.get(
       const reviews = await fetchReviewsData();
       const decodedReviews = decodeData(reviews);
       res.render("employee/employeeDashboard", {
-        title: "Votre espace employer.",
+        title: "Votre espace employé.",
         user: req.user.details,
         reviews: decodedReviews,
       });
@@ -63,7 +67,7 @@ employeeDashboardRouter.get(
   }
 );
 
-//render employee service management
+// Render employee service management
 employeeDashboardRouter.get(
   "/services",
   checkAuthenticated,
@@ -72,10 +76,11 @@ employeeDashboardRouter.get(
   async (req, res) => {
     try {
       const services = await fetchServicesData();
+      const decodedServices = decodeData(services);
       res.render("employee/services", {
         title: "Gestion des services du zoo.",
         user: req.user.details,
-        services: services,
+        services: decodedServices,
       });
     } catch (error) {
       console.error("Error rendering the dashboard:", error);
@@ -84,7 +89,7 @@ employeeDashboardRouter.get(
   }
 );
 
-//render employee Consumption management
+// Render employee consumption management
 employeeDashboardRouter.get(
   "/reportAlimentation",
   checkAuthenticated,
@@ -105,7 +110,7 @@ employeeDashboardRouter.get(
   }
 );
 
-//render employee service post
+// Render employee service post page
 employeeDashboardRouter.get(
   "/poster-service",
   checkAuthenticated,
@@ -113,9 +118,12 @@ employeeDashboardRouter.get(
   enrichUserWithInfo,
   async (req, res) => {
     try {
+      const serviceError = req.flash("error_msg");
       res.render("employee/postService", {
-        title: "Poster un nouveau services.",
+        title: "Poster un nouveau service.",
         user: req.user.details,
+        redirectTo: req.originalUrl,
+        errors: serviceError,
       });
     } catch (error) {
       console.error("Error rendering the dashboard:", error);
@@ -124,7 +132,7 @@ employeeDashboardRouter.get(
   }
 );
 
-//employee render update post page
+// Render employee service update page
 employeeDashboardRouter.get(
   "/modifier-services/:id",
   checkAuthenticated,
@@ -133,10 +141,13 @@ employeeDashboardRouter.get(
   async (req, res) => {
     try {
       const services = await getServicesByID(req);
+      const serviceError = req.flash("error_msg");
       res.render("employee/updateService", {
-        title: "modifier un  services.",
+        title: "Modifier un service.",
         services: services,
         user: req.user.details,
+        redirectTo: req.originalUrl,
+        errors: serviceError,
       });
     } catch (error) {
       console.error("Error rendering the dashboard:", error);
@@ -145,7 +156,7 @@ employeeDashboardRouter.get(
   }
 );
 
-//employee render post Consumption
+// Render employee post consumption page
 employeeDashboardRouter.get(
   "/nourrir-animal/:id",
   checkAuthenticated,
@@ -154,14 +165,17 @@ employeeDashboardRouter.get(
   async (req, res) => {
     try {
       const animals = await getAnimalByID(req);
+      const consumptionError = req.flash("error_msg");
       const foods = await db.query(
         "SELECT food_id, name, quantity FROM food WHERE quantity > 0;"
       );
       res.render("employee/postConsommation", {
-        title: "Nourrir un  animal.",
+        title: "Nourrir un animal.",
         animals: animals,
         user: req.user.details,
         foods: foods.rows,
+        redirectTo: req.originalUrl,
+        errors: consumptionError,
       });
     } catch (error) {
       console.error("Error rendering the dashboard:", error);
@@ -170,12 +184,14 @@ employeeDashboardRouter.get(
   }
 );
 
-//employee post new service
+// Employee post new service
 employeeDashboardRouter.post(
   "/post-services",
   checkAuthenticated,
   checkRole("employee"),
   upload.single("images"),
+  serviceRules(),
+  validateService,
   async (req, res) => {
     try {
       await postServices(req);
@@ -189,20 +205,22 @@ employeeDashboardRouter.post(
   }
 );
 
-//employee post Consumption transaction
+// Employee post consumption transaction
 employeeDashboardRouter.post(
   "/post-consommation",
   checkAuthenticated,
   checkRole("employee"),
+  consommationRules(),
+  validateConsommation,
   async (req, res) => {
     const { grammage, animal_id, employee_id, food_id } = req.body;
     try {
       await db.query("BEGIN");
 
       const insertConsumption = `
-              INSERT INTO consommation (date, heure, grammage, animal_id, employee_id, food_id)
-              VALUES (CURRENT_DATE, CURRENT_TIME, $1, $2, $3, $4);
-          `;
+        INSERT INTO consommation (date, heure, grammage, animal_id, employee_id, food_id)
+        VALUES (CURRENT_DATE, CURRENT_TIME, $1, $2, $3, $4);
+      `;
       await db.query(insertConsumption, [
         grammage,
         animal_id,
@@ -211,12 +229,12 @@ employeeDashboardRouter.post(
       ]);
 
       const updateFood = `
-              UPDATE food SET quantity = quantity - $1 WHERE food_id = $2;
-          `;
+        UPDATE food SET quantity = quantity - $1 WHERE food_id = $2;
+      `;
       await db.query(updateFood, [grammage, food_id]);
 
       await db.query("COMMIT");
-      res.redirect("/employee/reportAlimentation?success=Consumption Recorded");
+      res.redirect("/employee/reportAlimentation?success=ConsumptionRecorded");
     } catch (error) {
       await db.query("ROLLBACK");
       console.error("Failed to record consumption:", error);
@@ -225,9 +243,7 @@ employeeDashboardRouter.post(
   }
 );
 
-
-
-//update by approved review
+// Update approved review
 employeeDashboardRouter.put(
   "/dashboard/:id",
   checkAuthenticated,
@@ -237,18 +253,20 @@ employeeDashboardRouter.put(
       await updateReview(req);
       res.redirect("/employee/dashboard");
     } catch (err) {
-      console.log("error while updating review.");
+      console.log("Error while updating review.");
       res.status(500).send("Internal server error.");
     }
   }
 );
 
-//employee update service feature
+// Employee update service
 employeeDashboardRouter.put(
   "/modifier-services/:id",
   checkAuthenticated,
   checkRole("employee"),
   upload.single("images"),
+  serviceRules(),
+  validateService,
   async (req, res) => {
     try {
       await updateServices(req, res);
@@ -260,7 +278,7 @@ employeeDashboardRouter.put(
   }
 );
 
-//delete service
+// Delete service
 employeeDashboardRouter.delete(
   "/services/:id",
   checkAuthenticated,
@@ -276,7 +294,7 @@ employeeDashboardRouter.delete(
   }
 );
 
-//delete review
+// Delete review
 employeeDashboardRouter.delete(
   "/review/:id",
   checkAuthenticated,
@@ -284,7 +302,7 @@ employeeDashboardRouter.delete(
   async (req, res) => {
     try {
       await deleteReview(req);
-      res.redirect("/employee/dashboard?success=serviceDeleted");
+      res.redirect("/employee/dashboard?success=reviewDeleted");
     } catch (err) {
       console.error("Error deleting reviews data: ", err);
       res.status(500).send("Internal server error");

@@ -7,6 +7,7 @@ const {
   checkAuthenticated,
   checkRole,
 } = require("../../../middlewares/Autorisation/autorisation.middleware");
+
 const {
   fetchEmployeeData,
   fetchVeterinarianData,
@@ -14,24 +15,21 @@ const {
   fetchHabitatData,
   fetchAnimalsData,
   fetchFoodData,
-  fetchHealthReportData
+  fetchHealthReportData,
 } = require("../../../utils/apiClient");
 
-//vet controllers
 const {
   createVeterinarianAccount,
   getVeterinarianAccountByID,
   UpdateVeterinarianAccount,
 } = require("../../../controllers/veterinarian/createVeterinarian.controllers");
 
-//employee controller
 const {
   getEmployeeAccountByID,
   UpdateEmployeeAccount,
   createEmployeeAccount,
 } = require("../../../controllers/employee/manageEmployeeAccount");
 
-//services controllers
 const {
   getServicesByID,
   postServices,
@@ -59,9 +57,9 @@ const {
   postFood,
   updateFood,
   deleteFood,
-} = require('../../../controllers/food/food.controllers')
+} = require('../../../controllers/food/food.controllers');
 
-//render admin dashboard
+// Render admin dashboard
 adminDashboardRouter.get(
   "/dashboard",
   checkAuthenticated,
@@ -72,19 +70,17 @@ adminDashboardRouter.get(
       const vets = await fetchVeterinarianData();
       res.render("admin/adminDashboard", {
         title: "Votre espace personnel",
-        employees: employees,
-        vets: vets,
+        employees,
+        vets,
       });
     } catch (error) {
       console.error("Erreur lors de la récupération des employés: ", error);
-      res
-        .status(500)
-        .send("Erreur lors de la récupération des données des employés.");
+      res.status(500).send("Erreur lors de la récupération des données des employés.");
     }
   }
 );
 
-//admin render services Dashboard
+// Render services dashboard
 adminDashboardRouter.get(
   "/services",
   checkAuthenticated,
@@ -94,11 +90,11 @@ adminDashboardRouter.get(
       const services = await fetchServicesData();
       res.render("admin/services", {
         title: "Liste des services disponibles",
-        services: services,
+        services,
       });
     } catch (err) {
-      console.log(err)
-      res.render("admin/services", {
+      console.error(err);
+      res.status(500).render("admin/services", {
         title: "Liste des services disponibles",
         services: [],
       });
@@ -106,7 +102,7 @@ adminDashboardRouter.get(
   }
 );
 
-//admin render animals Dashboard
+// Render animals dashboard
 adminDashboardRouter.get(
   "/animaux",
   checkAuthenticated,
@@ -115,17 +111,17 @@ adminDashboardRouter.get(
     try {
       const animals = await fetchAnimalsData();
       res.render("admin/animaux", {
-        title: "Liste des animaux.",
-        animals: animals,
+        title: "Liste des animaux",
+        animals,
       });
     } catch (err) {
       console.error(err);
-      res.status(500).send("Error fetching service data");
+      res.status(500).send("Error fetching animal data");
     }
   }
 );
 
-// Admin render habitats Dashboard
+// Render habitats dashboard
 adminDashboardRouter.get(
   "/habitats",
   checkAuthenticated,
@@ -135,7 +131,7 @@ adminDashboardRouter.get(
       const habitats = await fetchHabitatData();
       res.render("admin/habitats", {
         title: "Liste des habitats",
-        habitats: habitats,
+        habitats,
       });
     } catch (err) {
       console.error(err);
@@ -148,7 +144,7 @@ adminDashboardRouter.get(
   }
 );
 
-//admin render foods Dashboard
+// Render food dashboard
 adminDashboardRouter.get(
   "/food",
   checkAuthenticated,
@@ -157,68 +153,72 @@ adminDashboardRouter.get(
     try {
       const foods = await fetchFoodData();
       res.render("admin/food", {
-        title: "Nourriture disponible dans le zoo.",
-        foods: foods,
+        title: "Nourriture disponible dans le zoo",
+        foods,
       });
     } catch (err) {
       console.error(err);
-      res.status(500).send("Error fetching service data");
+      res.status(500).send("Error fetching food data");
     }
   }
 );
 
-// Render vet report Dashboard
-adminDashboardRouter.get('/rapport', checkAuthenticated, checkRole('admin'), async (req, res) => {
-  try {
-    const { startDate, endDate, animalName, ajax } = req.query;
+// Render vet report dashboard
+adminDashboardRouter.get(
+  "/rapport",
+  checkAuthenticated,
+  checkRole("admin"),
+  async (req, res) => {
+    try {
+      const { startDate, endDate, animalName, ajax } = req.query;
+      let reports = await fetchHealthReportData();
+      const animals = await fetchAnimalsData();
 
-    let reports = await fetchHealthReportData();
-    const animals = await fetchAnimalsData();
+      // Filter reports by date
+      if (startDate && endDate) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        start.setHours(0, 0, 0, 0);
+        end.setHours(23, 59, 59, 999);
 
-    // Filter reports by date
-    if (startDate && endDate) {
-      const start = new Date(startDate);
-      const end = new Date(endDate);
-      start.setHours(0, 0, 0, 0);
-      end.setHours(23, 59, 59, 999);
+        reports = reports.filter(report => {
+          const reportDate = new Date(report.date);
+          return reportDate >= start && reportDate <= end;
+        });
+      }
 
-      reports = reports.filter(report => {
-        const reportDate = new Date(report.date);
-        return reportDate >= start && reportDate <= end;
-      });
+      // Filter reports by animal name
+      if (animalName) {
+        reports = reports.filter(report => report.animal_name === animalName);
+      }
+
+      if (ajax) {
+        res.render("admin/partials/vetReportTable", { reports });
+      } else {
+        res.render("admin/vetReport", {
+          title: "Rapport vétérinaire",
+          reports,
+          animals,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error fetching report data");
     }
-
-    // Filter reports by animal name
-    if (animalName) {
-      reports = reports.filter(report => report.animal_name === animalName);
-    }
-
-    if (ajax) {
-      res.render('admin/partials/vetReportTable', { reports });
-    } else {
-      res.render('admin/vetReport', {
-        title: 'Rapport vétérinaire.',
-        reports: reports,
-        animals: animals,
-      });
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Error fetching report data');
   }
-});
+);
 
-// admin render stats Dashboard
+// Render stats dashboard
 adminDashboardRouter.get(
   "/stats",
   checkAuthenticated,
   checkRole("admin"),
   async (req, res) => {
     try {
-      const animals = await Animal.find({}).sort({ visits: -1 }).exec(); 
+      const animals = await Animal.find({}).sort({ visits: -1 }).exec();
       res.render("admin/stats", {
-        title: "Consulter les vues de vos animaux.",
-        animals
+        title: "Consulter les vues de vos animaux",
+        animals,
       });
     } catch (err) {
       console.error(err);
@@ -227,8 +227,7 @@ adminDashboardRouter.get(
   }
 );
 
-
-//render admin create users dashboard
+// Render create user dashboard
 adminDashboardRouter.get(
   "/dashboard/create-users",
   checkAuthenticated,
@@ -236,15 +235,15 @@ adminDashboardRouter.get(
   async (req, res) => {
     try {
       res.render("admin/createUserDash", {
-        title: "Créer un utilisateur.",
+        title: "Créer un utilisateur",
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 );
 
-//admin render post new services
+// Render post new service
 adminDashboardRouter.get(
   "/dashboard/post-services",
   checkAuthenticated,
@@ -252,15 +251,15 @@ adminDashboardRouter.get(
   async (req, res) => {
     try {
       res.render("admin/postServices", {
-        title: "Poster un nouveau services.",
+        title: "Poster un nouveau service",
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 );
 
-//admin render post new habitat
+// Render post new habitat
 adminDashboardRouter.get(
   "/post-habitat",
   checkAuthenticated,
@@ -268,27 +267,27 @@ adminDashboardRouter.get(
   async (req, res) => {
     try {
       res.render("admin/postHabitats", {
-        title: "Poster un nouvel habitat.",
+        title: "Poster un nouvel habitat",
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 );
 
-//admin render post new animal
+// Render post new animal
 adminDashboardRouter.get(
   "/post-animal",
   checkAuthenticated,
   checkRole("admin"),
   async (req, res) => {
     try {
-      const habitats = await fetchHabitatData()
+      const habitats = await fetchHabitatData();
       res.render("admin/postAnimals", {
-        title: "Poster un nouvel animal.",
-        habitats:habitats
+        title: "Poster un nouvel animal",
+        habitats,
       });
-    } catch (err) {      
+    } catch (err) {
       console.error(err);
       res.status(500).render("admin/postAnimals", {
         title: "Liste des habitats",
@@ -299,7 +298,7 @@ adminDashboardRouter.get(
   }
 );
 
-//admin render post new food
+// Render post new food
 adminDashboardRouter.get(
   "/post-foods",
   checkAuthenticated,
@@ -307,17 +306,15 @@ adminDashboardRouter.get(
   async (req, res) => {
     try {
       res.render("admin/postFood", {
-        title: "Ajouter de la nourriture.",
+        title: "Ajouter de la nourriture",
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 );
 
-
-
-//admin render update user employee features
+// Render update employee page
 adminDashboardRouter.get(
   "/dashboard/update-users/:id",
   checkAuthenticated,
@@ -330,16 +327,16 @@ adminDashboardRouter.get(
       }
       res.render("admin/updateUser", {
         title: "Modifier les informations de l'utilisateur",
-        employee: employee,
+        employee,
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(500).send("Error fetching employee data");
     }
   }
 );
 
-//admin render update-vet feature
+// Render update vet page
 adminDashboardRouter.get(
   "/dashboard/update-vet/:id",
   checkAuthenticated,
@@ -347,19 +344,18 @@ adminDashboardRouter.get(
   async (req, res) => {
     try {
       const vet = await getVeterinarianAccountByID(req, res);
-      console.log(vet);
       res.render("admin/updateVet", {
         title: "Modifier les informations du vétérinaire",
-        vet: vet,
+        vet,
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(500).send("Error fetching vet data");
     }
   }
 );
 
-//admin render update service
+// Render update service page
 adminDashboardRouter.get(
   "/modifier-services/:id",
   checkAuthenticated,
@@ -367,19 +363,18 @@ adminDashboardRouter.get(
   async (req, res) => {
     try {
       const services = await getServicesByID(req, res);
-      console.log(services);
       res.render("admin/updateServices", {
-        title: "Modifier les informations du services.",
-        services: services,
+        title: "Modifier les informations du service",
+        services,
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(500).send("Error fetching services data");
     }
   }
 );
 
-//admin render update habitat
+// Render update habitat page
 adminDashboardRouter.get(
   "/modifier-habitat/:id",
   checkAuthenticated,
@@ -387,19 +382,18 @@ adminDashboardRouter.get(
   async (req, res) => {
     try {
       const habitats = await getHabitatByID(req, res);
-      console.log(habitats);
       res.render("admin/updateHabitats", {
-        title: "Modifier l'habitat.",
-        habitats: habitats,
+        title: "Modifier l'habitat",
+        habitats,
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(500).send("Error fetching habitats data");
     }
   }
 );
 
-//admin render update animal
+// Render update animal page
 adminDashboardRouter.get(
   "/animal/:id",
   checkAuthenticated,
@@ -407,19 +401,18 @@ adminDashboardRouter.get(
   async (req, res) => {
     try {
       const animals = await getAnimalByID(req, res);
-      console.log(animals);
       res.render("admin/updateAnimals", {
-        title: "Modifier l'animal.",
-        animals: animals,
+        title: "Modifier l'animal",
+        animals,
       });
     } catch (err) {
-      console.log(err);
-      res.status(500).send("Error fetching habitats data");
+      console.error(err);
+      res.status(500).send("Error fetching animal data");
     }
   }
 );
 
-//admin render update food
+// Render update food page
 adminDashboardRouter.get(
   "/modifier-foods/:id",
   checkAuthenticated,
@@ -427,19 +420,18 @@ adminDashboardRouter.get(
   async (req, res) => {
     try {
       const foods = await getFoodByID(req, res);
-      console.log(foods);
       res.render("admin/updateFood", {
-        title: "Modifier l'aliment.",
-        foods: foods,
+        title: "Modifier l'aliment",
+        foods,
       });
     } catch (err) {
-      console.log(err);
-      res.status(500).send("Error fetching habitats data");
+      console.error(err);
+      res.status(500).send("Error fetching food data");
     }
   }
 );
 
-// admin create employee features
+// Admin create employee
 adminDashboardRouter.post(
   "/dashboard/create-employee",
   checkAuthenticated,
@@ -449,13 +441,13 @@ adminDashboardRouter.post(
       await createEmployeeAccount(req, res);
       res.redirect("/admin/dashboard?success=employeeCreated");
     } catch (err) {
-      console.error("Error while creating employee : ", err);
+      console.error("Error while creating employee: ", err);
       res.status(500).send("Internal server error");
     }
   }
 );
 
-// Admin create veterinarian feature
+// Admin create veterinarian
 adminDashboardRouter.post(
   "/dashboard/create-veterinarian",
   checkAuthenticated,
@@ -465,13 +457,13 @@ adminDashboardRouter.post(
       await createVeterinarianAccount(req, res);
       res.redirect("/admin/dashboard?success=veterinarianCreated");
     } catch (err) {
-      console.error("Error while creating veterinarian : ", err);
+      console.error("Error while creating veterinarian: ", err);
       res.status(500).send("Internal server error");
     }
   }
 );
 
-// Admin post services feature
+// Admin post new service
 adminDashboardRouter.post(
   "/dashboard/post-services",
   checkAuthenticated,
@@ -480,13 +472,10 @@ adminDashboardRouter.post(
   async (req, res) => {
     try {
       await postServices(req);
-
       res.redirect("/admin/services?success=servicePosted");
     } catch (err) {
       console.error("Erreur lors de la publication du service :", err.message);
-      res
-        .status(500)
-        .send("Une erreur est survenue lors de la publication du service.");
+      res.status(500).send("Une erreur est survenue lors de la publication du service.");
     }
   }
 );
@@ -500,17 +489,15 @@ adminDashboardRouter.post(
   async (req, res) => {
     try {
       await postHabitat(req);
-      res.redirect("/admin/habitats?success=servicePosted");
+      res.redirect("/admin/habitats?success=habitatPosted");
     } catch (err) {
-      console.error("Erreur lors de la publication du service :", err.message);
-      res
-        .status(500)
-        .send("Internal server error.");
+      console.error("Erreur lors de la publication de l'habitat :", err.message);
+      res.status(500).send("Internal server error.");
     }
   }
 );
 
-//admin post new Animals
+// Admin post new animal
 adminDashboardRouter.post(
   "/post-animal",
   checkAuthenticated,
@@ -521,34 +508,29 @@ adminDashboardRouter.post(
       await postAnimal(req);
       res.redirect("/admin/animaux?success=animalPosted");
     } catch (err) {
-      console.error("Error while posting new animals :", err.message);
-      res
-        .status(500)
-        .send("Internal server error.");
+      console.error("Erreur lors de la publication de l'animal :", err.message);
+      res.status(500).send("Internal server error.");
     }
   }
 );
 
-//admin post food
+// Admin post new food
 adminDashboardRouter.post(
   "/post-foods",
   checkAuthenticated,
   checkRole("admin"),
   async (req, res) => {
     try {
-      console.log(req.body)
       await postFood(req);
       res.redirect("/admin/food?success=foodPosted");
     } catch (err) {
-      console.error("Error while posting new foods :", err.message);
-      res
-        .status(500)
-        .send("Internal server error.");
+      console.error("Erreur lors de la publication de la nourriture :", err.message);
+      res.status(500).send("Internal server error.");
     }
   }
 );
 
-// admin put update veterinarian features
+// Admin update veterinarian
 adminDashboardRouter.put(
   "/dashboard/update-users/:id",
   checkAuthenticated,
@@ -557,22 +539,19 @@ adminDashboardRouter.put(
     try {
       await UpdateVeterinarianAccount(req);
     } catch (err) {
-      console.error("Error updating employee data: ", err);
+      console.error("Error updating veterinarian data: ", err);
       res.status(500).send("Internal server error");
     }
   }
 );
 
-// admin put update users features
+// Admin update employee
 adminDashboardRouter.put(
   "/dashboard/update-users/:id",
   checkAuthenticated,
   checkRole("admin"),
   async (req, res) => {
     try {
-      if (!req.body) {
-        return res.status(400).send("No data sent to the server.");
-      }
       await UpdateEmployeeAccount(req);
     } catch (err) {
       console.error("Error updating employee data: ", err);
@@ -581,7 +560,7 @@ adminDashboardRouter.put(
   }
 );
 
-// admin put update services features
+// Admin update service
 adminDashboardRouter.put(
   "/modifier-services/:id",
   checkAuthenticated,
@@ -589,8 +568,6 @@ adminDashboardRouter.put(
   upload.single("images"),
   async (req, res) => {
     try {
-      console.log(req.body);
-      console.log(req.file);
       await updateServices(req);
       res.redirect("/admin/services");
     } catch (err) {
@@ -600,7 +577,7 @@ adminDashboardRouter.put(
   }
 );
 
-//admin update habitat feature
+// Admin update habitat
 adminDashboardRouter.put(
   "/modifier-habitat/:id",
   checkAuthenticated,
@@ -617,7 +594,7 @@ adminDashboardRouter.put(
   }
 );
 
-//admin update animal feature
+// Admin update animal
 adminDashboardRouter.put(
   "/modifier-animal/:id",
   checkAuthenticated,
@@ -634,7 +611,7 @@ adminDashboardRouter.put(
   }
 );
 
-//admin update food feature
+// Admin update food
 adminDashboardRouter.put(
   "/modifier-food/:id",
   checkAuthenticated,
@@ -650,7 +627,7 @@ adminDashboardRouter.put(
   }
 );
 
-//delete service
+// Delete service
 adminDashboardRouter.delete(
   "/services/:id",
   checkAuthenticated,
@@ -666,14 +643,14 @@ adminDashboardRouter.delete(
   }
 );
 
-//delete Habitat feature
+// Delete habitat
 adminDashboardRouter.delete(
   "/habitats/:id",
   checkAuthenticated,
   checkRole("admin"),
   async (req, res) => {
     try {
-      await deleteHabitat(req, res);
+      await deleteHabitat(req);
       res.redirect("/admin/habitats?success=habitatDeleted");
     } catch (err) {
       console.error("Error deleting habitat data: ", err);
@@ -682,14 +659,14 @@ adminDashboardRouter.delete(
   }
 );
 
-//delete animal feature
+// Delete animal
 adminDashboardRouter.delete(
   "/animal/:id",
   checkAuthenticated,
   checkRole("admin"),
   async (req, res) => {
     try {
-      await deleteAnimal(req, res);
+      await deleteAnimal(req);
       res.redirect("/admin/animaux?success=animalDeleted");
     } catch (err) {
       console.error("Error deleting animal data: ", err);
@@ -698,14 +675,14 @@ adminDashboardRouter.delete(
   }
 );
 
-//delete food feature
+// Delete food
 adminDashboardRouter.delete(
   "/delete/:id",
   checkAuthenticated,
   checkRole("admin"),
   async (req, res) => {
     try {
-      await deleteFood(req, res);
+      await deleteFood(req);
       res.redirect("/admin/food?success=foodDeleted");
     } catch (err) {
       console.error("Error deleting food data: ", err);

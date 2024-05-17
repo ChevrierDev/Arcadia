@@ -84,6 +84,7 @@
                                 </thead>
                                 
                                 <tbody>
+                                    <% if (employees) { %>
                                     
                                     <% employees.forEach(employee => { %>
                                         <tr class="bg-white border-b">
@@ -99,6 +100,11 @@
                                             </td>
                                         </tr>
                                     <% }); %> 
+                                    <% } else { %>
+                                        <div class="flex items-center justify-center mt-10">
+                                            <h1 class="text-2xl font-muli font-bold text-red-500">Aucun Employer</h1>
+                                        </div>
+                                    <% } %>
                                    
                                 </tbody>
                             </table>
@@ -121,7 +127,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    <% if (vets) { %>
                                     <% vets.forEach(vet => { %>
                                         <tr class="bg-white border-b">
                                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%=vet.veterinarian_id  %></th>
@@ -137,6 +143,11 @@
                                        
                                         </tr>
                                     <% }); %> 
+                                    <% } else { %>
+                                        <div class="flex items-center justify-center mt-10">
+                                            <h1 class="text-2xl font-muli font-bold text-red-500">Aucun Vétérinaire</h1>
+                                        </div>
+                                    <% } %>
 
                                 </tbody>
                             </table>

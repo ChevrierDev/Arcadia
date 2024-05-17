@@ -8,7 +8,7 @@
 </head>
 <body class="min-h-screen bg-primary-100 overflow-x-hidden">
 
-    <!-- hero offers content section -->
+    <!-- hero veterinarian content section -->
     <main class="min-h-full ">
         <div class="flex h-full p-4">
 
@@ -58,6 +58,9 @@
                             <h2 class="font-muli font-semibold">Liste des animaux</h2>
                         </div>
                         <div class="p-4">
+                            <% if (animals) { %>
+                             
+                            <% } %>
                             <table class="w-full text-sm text-left text-gray-500">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                     <tr>
@@ -69,20 +72,25 @@
                                     </tr>
                                 </thead>
                                 
-                                <tbody>
-
-                                    <% animals.forEach(animal => { %>
-                                        <tr class="bg-white border-b">
-                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= animal.animal_id  %></th>
-                                            <td class="py-4 px-6"><%=animal.name  %></td>
-                                            <td class="py-4 px-6"><%=animal.race  %></td>                     
-                                            <td class="py-4 px-6 text-nowrap"><%=animal.habitat_name  %></td>                       
-                                            <td class="py-4 px-6 flex flex-col items-center justify-center space-y-1 md:flex-row md:space-y-0">
-                                            <a href="/veterinarian/healthReport/<%= animal.animal_id %>" class="font-medium text-blue-600 hover:underline">rapport</a>
-                                            </td>
-                                        </tr>
-                                    <% }); %> 
-                                   
+                                <tbody> 
+                                    <% if (animals) { %>
+                                        <% animals.forEach(animal => { %>
+                                            <tr class="bg-white border-b">
+                                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= animal.animal_id  %></th>
+                                                <td class="py-4 px-6"><%=animal.name  %></td>
+                                                <td class="py-4 px-6"><%=animal.race  %></td>                     
+                                                <td class="py-4 px-6 text-nowrap"><%=animal.habitat_name  %></td>                       
+                                                <td class="py-4 px-6 flex flex-col items-center justify-center space-y-1 md:flex-row md:space-y-0">
+                                                <a href="/veterinarian/healthReport/<%= animal.animal_id %>" class="font-medium text-blue-600 hover:underline">rapport</a>
+                                                </td>
+                                            </tr>
+                                        <% }); %> 
+                                     
+                                    <% } else {%>
+                                        <div class="container flex items-center justify-center">
+                                            <p class="text-xl font-muli font-bold">Aucun animals dans le zoo.</p>
+                                        </div>
+                                        <% } %>
                                 </tbody>
                             </table>
                         </div>

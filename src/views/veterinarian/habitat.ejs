@@ -8,7 +8,7 @@
 </head>
 <body class="min-h-screen bg-primary-100 overflow-x-hidden">
 
-    <!-- hero offers content section -->
+    <!-- hero veterinarian content section -->
     <main class="min-h-full ">
         <div class="flex h-full p-4">
 
@@ -69,7 +69,7 @@
                                 </thead>
                                 
                                 <tbody>
-
+                                    <% if (habitats) { %>
                                     <% habitats.forEach(habitat => { %>
                                         <tr class="bg-white border-b">
                                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= habitat.habitat_id  %></th>
@@ -80,6 +80,11 @@
                                             </td>
                                         </tr>
                                     <% }); %> 
+                                    <% } else {%>
+                                        <div class="container flex items-center justify-center">
+                                            <p class="text-xl font-muli font-bold">Aucun Habitat dans le zoo.</p>
+                                        </div>
+                                        <% } %>
                                    
                                 </tbody>
                             </table>

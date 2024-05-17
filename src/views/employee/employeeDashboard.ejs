@@ -61,7 +61,7 @@
             
                 <section class=" w-[98%] h-screen mx-auto pt-2 space-y-10">
                  
-                    <div class="container bg-primary-50 border rounded-md shadow-lg border-black w-full h-40 md:h-[50%] overflow-y-auto ">
+                    <div class="container bg-primary-50 border rounded-md shadow-lg border-black w-full h-40 md:h-[70%] overflow-y-auto ">
                         <div class="w-full flex items-center justify-center border-b border-b-black h-10 md:h-16 rounded-t-md">
                             <h2 class="font-muli font-semibold">Avis visiteur</h2>
                         </div>
@@ -81,34 +81,38 @@
                                 
                                 <tbody>
 
-                                    <% reviews.forEach(review => { %>
-                                        <tr class="bg-white border-b">
-                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%=review.review_id  %></th>
-                                            <td class="py-4 px-6"><%=review.pseudo  %></td>
-                                            <td class="py-4 px-6"><%=review.email  %></td>
-                                            <td class="py-4 px-6"><%=review.description  %></td>
-                                            <% if (review.approved === false) { %>
-                                                <td class="py-2 px-2 text-sm w-24 "><p class="w-full "> Non valider</p></td>
-                                            <% } else { %>
-                                                <td class="py-4 px-6">validé</td>
-                                            <% } %>
-                                            <td class="py-4 px-6">
-                                               <form action="/employee/dashboard/<%=review.review_id  %>?_method=put" method="post" class=" flex items-center justify-center">
-                                                    <select name="approved"> Approuver
-                                                        <label for="approved">Approuver</label>
-                                                        <option value="false">Non</option>
-                                                        <option value="true">Oui</option>
-                                                    </select>
-                                                    <button type="submit" class="font-medium text-green-500 hover:underline ml-4">Valider</button>
-                                               </form>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <form action="/employee/review/<%= review.review_id %>?_method=DELETE" method="POST" style="display: inline;">
-                                                    <button type="submit" class="font-medium text-red-600 hover:underline ml-4">Supprimer</button>
+                                    <% if (reviews) { %>
+                                        <% reviews.forEach(review => { %>
+                                            <tr class="bg-white border-b">
+                                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%=review.review_id  %></th>
+                                                <td class="py-4 px-6"><%=review.pseudo  %></td>
+                                                <td class="py-4 px-6"><%=review.email  %></td>
+                                                <td class="py-4 px-6 text-nowrap"><%=review.description  %></td>
+                                                <% if (review.approved === false) { %>
+                                                    <td class="py-2 px-2 text-sm w-24 "><p class="w-full "> Non valider</p></td>
+                                                <% } else { %>
+                                                    <td class="py-4 px-6">validé</td>
+                                                <% } %>
+                                                <td class="py-4 px-6">
+                                                <form action="/employee/dashboard/<%=review.review_id  %>?_method=put" method="post" class=" flex items-center justify-center">
+                                                        <select name="approved"> Approuver
+                                                            <label for="approved">Approuver</label>
+                                                            <option value="false">Non</option>
+                                                            <option value="true">Oui</option>
+                                                        </select>
+                                                        <button type="submit" class="font-medium text-green-500 hover:underline ml-4">Valider</button>
                                                 </form>
-                                            </td>
-                                        </tr>
-                                    <% }); %> 
+                                                </td>
+                                                <td class="py-4 px-6">
+                                                    <form action="/employee/review/<%= review.review_id %>?_method=DELETE" method="POST" style="display: inline;">
+                                                        <button type="submit" class="font-medium text-red-600 hover:underline ml-4">Supprimer</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <% }); %> 
+                                    <% } else { %>
+                                        <h1>Aucun avis visiteur.</h1>
+                                    <% } %> 
 
                                 </tbody>
                             </table>

@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link type="text/css" rel="stylesheet" href="../../../css/style.css">
-    <script defer   src="../../../js/admin.js"></script>
+    <script defer src="../../../js/admin.js"></script>
 </head>
 <body class="min-h-screen bg-primary-100 overflow-x-hidden overflow-y-auto">
 
-    <!-- hero offers content section -->
+    <!-- hero Dashboard content section -->
     <main class="min-h-full ">
         <div class="flex h-full p-4">
 
             <!-- sidebar -->
-            <div class="hidden md:flex flex-col h-fit w-64 bg-icon  rounded-2xl shadow-lg">
-                <div class="flex items-center justify-center h-20 bg-icon  rounded-2xl ">
+            <div class="hidden md:flex flex-col h-fit w-64 bg-icon rounded-2xl shadow-lg">
+                <div class="flex items-center justify-center h-20 bg-icon rounded-2xl ">
                     <a href="/accueil">
                         <img src="../../../images/Arcadia-logo.png" width="60" height="75" alt="logo-Arcadia" class="h-11">
                         <p class="text-[0.6em] font-light font-muli text-white ml-4">Arcadia for <%= user.role %></p>
@@ -29,11 +29,11 @@
             </div>
         
             <!-- Main content -->
-            <div class="flex flex-col flex-1  pb-10 ">
+            <div class="flex flex-col flex-1 pb-10 ">
                 <div class="flex items-center justify-between h-24  bg-transparent">
                     <div class=" px-4 hidden md:block">
                         <div class="px-4 flex items-center">
-                            <h1 class="text-2xl font-muli font-bold"> <span class="font-muli text-gray-700 text-[1.05rem] tracking-wide">Bienvenue, <%= user.first_name %> <%= user.last_name %></span> <br> <span class="font-bold font-muli text-4xl tracking-wide "></span> </h1>
+                            <h1 class="text-2xl font-muli font-bold"> <span class="font-muli text-gray-700 text-[1.05rem] tracking-wide">Welcome, <%= user.first_name %> <%= user.last_name %></span> <br> <span class="font-bold font-muli text-4xl tracking-wide "></span> </h1>
                         </div>
                     </div>
 
@@ -44,8 +44,8 @@
                             <!-- logout button -->
                             <form action="/api/logout" method="post">
                                 <a href="" class="font-muli text-sm text-white mr-5">
-                                    <button type="submit" class="border-2 shadow-sm border-icon text-black  font-semibold font-muli w-32 h-10 rounded-lg hover:scale-105 duration-300 ease-in-out">
-                                    déconnexion
+                                    <button type="submit" class="border-2 shadow-sm border-icon text-black font-semibold font-muli w-32 h-10 rounded-lg hover:scale-105 duration-300 ease-in-out">
+                                    logout
                                     </button>
                                 </a>
                             </form>
@@ -55,17 +55,28 @@
 
                 <div class="">
                 <!-- see animal section -->
-                <section class=" w-[80%] h-screen mx-auto pt-2 space-y-10">
+                <section class="w-[80%] h-screen mx-auto pt-2 space-y-10">
                  
                     <div class="container bg-primary-50 border rounded-md shadow-lg border-black w-full h-[50%] md:min-h-[80%] overflow-y-auto ">
 
                         <div class="container flex flex-col items-center justify-center space-y-5 py-2 h-full">
-                            <div class="h1 font-muli font-semibold text-lg">Faire votre commentaire</div>
-                            <form  method="post"  action="/veterinarian//commentaire/<%= habitats.habitat_id %>?_method=PUT" class="flex flex-col space-y-5 mt-2">
+                            <div class="h1 font-muli font-semibold text-lg">Make your comment</div>
+                            <form method="post" action="/veterinarian//commentaire/<%= habitats.habitat_id %>?_method=PUT" class="flex flex-col space-y-5 mt-2">
+      
+                                <% if (errors && errors.length > 0) { %>
+                                    <div class="error-messages flex flex-col items-center justify-center w-full h-fit">
+                                      <% errors.forEach(function(error) { %>
+                                        <ul>
+                                          <li class="text-red-500 font-muli text-justify text-xs"><%= error %></li>
+                                        </ul>
+                                      <% }) %>
+                                    </div>
+                                <% } %>
 
+                                <input type="hidden" name="redirectTo" value="<%= redirectTo %>">
 
                                 <div class="flex flex-col"> 
-                                    <label for="detail_etat" class="font-muli text-sm">Commentaire : </label>
+                                    <label for="detail_etat" class="font-muli text-sm">Comment: </label>
                                   <textarea name="veterinarian_comment" id="" class="h-20 "></textarea>
                                 </div>
 
@@ -75,7 +86,7 @@
                                 
                             
                                 <div class="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-4">
-                                    <button type="submit" class="h-10 w-52 font-muli font-semibold rounded-sm bg-icon text-white mx-auto hover:scale-95 duration-150 ease-in">Envoyer rapport</button>
+                                    <button type="submit" class="h-10 w-52 font-muli font-semibold rounded-sm bg-icon text-white mx-auto hover:scale-95 duration-150 ease-in">Send Report</button>
                                 </div>
                             </form>
                             

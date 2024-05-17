@@ -5,39 +5,37 @@ const foodRules = () => {
     body("name")
       .isString()
       .notEmpty()
-      .withMessage("You must enter a food name.")
+      .withMessage("Vous devez entrer un nom.")
       .trim()
       .escape(),
     body("type")
       .isString()
       .notEmpty()
-      .withMessage("You must enter a type name.")
+      .withMessage("Vous devez entrer un type.")
       .trim()
       .escape(),
     body("quantity")
       .isInt()
-      .withMessage('Value must be a int.')
+      .withMessage('La valeur doit être un entier.')
       .notEmpty()
-      .withMessage("You must enter a food quantity.")
+      .withMessage("Vous devez entrer une quantitée.")
       .trim()
       .escape(),
   ];
 };
 
-const validateFood = async (req, res, next) => {
+
+const validateFood = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(404).json({ errors: errors.array() });
+    const errorMessages = errors.array().map((err) => err.msg);
+    req.flash("error_msg", errorMessages);
+    return;
   }
+  next();
+};
 
-  try {
-    const { name, type, quantity } = req.body;
-    next();
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal server error !");
-  }
-}
+
 
 module.exports = {
   foodRules,

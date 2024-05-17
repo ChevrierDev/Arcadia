@@ -69,7 +69,7 @@
                  
                     <div class="container bg-primary-50 border rounded-md shadow-lg border-black w-full h-40 md:h-[50%] overflow-y-auto ">
                         <div class="w-full flex items-center justify-center border-b border-b-black h-10 md:h-16 rounded-t-md">
-                            <h2 class="font-muli font-semibold">Liste des services</h2>
+                            <h2 class="font-muli font-semibold">Nourrir un animal</h2>
                         </div>
                         <div class="">
                             <table class="w-full text-sm text-left text-gray-500">
@@ -85,17 +85,21 @@
                                 
                                 <tbody>
 
-                                    <% animals.forEach(animal => { %>
-                                        <tr class="bg-white border-b">
-                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= animal.animal_id  %></th>
-                                            <td class="py-4 px-6"><%=animal.name  %></td>
-                                            <td class="py-4 px-6"><%=animal.race  %></td>                     
-                                            <td class="py-4 px-6 text-nowrap"><%=animal.habitat_name  %></td>                       
-                                            <td class="py-4 px-6 flex flex-col items-center justify-center space-y-1 md:flex-row md:space-y-0">
-                                            <a href="/employee/nourrir-animal/<%= animal.animal_id %>" class="font-medium text-blue-600 hover:underline">Nourrir</a>
-                                            </td>
-                                        </tr>
-                                    <% }); %> 
+                                    <% if (animals) { %>
+                                        <% animals.forEach(animal => { %>
+                                            <tr class="bg-white border-b">
+                                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= animal.animal_id  %></th>
+                                                <td class="py-4 px-6"><%=animal.name  %></td>
+                                                <td class="py-4 px-6"><%=animal.race  %></td>                     
+                                                <td class="py-4 px-6 text-nowrap"><%=animal.habitat_name  %></td>                       
+                                                <td class="py-4 px-6 flex flex-col items-center justify-center space-y-1 md:flex-row md:space-y-0">
+                                                <a href="/employee/nourrir-animal/<%= animal.animal_id %>" class="font-medium text-blue-600 hover:underline">Nourrir</a>
+                                                </td>
+                                            </tr>
+                                        <% }); %> 
+                                    <% } else { %>
+                                        <h1>Aucun animal dans le zoo.</h1>
+                                    <% } %> 
                                    
                                 </tbody>
                             </table>

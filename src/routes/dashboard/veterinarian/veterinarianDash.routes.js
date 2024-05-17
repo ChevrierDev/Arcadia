@@ -1,5 +1,6 @@
 const express = require("express");
 const veterinarianDashboardRouter = express.Router();
+const decodeData = require("../../../utils/decodeData");
 
 const {
   checkAuthenticated,
@@ -14,7 +15,7 @@ const {
   fetchAnimalsData,
   fetchHealthReportData,
   fetchHabitatData,
-  fetchConsommationReportData
+  fetchConsommationReportData,
 } = require("../../../utils/apiClient");
 
 const {
@@ -30,7 +31,17 @@ const {
   postHealthRecords,
 } = require("../../../controllers/healthRecord/healthRecord.controllers");
 
-//render veterinarian dashboard
+const {
+  healthRecordRules,
+  validatehealthRecord,
+} = require("../../../middlewares/healthRecordValidator");
+
+const {
+  habitatCommentRules,
+  validateCommenthabitat,
+} = require("../../../middlewares/vetCommentHabitat");
+
+// Render veterinarian dashboard
 veterinarianDashboardRouter.get(
   "/dashboard",
   checkAuthenticated,
@@ -39,18 +50,19 @@ veterinarianDashboardRouter.get(
   async (req, res) => {
     try {
       const animals = await fetchAnimalsData();
+      const decodedAnimal = decodeData(animals)
       res.render("veterinarian/veterinarianDashboard", {
         title: "Votre espace vétérinaire.",
         user: req.user.details,
-        animals: animals,
+        animals: decodedAnimal,
       });
     } catch (err) {
-      console.log("error while fetchin animal data", err);
+      console.log("Error while fetching animal data", err);
     }
   }
 );
 
-//render veterinarian habitat dash
+// Render veterinarian habitat dashboard
 veterinarianDashboardRouter.get(
   "/habitats",
   checkAuthenticated,
@@ -59,18 +71,19 @@ veterinarianDashboardRouter.get(
   async (req, res) => {
     try {
       const habitats = await fetchHabitatData();
+      const decodedHabitat = decodeData(habitats);
       res.render("veterinarian/habitat", {
         title: "Votre espace vétérinaire.",
         user: req.user.details,
-        habitats: habitats,
+        habitats: decodedHabitat,
       });
     } catch (err) {
-      console.log("error while fetchin habitat data", err);
+      console.log("Error while fetching habitat data", err);
     }
   }
 );
 
-//render veterinarian health report form
+// Render veterinarian health report form
 veterinarianDashboardRouter.get(
   "/healthReport/:id",
   checkAuthenticated,
@@ -78,19 +91,22 @@ veterinarianDashboardRouter.get(
   enrichVetUserWithInfo,
   async (req, res) => {
     try {
+      const reportError = req.flash("error_msg");
       const animals = await getAnimalByID(req);
       res.render("veterinarian/healthReport", {
-        title: "Faite un rapport.",
+        title: "Faire un rapport.",
         user: req.user.details,
         animals: animals,
+        errors: reportError,
+        redirectTo: req.originalUrl,
       });
     } catch (err) {
-      console.log("error while fetchin animal data", err);
+      console.log("Error while fetching animal data", err);
     }
   }
 );
 
-//render veterinarian consommation historical report
+// Render veterinarian consumption historical report
 veterinarianDashboardRouter.get(
   "/consommation",
   checkAuthenticated,
@@ -105,12 +121,12 @@ veterinarianDashboardRouter.get(
         consommations: consommations,
       });
     } catch (err) {
-      console.log("error while fetchin animal data", err);
+      console.log("Error while fetching consumption data", err);
     }
   }
 );
 
-//render veterinarian habitat comment form
+// Render veterinarian habitat comment form
 veterinarianDashboardRouter.get(
   "/habitat-comment/:id",
   checkAuthenticated,
@@ -119,18 +135,21 @@ veterinarianDashboardRouter.get(
   async (req, res) => {
     try {
       const habitats = await getHabitatByID(req);
+      const commentError = req.flash("error_msg");
       res.render("veterinarian/comment", {
         title: "Commenter l'habitat.",
         user: req.user.details,
-        habitats: habitats
+        habitats: habitats,
+        errors: commentError,
+        redirectTo: req.originalUrl,
       });
     } catch (err) {
-      console.log("error while fetchin animal data", err);
+      console.log("Error while fetching habitat data", err);
     }
   }
 );
 
-//render veterinarian health report historical
+// Render veterinarian health report historical
 veterinarianDashboardRouter.get(
   "/report-historical",
   checkAuthenticated,
@@ -139,24 +158,26 @@ veterinarianDashboardRouter.get(
   async (req, res) => {
     try {
       const report = await fetchHealthReportData();
-      console.log(report);
+      const decodedReport = decodeData(report);
       res.render("veterinarian/healthReportHistorical", {
-        title: "Votre  historique des rapports médicaux.",
+        title: "Votre historique des rapports médicaux.",
         user: req.user.details,
-        reports: report,
+        reports: decodedReport,
       });
     } catch (err) {
-      console.log("error while fetchin animal data", err);
+      console.log("Error while fetching health report data", err);
     }
   }
 );
 
-//veterinarian post report feature
+// Veterinarian post health report
 veterinarianDashboardRouter.post(
   "/rapport-medical",
   checkAuthenticated,
   checkRole("veterinarian"),
   enrichVetUserWithInfo,
+  healthRecordRules(),
+  validatehealthRecord,
   async (req, res) => {
     try {
       await postHealthRecords(req);
@@ -167,12 +188,14 @@ veterinarianDashboardRouter.post(
   }
 );
 
-//veterinarian post comment habitat feature
+// Veterinarian post habitat comment
 veterinarianDashboardRouter.put(
   "/commentaire/:id",
   checkAuthenticated,
   checkRole("veterinarian"),
   enrichVetUserWithInfo,
+  habitatCommentRules(),
+  validateCommenthabitat,
   async (req, res) => {
     try {
       await vetUpdateHabitat(req);

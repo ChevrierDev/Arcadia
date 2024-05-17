@@ -1,15 +1,13 @@
 const axios = require("axios");
-
 const https = require("https");
-
 const db = require("../config/db");
-
 const agent = new https.Agent({
   rejectUnauthorized: false,
 });
 
 const he = require("he");
 
+// Function to fetch employee data from the API
 async function fetchEmployeeData() {
   try {
     const API_URL = "https://127.0.0.1:3000/api/v1/manageEmployeeAccount";
@@ -21,6 +19,7 @@ async function fetchEmployeeData() {
   }
 }
 
+// Function to fetch veterinarian data from the API
 async function fetchVeterinarianData() {
   try {
     const API_URL = "https://127.0.0.1:3000/api/v1/manageVetrinarianAccount";
@@ -32,39 +31,41 @@ async function fetchVeterinarianData() {
   }
 }
 
+// Function to fetch services data from the API and process image paths
 async function fetchServicesData() {
   try {
     const API_URL = "https://127.0.0.1:3000/api/v1/services";
     const response = await axios.get(`${API_URL}`, { httpsAgent: agent });
-    const data =  response.data || []; 
-    const services = data.map(services => {
-      services.images = services.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\', '');
-      return services;
+    const data = response.data || [];
+    const services = data.map(service => {
+      service.images = service.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\', '');
+      return service;
     });
-    return services
+    return services;
   } catch (error) {
     console.error("Error while getting data:", error);
     throw error;
   }
 }
 
-// Function to fetch all habitats
+// Function to fetch all habitats data from the API and process image paths
 async function fetchHabitatData() {
   try {
     const API_URL = "https://127.0.0.1:3000/api/v1/habitats";
     const response = await axios.get(API_URL, { httpsAgent: agent });
-    const data =  response.data || []; 
+    const data = response.data || [];
     const habitats = data.map(habitat => {
       habitat.images = habitat.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\', '');
       return habitat;
     });
-    return habitats
+    return habitats;
   } catch (error) {
     console.error("Error while getting data:", error);
     throw error;
   }
 }
 
+// Function to fetch all animals data from the database and join with habitats data
 async function fetchAnimalsData() {
   try {
     const query = `
@@ -78,7 +79,7 @@ async function fetchAnimalsData() {
     `;
     const { rows } = await db.query(query);
 
-    // Convert absolute paths to relative paths
+    // Convert absolute paths to relative paths for images
     const animals = rows.map(animal => {
       console.log('Original path:', animal.images);
       animal.images = animal.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\uploads\\', 'uploads/');
@@ -93,62 +94,65 @@ async function fetchAnimalsData() {
   }
 }
 
+// Function to fetch health reports data from the database and join with related data
 async function fetchHealthReportData() {
   try {
     const query = `
-    SELECT 
+      SELECT 
         hr.*, 
         a.name AS animal_name, 
         h.name AS habitat_name, 
         h.habitat_id, 
         v.first_name, 
         v.last_name
-    FROM 
+      FROM 
         health_record hr
-    JOIN 
+      JOIN 
         animal a ON hr.animal_id = a.animal_id
-    JOIN 
+      JOIN 
         habitat h ON a.habitat_id = h.habitat_id
-    JOIN 
+      JOIN 
         veterinarian v ON hr.veterinarian_id = v.veterinarian_id;
-`;
+    `;
     const { rows } = await db.query(query);
     return rows;
   } catch (error) {
-    console.error("Error fetching animals with habitats:", error);
+    console.error("Error fetching health reports:", error);
     throw error;
   }
-};
+}
 
+// Function to fetch consumption reports data from the database and join with related data
 async function fetchConsommationReportData() {
   try {
     const query = `
-        SELECT 
-          c.consommation_id,
-          c.date,
-          c.heure,
-          c.grammage,
-          a.name AS animal_name,
-          e.first_name AS employee_first_name,
-          e.last_name AS employee_last_name,
-          f.name AS food_name
-        FROM 
-          consommation c
-        JOIN 
-          animal a ON c.animal_id = a.animal_id
-        JOIN 
-          employee e ON c.employee_id = e.employee_id
-        JOIN 
-          food f ON c.food_id = f.food_id;
-      `;
+      SELECT 
+        c.consommation_id,
+        c.date,
+        c.heure,
+        c.grammage,
+        a.name AS animal_name,
+        e.first_name AS employee_first_name,
+        e.last_name AS employee_last_name,
+        f.name AS food_name
+      FROM 
+        consommation c
+      JOIN 
+        animal a ON c.animal_id = a.animal_id
+      JOIN 
+        employee e ON c.employee_id = e.employee_id
+      JOIN 
+        food f ON c.food_id = f.food_id;
+    `;
     const { rows } = await db.query(query);
     return rows;
   } catch (error) {
-    console.error("Error fetching animals with employee:", error);
+    console.error("Error fetching consumption reports:", error);
     throw error;
   }
-};
+}
 
+// Function to fetch all visitor reviews from the API
 async function fetchReviewsData() {
   try {
     const API_URL = "https://127.0.0.1:3000/api/v1/visitorReview";
@@ -158,8 +162,9 @@ async function fetchReviewsData() {
     console.error("Error while getting data:", error);
     return [];
   }
-};
+}
 
+// Function to fetch all food data from the API
 async function fetchFoodData() {
   try {
     const API_URL = "https://127.0.0.1:3000/api/v1/foods";
@@ -168,7 +173,7 @@ async function fetchFoodData() {
   } catch (err) {
     console.log("Error while getting data:", err);
   }
-};
+}
 
 module.exports = {
   fetchEmployeeData,

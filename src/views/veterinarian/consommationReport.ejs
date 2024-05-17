@@ -8,7 +8,7 @@
 </head>
 <body class="min-h-screen bg-primary-100 overflow-x-hidden">
 
-    <!-- hero offers content section -->
+    <!-- hero veterinarian content section -->
     <main class="min-h-full ">
         <div class="flex h-full p-4">
 
@@ -50,7 +50,7 @@
                 </div>
             
                
-                 <!-- see employee section -->
+                 <!-- see consumption section -->
                  <section class=" w-[80%] h-screen mx-auto pt-2 space-y-10">
                  
                     <div class="container bg-primary-50 border rounded-md shadow-lg border-black w-full h-40 md:h-[50%] overflow-y-auto ">
@@ -72,6 +72,7 @@
                                 </thead>
                                 
                                 <tbody>
+                                    <% if (consommations) { %>
                                     <% consommations.forEach(consommation=> { %>
                                         <tr class="bg-white border-b">
                                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"><%= consommation.consommation_id  %></th>
@@ -83,6 +84,11 @@
                                             <td class="py-4 px-6 text-nowrap"><%=consommation.employee_first_name  %> <%=consommation.employee_last_name  %></td>                                        
                                         </tr>
                                     <% }); %>
+                                    <% } else {%>
+                                        <div class="container flex items-center justify-center">
+                                            <p class="text-xl font-muli font-bold">Aucun Habitat dans le zoo.</p>
+                                        </div>
+                                        <% } %>
                                 </tbody>
                                 
                                    
