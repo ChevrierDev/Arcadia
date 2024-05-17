@@ -12,6 +12,8 @@ const {
   validateFood,
 } = require("../../../middlewares/foodValidator");
 
+const { checkAuthenticated, checkRole } = require('../../../middlewares/Autorisation/autorisation.middleware');
+
 foodRouter.get("/", getFoods);
 foodRouter.get("/:id", getFoodByID);
 foodRouter.post("/", foodRules(), validateFood, postFood);

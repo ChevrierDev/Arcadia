@@ -9,6 +9,8 @@ const {
 } = require("../../../controllers/habitat/habitat.controllers");
 const {   habitatRules, validatehabitat } = require('../../../middlewares/habitatValidator');
 
+const { checkAuthenticated, checkRole } = require('../../../middlewares/Autorisation/autorisation.middleware');
+
 
 habitatAPIRouter.get('/', getHabitats);
 habitatAPIRouter.get('/:id', getHabitatByID);

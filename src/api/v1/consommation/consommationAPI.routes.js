@@ -7,6 +7,7 @@ const {
   deleteConsommation,
 } = require("../../../controllers/consommation/consommation.controllers");
 const {   consommationRules, validateConsommation } = require('../../../middlewares/consommationValidator');
+const { checkAuthenticated } = require('../../../middlewares/Autorisation/autorisation.middleware');
 
 
 consommationAPIRouter.get('/', getconsommations);

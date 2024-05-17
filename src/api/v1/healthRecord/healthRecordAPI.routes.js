@@ -9,6 +9,8 @@ const {
 } = require("../../../controllers/healthRecord/healthRecord.controllers");
 const  {   healthRecordRules, validatehealthRecord, } = require('../../../middlewares/healthRecordValidator');
 
+const { checkAuthenticated, checkRole } = require('../../../middlewares/Autorisation/autorisation.middleware');
+
 healthRecordAPIRouter.get("/", getHealthRecords);
 healthRecordAPIRouter.get("/:id", getHealthRecordsByID);
 healthRecordAPIRouter.post("/", healthRecordRules(), validatehealthRecord, postHealthRecords);
