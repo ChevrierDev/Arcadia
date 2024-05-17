@@ -735,11 +735,11 @@ video {
 .h-\[70vh\]{
   height: 70vh;
 }
-.h-\[75vh\]{
-  height: 75vh;
-}
 .h-\[80\%\]{
   height: 80%;
+}
+.h-\[95vh\]{
+  height: 95vh;
 }
 .h-auto{
   height: auto;
@@ -753,6 +753,9 @@ video {
 }
 .h-screen{
   height: 100vh;
+}
+.h-\[75vh\]{
+  height: 75vh;
 }
 .min-h-\[100px\]{
   min-height: 100px;
@@ -1185,6 +1188,9 @@ video {
 .text-center{
   text-align: center;
 }
+.text-justify{
+  text-align: justify;
+}
 .font-muli{
   font-family: muli, sans-serif;
 }
@@ -1490,6 +1496,10 @@ video {
 
   .md\:h-\[80\%\]{
     height: 80%;
+  }
+
+  .md\:h-\[70\%\]{
+    height: 70%;
   }
 
   .md\:min-h-\[15vh\]{
