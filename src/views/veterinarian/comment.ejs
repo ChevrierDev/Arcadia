@@ -62,7 +62,7 @@
                         <div class="container flex flex-col items-center justify-center space-y-5 py-2 h-full">
                             <div class="h1 font-muli font-semibold text-lg">Make your comment</div>
                             <form method="post" action="/veterinarian//commentaire/<%= habitats.habitat_id %>?_method=PUT" class="flex flex-col space-y-5 mt-2">
-      
+
                                 <% if (errors && errors.length > 0) { %>
                                     <div class="error-messages flex flex-col items-center justify-center w-full h-fit">
                                       <% errors.forEach(function(error) { %>

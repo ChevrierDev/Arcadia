@@ -15,12 +15,11 @@ const foodRules = () => {
       .trim()
       .escape(),
     body("quantity")
-      .isInt()
-      .withMessage('La valeur doit être un entier.')
+      .isInt({ min: 1 })
+      .withMessage('La valeur doit être un entier supérieur à 1.')
       .notEmpty()
-      .withMessage("Vous devez entrer une quantitée.")
-      .trim()
-      .escape(),
+      .withMessage("Vous devez entrer une quantité.")
+      .toInt(),
   ];
 };
 
@@ -30,7 +29,7 @@ const validateFood = (req, res, next) => {
   if (!errors.isEmpty()) {
     const errorMessages = errors.array().map((err) => err.msg);
     req.flash("error_msg", errorMessages);
-    return;
+    return res.redirect(req.body.redirectTo || "/");
   }
   next();
 };

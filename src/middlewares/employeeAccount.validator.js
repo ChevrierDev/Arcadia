@@ -7,18 +7,18 @@ const employeeRules = () => {
     body("first_name")
       .isString()
       .notEmpty()
-      .withMessage("Vous devez entrer le prénom.")
+      .withMessage("Vous devez entrer un prénom.")
       .trim()
       .escape(),
     body("last_name")
       .isString()
       .notEmpty()
-      .withMessage("Vous devez entrer le nom")
+      .withMessage("Vous devez entrer un nom")
       .escape(),
     body("email")
       .isEmail()
       .notEmpty()
-      .withMessage("Vous devez entrer le mail")
+      .withMessage("Vous devez entrer un email")
       .isLength({ min: 10, max: 250 })
       .custom(async (value, { req }) => {
         // custom validation that look if email already register in the DB
@@ -60,10 +60,11 @@ const validateEmployee = (req, res, next) => {
   if (!errors.isEmpty()) {
     const errorMessages = errors.array().map((err) => err.msg);
     req.flash("error_msg", errorMessages);
-    return;
+    return res.redirect(req.body.redirectTo || "/");
   }
   next();
 };
+
 
 module.exports = {
   employeeRules,

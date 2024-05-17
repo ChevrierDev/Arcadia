@@ -8,14 +8,17 @@ const {
 
 const { getHabitatByID } = require('../../controllers/habitat/habitat.controllers');
 
+const decodeData = require("../../utils/decodeData");
+
 const habitatRouter = express.Router();
 
 // Route to render the habitats page
 habitatRouter.get("/", async (req, res) => {
   const habitats = await fetchHabitatData();
+  const decodedHabitats = decodeData(habitats);
   res.render("layouts/habitats", {
     title: "Découvrez nos habitats.",
-    habitats: habitats,
+    habitats: decodedHabitats,
   });
 });
 

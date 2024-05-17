@@ -33,11 +33,10 @@ const validatehabitat = (req, res, next) => {
   if (!errors.isEmpty()) {
     const errorMessages = errors.array().map((err) => err.msg);
     req.flash("error_msg", errorMessages);
-    return;
+    return res.redirect(req.body.redirectTo || "/");
   }
   next();
 };
-
 module.exports = {
   habitatRules,
   validatehabitat

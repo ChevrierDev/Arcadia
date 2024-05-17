@@ -52,12 +52,43 @@ const {
 } = require("../../../controllers/animal/animal.controllers");
 
 const {
-  getFoods,
   getFoodByID,
   postFood,
   updateFood,
   deleteFood,
 } = require('../../../controllers/food/food.controllers');
+
+const {
+  employeeRules,
+  validateEmployee
+} = require('../../../middlewares/employeeAccount.validator');
+
+const {
+  veterinarianRules,
+  validateVeterinarian
+} = require('../../../middlewares/veterinarianAccount');
+
+const {
+  serviceRules,
+  validateService,
+} = require('../../../middlewares/serviceValidator');
+
+const { 
+  animalRules,
+  validateAnimal
+} = require('../../../middlewares/animalValidator');
+
+const {
+  foodRules,
+  validateFood
+} = require('../../../middlewares/foodValidator');
+
+const {
+  habitatRules,
+  validatehabitat
+} = require('../../../middlewares/habitatValidator');
+
+const decodedData = require('../../../utils/decodeData')
 
 // Render admin dashboard
 adminDashboardRouter.get(
@@ -87,10 +118,12 @@ adminDashboardRouter.get(
   checkRole("admin"),
   async (req, res) => {
     try {
+
       const services = await fetchServicesData();
+      const serviceDecoded = decodedData(services)
       res.render("admin/services", {
         title: "Liste des services disponibles",
-        services,
+        services: serviceDecoded,
       });
     } catch (err) {
       console.error(err);
@@ -110,9 +143,10 @@ adminDashboardRouter.get(
   async (req, res) => {
     try {
       const animals = await fetchAnimalsData();
+      const decodedAnimal = decodedData(animals)
       res.render("admin/animaux", {
         title: "Liste des animaux",
-        animals,
+        animals: decodedAnimal,
       });
     } catch (err) {
       console.error(err);
@@ -129,9 +163,10 @@ adminDashboardRouter.get(
   async (req, res) => {
     try {
       const habitats = await fetchHabitatData();
+      const decodedHabitats = decodedData(habitats);
       res.render("admin/habitats", {
         title: "Liste des habitats",
-        habitats,
+        habitats: decodedHabitats,
       });
     } catch (err) {
       console.error(err);
@@ -152,9 +187,10 @@ adminDashboardRouter.get(
   async (req, res) => {
     try {
       const foods = await fetchFoodData();
+      const decodedFoods = decodedData(foods);
       res.render("admin/food", {
         title: "Nourriture disponible dans le zoo",
-        foods,
+        foods: decodedFoods,
       });
     } catch (err) {
       console.error(err);
@@ -173,7 +209,8 @@ adminDashboardRouter.get(
       const { startDate, endDate, animalName, ajax } = req.query;
       let reports = await fetchHealthReportData();
       const animals = await fetchAnimalsData();
-
+      const decodedAnimals = decodedData(animals);
+      
       // Filter reports by date
       if (startDate && endDate) {
         const start = new Date(startDate);
@@ -198,7 +235,7 @@ adminDashboardRouter.get(
         res.render("admin/vetReport", {
           title: "Rapport vétérinaire",
           reports,
-          animals,
+          animals: decodedAnimals,
         });
       }
     } catch (err) {
@@ -234,8 +271,11 @@ adminDashboardRouter.get(
   checkRole("admin"),
   async (req, res) => {
     try {
+      const UserError = req.flash("error_msg");
       res.render("admin/createUserDash", {
         title: "Créer un utilisateur",
+        errors: UserError,
+        redirectTo: req.originalUrl,
       });
     } catch (err) {
       console.error(err);
@@ -250,8 +290,12 @@ adminDashboardRouter.get(
   checkRole("admin"),
   async (req, res) => {
     try {
+        const serviceError = req.flash("error_msg");
       res.render("admin/postServices", {
         title: "Poster un nouveau service",
+        errors: serviceError,
+        redirectTo: req.originalUrl,
+        
       });
     } catch (err) {
       console.error(err);
@@ -266,8 +310,11 @@ adminDashboardRouter.get(
   checkRole("admin"),
   async (req, res) => {
     try {
+      const habitatError = req.flash("error_msg");
       res.render("admin/postHabitats", {
         title: "Poster un nouvel habitat",
+        redirectTo: req.originalUrl,
+        errors: habitatError,
       });
     } catch (err) {
       console.error(err);
@@ -283,9 +330,12 @@ adminDashboardRouter.get(
   async (req, res) => {
     try {
       const habitats = await fetchHabitatData();
+      const animalError = req.flash("error_msg");
       res.render("admin/postAnimals", {
         title: "Poster un nouvel animal",
         habitats,
+        redirectTo: req.originalUrl,
+        errors: animalError,
       });
     } catch (err) {
       console.error(err);
@@ -305,8 +355,11 @@ adminDashboardRouter.get(
   checkRole("admin"),
   async (req, res) => {
     try {
+      const foodError = req.flash("error_msg");
       res.render("admin/postFood", {
         title: "Ajouter de la nourriture",
+        redirectTo: req.originalUrl,
+        errors: foodError,
       });
     } catch (err) {
       console.error(err);
@@ -436,6 +489,8 @@ adminDashboardRouter.post(
   "/dashboard/create-employee",
   checkAuthenticated,
   checkRole("admin"),
+  employeeRules(),
+  validateEmployee,
   async (req, res) => {
     try {
       await createEmployeeAccount(req, res);
@@ -452,6 +507,8 @@ adminDashboardRouter.post(
   "/dashboard/create-veterinarian",
   checkAuthenticated,
   checkRole("admin"),
+  veterinarianRules(),
+  validateVeterinarian,
   async (req, res) => {
     try {
       await createVeterinarianAccount(req, res);
@@ -469,6 +526,8 @@ adminDashboardRouter.post(
   checkAuthenticated,
   checkRole("admin"),
   upload.single("images"),
+  serviceRules(),
+  validateService,
   async (req, res) => {
     try {
       await postServices(req);
@@ -486,6 +545,8 @@ adminDashboardRouter.post(
   checkAuthenticated,
   checkRole("admin"),
   upload.single("images"),
+  habitatRules(),
+  validatehabitat,
   async (req, res) => {
     try {
       await postHabitat(req);
@@ -503,6 +564,8 @@ adminDashboardRouter.post(
   checkAuthenticated,
   checkRole("admin"),
   upload.single("images"),
+  animalRules(),
+  validateAnimal,
   async (req, res) => {
     try {
       await postAnimal(req);
@@ -519,6 +582,8 @@ adminDashboardRouter.post(
   "/post-foods",
   checkAuthenticated,
   checkRole("admin"),
+  foodRules(),
+  validateFood,
   async (req, res) => {
     try {
       await postFood(req);
