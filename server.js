@@ -1,4 +1,4 @@
-const https = require("https");
+const http = require("http");
 const fs = require("fs");
 const app = require("./app");
 const mongoose = require("mongoose");
@@ -68,12 +68,9 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("Connexion à MongoDB réussie !");
     
-    const options = {
-      key: fs.readFileSync(path.join(__dirname, "./certificates/localhost+2-key.pem")),
-      cert: fs.readFileSync(path.join(__dirname, "./certificates/localhost+2.pem")),
-    };
+  
     
-    const server = https.createServer(options, app);
+    const server = http.createServer(app);
     server.listen(PORT, () => {
       console.log(`Server is listening on port ${PORT}`);
     });
