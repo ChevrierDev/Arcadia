@@ -10,10 +10,7 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
-// console.log(process.env.DB_USER)
-// console.log(process.env.DB_NAME)
-// console.log(process.env.DB_PASSWORD)
-// console.log(process.env.DB_PORT)
+
 
 module.exports = {
   query: (text, params) => pool.query(text, params),

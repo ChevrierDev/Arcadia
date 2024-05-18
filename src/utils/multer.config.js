@@ -1,11 +1,13 @@
 const multer = require('multer');
 const path = require('path');
+require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env') });
 
 // Configure storage options for multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        // Set the destination directory for uploaded files
-        cb(null, path.join(__dirname, '../../uploads/'));
+        // Set the destination directory for uploaded files using environment variable
+        const uploadPath = process.env.IMAGE_PATH_PREFIX || path.join(__dirname, '../../uploads/');
+        cb(null, uploadPath);
     },
     filename: (req, file, cb) => {
         // Set the filename for uploaded files

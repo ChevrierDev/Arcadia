@@ -1,11 +1,12 @@
 const axios = require("axios");
 const db = require("../config/db");
+require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env') });
 
 // Function to fetch employee data from the API
 async function fetchEmployeeData() {
   try {
-    const API_URL = "http://127.0.0.1:3000/api/v1/manageEmployeeAccount";
-    const response = await axios.get(`${API_URL}`);
+    const API_URL = `${process.env.URL}manageEmployeeAccount`;
+    const response = await axios.get(API_URL);
     return response.data;
   } catch (error) {
     console.error("Error while getting data:", error);
@@ -16,8 +17,8 @@ async function fetchEmployeeData() {
 // Function to fetch veterinarian data from the API
 async function fetchVeterinarianData() {
   try {
-    const API_URL = "http://127.0.0.1:3000/api/v1/manageVetrinarianAccount";
-    const response = await axios.get(`${API_URL}`);
+    const API_URL = `${process.env.URL}manageVetrinarianAccount`;
+    const response = await axios.get(API_URL);
     return response.data;
   } catch (error) {
     console.error("Error while getting data:", error);
@@ -28,11 +29,11 @@ async function fetchVeterinarianData() {
 // Function to fetch services data from the API and process image paths
 async function fetchServicesData() {
   try {
-    const API_URL = "http://127.0.0.1:3000/api/v1/services";
-    const response = await axios.get(`${API_URL}`);
+    const API_URL = `${process.env.URL}services`;
+    const response = await axios.get(API_URL);
     const data = response.data || [];
     const services = data.map(service => {
-      service.images = service.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\', '');
+      service.images = service.images.replace(process.env.IMAGE_PATH_PREFIX, '');
       return service;
     });
     return services;
@@ -45,11 +46,11 @@ async function fetchServicesData() {
 // Function to fetch all habitats data from the API and process image paths
 async function fetchHabitatData() {
   try {
-    const API_URL = "http://127.0.0.1:3000/api/v1/habitats";
+    const API_URL = `${process.env.URL}habitats`;
     const response = await axios.get(API_URL);
     const data = response.data || [];
     const habitats = data.map(habitat => {
-      habitat.images = habitat.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\', '');
+      habitat.images = habitat.images.replace(process.env.IMAGE_PATH_PREFIX, '');
       return habitat;
     });
     return habitats;
@@ -76,7 +77,7 @@ async function fetchAnimalsData() {
     // Convert absolute paths to relative paths for images
     const animals = rows.map(animal => {
       console.log('Original path:', animal.images);
-      animal.images = animal.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\uploads\\', 'uploads/');
+      animal.images = animal.images.replace(`${process.env.IMAGE_PATH_PREFIX}uploads\\`, 'uploads/');
       console.log('Updated path:', animal.images);
       return animal;
     });
@@ -149,8 +150,8 @@ async function fetchConsommationReportData() {
 // Function to fetch all visitor reviews from the API
 async function fetchReviewsData() {
   try {
-    const API_URL = "http://127.0.0.1:3000/api/v1/visitorReview";
-    const response = await axios.get(`${API_URL}`);
+    const API_URL = `${process.env.URL}visitorReview`;
+    const response = await axios.get(API_URL);
     return Array.isArray(response.data) ? response.data : [];
   } catch (error) {
     console.error("Error while getting data:", error);
@@ -161,8 +162,8 @@ async function fetchReviewsData() {
 // Function to fetch all food data from the API
 async function fetchFoodData() {
   try {
-    const API_URL = "http://127.0.0.1:3000/api/v1/foods";
-    const response = await axios.get(`${API_URL}`);
+    const API_URL = `${process.env.URL}foods`;
+    const response = await axios.get(API_URL);
     return response.data;
   } catch (err) {
     console.log("Error while getting data:", err);
