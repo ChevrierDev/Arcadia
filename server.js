@@ -59,6 +59,10 @@ app.use('/api/v1/animalCount', animalViewsRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/logout", logoutRouter);
 
+app.get('/', (req, res) => {
+  res.redirect('/accueil')
+})
+
 // Connect to MongoDB and start the server
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
