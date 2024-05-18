@@ -1,15 +1,11 @@
 const https = require("https");
 const fs = require("fs");
-const cluster = require('cluster');
-const os = require('os');
 const app = require("./app");
 const mongoose = require("mongoose");
 const path = require("path");
 require("dotenv").config();
 
-const PORT = process.env.PORT;
-const numCPUs = os.cpus().length; 
-
+const PORT = process.env.PORT || 3000;
 
 // Import website page routes
 const accueilRouter = require("./src/routes/home/accueil.routes");
@@ -63,32 +59,21 @@ app.use('/api/v1/animalCount', animalViewsRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/logout", logoutRouter);
 
-if (cluster.isMaster) {
-  console.log(`Master ${process.pid} is running`);
-
-  // Fork workers
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
-
-  cluster.on('exit', (worker, code, signal) => {
-    console.log(`Worker ${worker.process.pid} died`);
-    cluster.fork();
+// Connect to MongoDB and start the server
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log("Connexion à MongoDB réussie !");
+    
+    const options = {
+      key: fs.readFileSync(path.join(__dirname, "./certificates/localhost+2-key.pem")),
+      cert: fs.readFileSync(path.join(__dirname, "./certificates/localhost+2.pem")),
+    };
+    
+    const server = https.createServer(options, app);
+    server.listen(PORT, () => {
+      console.log(`Server is listening on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("Connexion à MongoDB échouée !", err);
   });
-
-} else {
-  // Worker processes
-  mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log(`Worker ${process.pid}: Connexion à MongoDB réussie !`))
-    .catch((err) => console.log(`Worker ${process.pid}: Connexion à MongoDB échouée !`, err));
-
-  const options = {
-    key: fs.readFileSync(path.join(__dirname, "./certificates/localhost+2-key.pem")),
-    cert: fs.readFileSync(path.join(__dirname, "./certificates/localhost+2.pem")),
-  };
-
-  const server = https.createServer(options, app);
-  server.listen(PORT, () => {
-    console.log(`Worker ${process.pid}: Server is listening on port ${PORT}`);
-  });
-}
