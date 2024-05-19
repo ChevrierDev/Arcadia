@@ -6,12 +6,21 @@ const decodeData = require("../../utils/decodeData");
 
 // Route to render the services page
 serviceRouter.get("/", async (req, res) => {
-  const services = await fetchServicesData();
-  const decodedService = decodeData(services)
-  res.render("layouts/services", {
-    title: "Découvrez tous nos services.",
-    services: decodedService
-  });
+  try {
+    const services = await fetchServicesData();
+    const decodedService = decodeData(services)
+    res.render("layouts/services", {
+      title: "Découvrez tous nos services.",
+      services: decodedService
+    });
+  } catch (err) {
+    console.log(err)
+    res.render("layouts/services", {
+      title: "Découvrez tous nos services.",
+      services: []
+    });
+  }
+
 });
 
 module.exports = serviceRouter;
