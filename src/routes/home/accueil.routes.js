@@ -27,10 +27,10 @@ accueilRouter.get("/", async (req, res) => {
 
     res.render("layouts/accueil", {
       title: "Page d'accueil",
-      animals: decodedAnimal,
-      services: decodedService,
-      habitats: decodedHabitats,
-      reviews: decodedApprovedReviews,
+      animals: animals,
+      services: services,
+      habitats: habitats,
+      reviews: reviews,
       errorMessagesLogin: errorMessagesLogin,
       errorMessagesReview: errorMessagesReview
     });
@@ -38,12 +38,12 @@ accueilRouter.get("/", async (req, res) => {
     console.log(err);
     res.render("layouts/accueil", {
       title: "Page d'accueil",
-      errorMessagesLogin: req.flash('error_msg_login'),
-      errorMessagesReview: req.flash('error_msg_review'),
       animals: [],
       services: [],
       habitats: [],
       reviews: [],
+      errorMessagesLogin: req.flash('error_msg_login'),
+      errorMessagesReview: req.flash('error_msg_review'),
     });
   }
 });

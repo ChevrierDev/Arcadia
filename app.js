@@ -2,6 +2,7 @@ const express = require("express");
 const passport = require("passport");
 const session = require("express-session");
 const flash = require('express-flash');
+const MongoStore = require('connect-mongo');
 const cors = require("cors");
 require("dotenv").config();
 
@@ -14,13 +15,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const methodOverride = require("method-override");
 
-// CORS options
-const corsOptions = {
-  origin: "https://127.0.0.1:3000",
-  optionsSuccessStatus: 200,
-};
 
-app.use(cors(corsOptions)); // Enable CORS
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method")); // Override HTTP methods
@@ -35,6 +30,9 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true },
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI
+    })
   })
 );
 

@@ -32,11 +32,8 @@ async function fetchServicesData() {
     const API_URL = `${process.env.URL}services`;
     const response = await axios.get(API_URL);
     const data = response.data || [];
-    const services = data.map(service => {
-      service.images = service.images.replace(process.env.IMAGE_PATH_PREFIX, '');
-      return service;
-    });
-    return services;
+
+    return data;
   } catch (error) {
     console.error("Error while getting data:", error);
     throw error;
@@ -49,11 +46,8 @@ async function fetchHabitatData() {
     const API_URL = `${process.env.URL}habitats`;
     const response = await axios.get(API_URL);
     const data = response.data || [];
-    const habitats = data.map(habitat => {
-      habitat.images = habitat.images.replace(process.env.IMAGE_PATH_PREFIX, '');
-      return habitat;
-    });
-    return habitats;
+    
+    return data;
   } catch (error) {
     console.error("Error while getting data:", error);
     throw error;
@@ -74,15 +68,8 @@ async function fetchAnimalsData() {
     `;
     const { rows } = await db.query(query);
 
-    // Convert absolute paths to relative paths for images
-    const animals = rows.map(animal => {
-      console.log('Original path:', animal.images);
-      animal.images = animal.images.replace(`${process.env.IMAGE_PATH_PREFIX}uploads\\`, 'uploads/');
-      console.log('Updated path:', animal.images);
-      return animal;
-    });
 
-    return animals;
+    return rows;
   } catch (error) {
     console.error("Error fetching animals with habitats:", error);
     throw error;

@@ -378,7 +378,7 @@
                                     <div class="swiper-slide">
                                         <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
                                             <div class="w-full h-3/5">
-                                                <img src="<%= habitat.images %>" alt="Photo habitat" class="rounded-t-md w-full h-full object-cover">
+                                                <img src="/<%= habitat.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\uploads\\', 'uploads/') %>" alt="Photo habitat" class="rounded-t-md w-full h-full object-cover">
                                             </div>
                                             <div class="flex flex-col items-center justify-center w-full h-1/5 space-y-2">
                                                 <h1 class="font-muli text-center"><%= habitat.name %></h1>
@@ -418,7 +418,7 @@
                                 <% for (let i = 0; i < 3 && i < animals.length; i++) { %>
                                     <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
                                         <div class="w-full h-3/5">
-                                            <img src="<%= animals[i].images %>" alt="Photo de <%= animals[i].name %>" class="rounded-t-md w-full h-full object-cover">
+                                            <img src="/<%= animals[i].images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\uploads\\', 'uploads/') %>" alt="Photo de <%= animals[i].name %>" class="rounded-t-md w-full h-full object-cover">
                                         </div>
                                         <div>
                                             <h1 class="font-muli text-xl text-center"><%= animals[i].name %></h1>

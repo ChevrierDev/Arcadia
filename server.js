@@ -67,13 +67,33 @@ app.get('/', (req, res) => {
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("Connexion à MongoDB réussie !");
-    
-  
-    
+ 
     const server = http.createServer(app);
     server.listen(PORT, () => {
       console.log(`Server is listening on port ${PORT}`);
     });
+    server.keepAliveTimeout = 60000; // 60 seconds
+    server.headersTimeout = 65000; // 65 seconds
+
+    // Graceful shutdown
+    process.on('SIGINT', async () => {
+      console.log('SIGINT signal received: closing HTTP server');
+      await mongoose.connection.close();
+      server.close(() => {
+        console.log('HTTP server closed');
+        process.exit(0);
+      });
+    });
+
+    process.on('SIGTERM', async () => {
+      console.log('SIGTERM signal received: closing HTTP server');
+      await mongoose.connection.close();
+      server.close(() => {
+        console.log('HTTP server closed');
+        process.exit(0);
+      });
+    });
+
   })
   .catch((err) => {
     console.log("Connexion à MongoDB échouée !", err);

@@ -45,7 +45,7 @@
                             <% habitats.forEach(habitat => { %>
                                 <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
                                     <div class="w-full h-3/5">
-                                        <img src="<%= habitat.images %>" alt="Photo habitat" class="rounded-t-md w-full h-full object-cover">
+                                        <img src="/<%= habitat.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\uploads\\', 'uploads/') %>" alt="Photo habitat" class="rounded-t-md w-full h-full object-cover">
                                     </div>
                                     <div>
                                         <h1 class="font-muli text-xl text-center"><%= habitat.name %></h1>
