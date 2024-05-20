@@ -1,4 +1,5 @@
-# fly.toml app configuration file generated for brocelianzoo on 2024-05-18T17:50:27+02:00
+# fly.toml app configuration file for brocelianzoo
+# Generated on 2024-05-18T17:50:27+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -13,13 +14,13 @@ primary_region = 'cdg'
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true
-  min_machines_running = 0
+  min_machines_running = 1 
   processes = ['app']
 
   [http_service.concurrency]
-    type = "connections"
-    hard_limit = 999
-    soft_limit = 999
+    type = "requests"
+    soft_limit = 150  # Limite souple réduite pour gérer la charge efficacement
+    hard_limit = 200  # Limite dure pour les connexions
 
 [[vm]]
   memory = '1gb'

@@ -27,10 +27,10 @@ accueilRouter.get("/", async (req, res) => {
 
     res.render("layouts/accueil", {
       title: "Page d'accueil",
-      animals: animals,
-      services: services,
-      habitats: habitats,
-      reviews: reviews,
+      animals: decodedAnimal,
+      services: decodedService,
+      habitats: decodedHabitats,
+      reviews: decodedApprovedReviews,
       errorMessagesLogin: errorMessagesLogin,
       errorMessagesReview: errorMessagesReview
     });

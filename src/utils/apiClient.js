@@ -5,49 +5,49 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env'
 // Function to fetch employee data from the API
 async function fetchEmployeeData() {
   try {
-    const API_URL = `${process.env.URL}manageEmployeeAccount`;
-    const response = await axios.get(API_URL);
-    return response.data;
+    const query = 'SELECT * FROM employee'; 
+    const { rows } = await db.query(query);
+    console.log(rows)
+    return rows || [];
   } catch (error) {
     console.error("Error while getting data:", error);
     throw error;
   }
 }
 
-// Function to fetch veterinarian data from the API
+// Fonction pour récupérer les données des vétérinaires directement depuis la base de données
 async function fetchVeterinarianData() {
   try {
-    const API_URL = `${process.env.URL}manageVetrinarianAccount`;
-    const response = await axios.get(API_URL);
-    return response.data;
+    const query = 'SELECT * FROM veterinarian'; 
+    const { rows } = await db.query(query);
+    return rows || [];
   } catch (error) {
     console.error("Error while getting data:", error);
     throw error;
   }
 }
 
-// Function to fetch services data from the API and process image paths
+
+// Fonction pour récupérer les données des services directement depuis la base de données
 async function fetchServicesData() {
   try {
-    const API_URL = `${process.env.URL}services`;
-    const response = await axios.get(API_URL);
-    const data = response.data || [];
-
-    return data;
+    const query = 'SELECT * FROM service'; 
+    const { rows } = await db.query(query);
+    return rows || [];
   } catch (error) {
     console.error("Error while getting data:", error);
     throw error;
   }
 }
+
+
 
 // Function to fetch all habitats data from the API and process image paths
 async function fetchHabitatData() {
   try {
-    const API_URL = `${process.env.URL}habitats`;
-    const response = await axios.get(API_URL);
-    const data = response.data || [];
-    
-    return data;
+    const query = 'SELECT * FROM habitats'; 
+    const { rows } = await db.query(query);
+    return rows || [];
   } catch (error) {
     console.error("Error while getting data:", error);
     throw error;
@@ -137,23 +137,24 @@ async function fetchConsommationReportData() {
 // Function to fetch all visitor reviews from the API
 async function fetchReviewsData() {
   try {
-    const API_URL = `${process.env.URL}visitorReview`;
-    const response = await axios.get(API_URL);
-    return Array.isArray(response.data) ? response.data : [];
+    const query = 'SELECT * FROM review';
+    const { rows } = await db.query(query);
+    return rows || [];
   } catch (error) {
     console.error("Error while getting data:", error);
-    return [];
+    throw error;
   }
 }
 
 // Function to fetch all food data from the API
 async function fetchFoodData() {
   try {
-    const API_URL = `${process.env.URL}foods`;
-    const response = await axios.get(API_URL);
-    return response.data;
-  } catch (err) {
-    console.log("Error while getting data:", err);
+    const query = 'SELECT * FROM food'; 
+    const { rows } = await db.query(query);
+    return rows || [];
+  } catch (error) {
+    console.error("Error while getting data:", error);
+    throw error;
   }
 }
 

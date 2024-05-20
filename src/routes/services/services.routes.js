@@ -11,7 +11,7 @@ serviceRouter.get("/", async (req, res) => {
     const decodedService = decodeData(services)
     res.render("layouts/services", {
       title: "Découvrez tous nos services.",
-      services: services
+      services: decodedService
     });
   } catch (err) {
     console.log(err)

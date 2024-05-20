@@ -19,7 +19,7 @@ habitatRouter.get("/", async (req, res) => {
         const decodedHabitats = decodeData(habitats);
         res.render("layouts/habitats", {
             title: "Découvrez nos habitats.",
-            habitats: habitats,
+            habitats: decodedHabitats,
         });
     } catch (err) {
         console.log(err)
