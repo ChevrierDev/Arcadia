@@ -10,6 +10,58 @@ Arcadia est une application web pour la gestion et l'amélioration de l'expérie
 - Flyctl installé
 ```
 
+Pour le projet Arcadia, j'ai décidé d'utiliser plusieurs technologies pour répondre aux besoins variés de notre application. Voici comment j'ai configuré mon environnement de développement.  
+
+Pour commencer, j'ai choisi Visual Studio Code comme IDE. C'est un outil très populaire et puissant, avec plein de fonctionnalités et d'extensions qui facilitent la gestion du code, le débogage et l'intégration avec d'autres outils. 
+
+ J'ai organisé mes dossiers de manière logique dans le dossier racine nommé Arcadia : 
+
+ La structure de mon projet est organisée comme suit :
+
+- **Arcadia/src/** : Contient le code source
+  - **models/** : Modèles de données
+  - **views/** : Vues de l'application
+  - **controllers/** : Contrôleurs qui gèrent la logique de l'application
+  - **utils/** : Utilitaires et fonctions d'assistance
+  - **config/** : Fichiers de configuration
+  - **routes/** : Définition des routes de l'application
+  - **middleware/** : Middlewares utilisés dans l'application
+- **Arcadia/public/** : Fichiers statiques accessibles côté client
+  - **css/** : Fichiers CSS
+  - **js/** : Fichiers JavaScript côté client
+  - **images/** : Images utilisées dans l'application
+  - **videos/** : Fichiers vidéo
+- **Arcadia/sql/** : Scripts SQL pour la création des bases de données, des tables et l'intégration des données
+- **Arcadia/server.js** : Gère le serveur
+- **Arcadia/app.js** : Configure l'application
+
+  À la racine du dossier Arcadia, j'ai initialisé un nouveau projet Node.js avec npm en utilisant la commande ``` npm init ```. Cela a créé un fichier package.json pour gérer toutes les dépendances du projet.  
+
+  J'ai ensuite installé tous les modules nécessaires au projet, comme Express.js pour le serveur, EJS pour les templates, et TailwindCSS pour le style, avec des commandes comme ```npm install express ejs tailwindcss```.  
+
+
+###  Pour structurer mon projet, j'ai suivi le design pattern MVC (Model-View-Controller). Ce pattern aide à séparer l'application en trois parties principales : 
+
+ Model pour gérer les données.  
+
+ View pour gérer l'affichage et la présentation. 
+
+ Controller pour gérer les interactions entre le Model et la View.  
+
+ J'ai configuré PostgreSQL pour les données relationnelles et structurées en créant la base de donnée en utilisant ``` CREATE DATABASE 'arcadia' ```, 
+ et MongoDB pour les données non structurées ou semi-structurées en utilisant ```npm install mongodb mongoose```, et pour initier la connection j'ai utilisé ce code ```const mongoose = require('mongoose');
+  const uri = "mongodb://localhost:27017/mydatabase";
+  mongoose.connect(uri)
+    .then(() => {
+        console.log("Connected to MongoDB with Mongoose");
+    })
+    .catch(err => {
+        console.error("Connection error", err);
+    }) ```  
+  Cela me permet de tirer parti des avantages des deux types de bases de données selon les besoins des différentes parties de l'application. 
+
+ Enfin, j'ai initialisé un dépôt Git à la racine du projet avec la commande git init. Cela me permet de suivre les modifications du code source. J'ai également connecté mon dépôt local à un dépôt distant sur GitHub en utilisant des commandes comme git remote add origin https://github.com/Saintkops/Arcadia et git push -u origin main. 
+
 ### Déploiement
 
 Cette section décrit les étapes que j'ai suivies pour déployer l'application Arcadia sur Fly.io.
