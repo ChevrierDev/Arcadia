@@ -7,14 +7,13 @@ const serviceRules = () => {
       .isString()
       .notEmpty()
       .withMessage("Vous devez entrer un nom.")
-      .isLength({ min: 10, max: 50 })
-      .trim()
+      .isLength({ min: 10, max: 500 })
       .escape(),
     body("description")
       .isString()
       .notEmpty()
       .withMessage("Vous devez entrer une description.")
-      .isLength({ min: 10, max: 250 })
+      .isLength({ min: 10, max: 500 })
       .escape(),
   ];
 };

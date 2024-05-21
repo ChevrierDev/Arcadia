@@ -88,7 +88,9 @@ const {
   validatehabitat
 } = require('../../../middlewares/habitatValidator');
 
-const decodedData = require('../../../utils/decodeData')
+const decodedData = require('../../../utils/decodeData');
+
+const db = require('../../../config/db')
 
 // Render admin dashboard
 adminDashboardRouter.get(
@@ -162,7 +164,11 @@ adminDashboardRouter.get(
   checkRole("admin"),
   async (req, res) => {
     try {
-      const habitats = await fetchHabitatData();
+      const habitatQuery = `
+      SELECT *
+      FROM habitat
+      `;
+      const { rows: habitats } = await db.query(habitatQuery);
       const decodedHabitats = decodedData(habitats);
       res.render("admin/habitats", {
         title: "Liste des habitats",
@@ -329,7 +335,11 @@ adminDashboardRouter.get(
   checkRole("admin"),
   async (req, res) => {
     try {
-      const habitats = await fetchHabitatData();
+      const habitatQuery = `
+          SELECT *
+          FROM habitat
+      `;
+      const {rows: habitats} = await db.query(habitatQuery) 
       const animalError = req.flash("error_msg");
       res.render("admin/postAnimals", {
         title: "Poster un nouvel animal",
@@ -453,14 +463,17 @@ adminDashboardRouter.get(
   checkRole("admin"),
   async (req, res) => {
     try {
-      const animals = await getAnimalByID(req, res);
+     const animals = await getAnimalByID(req)
       res.render("admin/updateAnimals", {
         title: "Modifier l'animal",
-        animals,
+        animals: animals,
       });
     } catch (err) {
       console.error(err);
-      res.status(500).send("Error fetching animal data");
+      res.render("admin/updateAnimals", {
+        title: "Modifier l'animal",
+        animals: [],
+      });
     }
   }
 );
@@ -526,8 +539,6 @@ adminDashboardRouter.post(
   checkAuthenticated,
   checkRole("admin"),
   upload.single("images"),
-  serviceRules(),
-  validateService,
   async (req, res) => {
     try {
       await postServices(req);

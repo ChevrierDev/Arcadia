@@ -16,7 +16,7 @@ contactRouter.post('/', async (req, res) => {
     const mailOptions = {
         from: process.env.USER_EMAIL,
         replyTo: email,
-        to: 'chumpo@hotmail.fr',
+        to: 'arcadiazoo@hotmail.com',
         subject: titre,
         text: `Ce mail vous a été envoyé par ${email}: ${avis}`
     };

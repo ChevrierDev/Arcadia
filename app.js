@@ -47,7 +47,7 @@ app.use(morgan("dev"));
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 // Set view engine
 app.set("view engine", "ejs");

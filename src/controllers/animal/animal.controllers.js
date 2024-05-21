@@ -1,5 +1,6 @@
 const db = require("../../config/db");
 const fs = require("fs");
+const path = require('path');
 
 //get all Animals from DB
 async function getAnimals(req, res) {
@@ -54,7 +55,7 @@ async function postAnimal(req, res) {
 // Update a animal
 async function updateAnimal(req, res) {
   try {
-    const { name, race, etat } = req.body; 
+    const { name, race } = req.body; 
     const { id } = req.params;
     let newImagePath = null;
 
@@ -65,22 +66,21 @@ async function updateAnimal(req, res) {
     const currentImageData = await db.query("SELECT images FROM animal WHERE animal_id = $1", [id]);
     const currentImagePath = currentImageData.rows[0].images;
 
-
-    const query = "UPDATE animal SET name = $1, race = $2, etat = $3, images = $4 WHERE animal_id = $5";
-    await db.query(query, [name, race, etat, newImagePath, id]);
+    const query = "UPDATE animal SET name = $1, race = $2, images = $3 WHERE animal_id = $4";
+    await db.query(query, [name, race, newImagePath, id]);
 
     if (newImagePath && currentImagePath && newImagePath !== currentImagePath) {
       const fullPath = path.isAbsolute(currentImagePath) ? currentImagePath : path.join(__dirname, "..", "..", "..", currentImagePath);
       try {
-        await fs.unlink(fullPath);
+       fs.unlink(fullPath);
       } catch (err) {
         console.error("Failed to delete the old image:", err);
       }
     }
-
+    
   } catch (err) {
-    console.error("Error updating habitat:", err);
-    res.status(500).send("Internal server error !");
+    console.error("Error updating animal:", err);
+    res.status(500).send("Internal server error!");
   }
 }
 

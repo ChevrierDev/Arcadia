@@ -277,7 +277,7 @@
                         Le Zoo d’Arcadia, un lieu préservé pour s'émerveiller !
                     </h1>
                     <p class="font-muli text-center ">
-                        Découvrez Arcadia, notre zoo enchanteur en Bretagne, niché près de la mystique forêt de Brocéliande depuis 1960. Venez voir nos animaux prospérer dans des habitats naturels variés, soignés quotidiennement par nos vétérinaires dévoués. Une visite chez nous, c'est un pas vers la nature et des rencontres uniques.
+                        Découvrez Arcadia, notre zoo enchanteur en Bretagne, niché près de la mystique forêt de Brocéliande depuis 1960. Venez voir nos animaux prospérer dans des habitats naturels variés, soignés quotidiennement par nos vétérinaires dévoués. Une visite chez nous, c'est un pas vers la nature et des rencontres uniques, de plus, notre zoo est entièrement indépendant au niveau des énergies, reflétant notre engagement envers la durabilité et la préservation de l'environnement.
                     </p>
                 </div>
             </div>
@@ -343,7 +343,7 @@
                         <% services.forEach(service => { %>
                             <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-4">
                                 <div class="w-full h-3/5">
-                                    <img src="<%= service.images %>" alt="Photo du service de <%= service.name %>" class="rounded-t-md w-full h-full object-cover">
+                                    <img src="<%= service.images.replace('/app/uploads', '') %>" alt="images services Arcadia" class="rounded-t-md w-full h-full object-cover">
                                 </div>
                                 <div>
                                     <h1 class="font-muli text-xl text-center"><%= service.name %></h1>
@@ -378,7 +378,7 @@
                                     <div class="swiper-slide">
                                         <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
                                             <div class="w-full h-3/5">
-                                                <img src="/<%= habitat.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\uploads\\', 'uploads/') %>" alt="Photo habitat" class="rounded-t-md w-full h-full object-cover">
+                                                <img src="<%= habitat.images.replace('/app/uploads', '') %>" alt="Photo habitat" class="rounded-t-md w-full h-full object-cover">
                                             </div>
                                             <div class="flex flex-col items-center justify-center w-full h-1/5 space-y-2">
                                                 <h1 class="font-muli text-center"><%= habitat.name %></h1>
@@ -418,7 +418,7 @@
                                 <% for (let i = 0; i < 3 && i < animals.length; i++) { %>
                                     <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
                                         <div class="w-full h-3/5">
-                                            <img src="/<%= animals[i].images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\uploads\\', 'uploads/') %>" alt="Photo de <%= animals[i].name %>" class="rounded-t-md w-full h-full object-cover">
+                                            <img src="<%= animals[i].images.replace('/app/uploads', '') %>" alt="Photo de <%= animals[i].name %>" class="rounded-t-md w-full h-full object-cover">
                                         </div>
                                         <div>
                                             <h1 class="font-muli text-xl text-center"><%= animals[i].name %></h1>

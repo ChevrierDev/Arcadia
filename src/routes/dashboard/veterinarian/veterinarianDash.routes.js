@@ -1,6 +1,7 @@
 const express = require("express");
 const veterinarianDashboardRouter = express.Router();
 const decodeData = require("../../../utils/decodeData");
+const db = require('../../../config/db')
 
 const {
   checkAuthenticated,
@@ -41,6 +42,7 @@ const {
   validateCommenthabitat,
 } = require("../../../middlewares/vetCommentHabitat");
 
+
 // Render veterinarian dashboard
 veterinarianDashboardRouter.get(
   "/dashboard",
@@ -70,8 +72,13 @@ veterinarianDashboardRouter.get(
   enrichVetUserWithInfo,
   async (req, res) => {
     try {
-      const habitats = await fetchHabitatData();
-      const decodedHabitat = decodeData(habitats);
+      const habitatQuery = `
+      SELECT *
+      FROM habitat
+      `;
+      const { rows: habitats } = await db.query(habitatQuery);
+      const decodedHabitat =  decodeData(habitats)
+      console.log("Habitats:", habitats);
       res.render("veterinarian/habitat", {
         title: "Votre espace vétérinaire.",
         user: req.user.details,
@@ -79,6 +86,11 @@ veterinarianDashboardRouter.get(
       });
     } catch (err) {
       console.log("Error while fetching habitat data", err);
+      res.render("veterinarian/habitat", {
+        title: "Votre espace vétérinaire.",
+        user: req.user.details,
+        habitats: [],
+      });
     }
   }
 );
@@ -102,6 +114,12 @@ veterinarianDashboardRouter.get(
       });
     } catch (err) {
       console.log("Error while fetching animal data", err);
+      res.render("veterinarian/healthReport", {
+        title: "Faire un rapport.",
+        user: req.user.details,
+        animals: [],
+        redirectTo: req.originalUrl,
+      });
     }
   }
 );

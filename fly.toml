@@ -4,25 +4,30 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'brocelianzoo'
-primary_region = 'cdg'
+app = "brocelianzoo"
+primary_region = "cdg"
 
 [build]
+
+[mounts]
+  source = "app_data"
+  destination = "/app/uploads"
 
 [http_service]
   internal_port = 3000
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true
-  min_machines_running = 1 
-  processes = ['app']
+  min_machines_running = 1
+  processes = ["app"]
 
   [http_service.concurrency]
     type = "requests"
-    soft_limit = 150  # Limite souple réduite pour gérer la charge efficacement
-    hard_limit = 200  # Limite dure pour les connexions
+    soft_limit = 150
+    hard_limit = 200
 
 [[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
+  memory = "1gb"
+  cpu_kind = "shared"
   cpus = 1
+

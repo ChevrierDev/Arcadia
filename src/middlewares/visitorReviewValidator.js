@@ -6,14 +6,14 @@ const reviewRules = () => {
       .isString()
       .notEmpty()
       .withMessage("Le pseudo est requis et doit être une chaîne de caractères.")
-      .isLength({ min: 5, max: 10 })
+      .isLength({ min: 1, max: 15 })
       .withMessage("Le pseudo doit contenir entre 5 et 10 caractères.")
       .escape(),
     body("description")
       .isString()
       .notEmpty()
       .withMessage("La description est requise et doit être une chaîne de caractères.")
-      .isLength({ min: 5, max: 250 })
+      .isLength({ min: 5, max: 350 })
       .withMessage("La description doit contenir entre 5 et 250 caractères.")
       .trim()
       .escape(),

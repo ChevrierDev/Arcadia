@@ -41,7 +41,7 @@
                                 <!-- Card for each animal -->
                                 <div class="flex flex-col relative items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
                                     <div class="w-full h-3/5">
-                                        <img src="/<%= animal.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\uploads\\', 'uploads/') %>" alt="Photo <%= animal.race %>" class="rounded-t-md w-full h-full object-cover">
+                                        <img src="<%= animal.images.replace('/app/uploads', '') %>" alt="Photo <%= animal.race %>" class="rounded-t-md w-full h-full object-cover">
                                     </div>
                                     <div>
                                         <h1 class="font-muli text-xl text-center"><%= animal.name %></h1>

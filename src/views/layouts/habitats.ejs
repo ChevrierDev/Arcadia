@@ -41,14 +41,14 @@
                 <div class="container mx-auto">
                     <div class="flex flex-wrap justify-center gap-5">
 
-                        <% if (habitats) { %>
+                        <% if (habitats.length > 0) { %>
                             <% habitats.forEach(habitat => { %>
                                 <div class="flex flex-col items-center border rounded-md shadow-md w-[50vw] h-[50vh] md:w-[18vw] mx-auto gap-y-5 pb-3">
                                     <div class="w-full h-3/5">
-                                        <img src="/<%= habitat.images.replace('C:\\Users\\Chevr\\OneDrive\\Bureau\\Arcadia\\uploads\\', 'uploads/') %>" alt="Photo habitat" class="rounded-t-md w-full h-full object-cover">
+                                        <img src="<%= habitat.habitat_images.replace('/app/uploads', '') %>" alt="Photo habitat" class="rounded-t-md w-full h-full object-cover">
                                     </div>
                                     <div>
-                                        <h1 class="font-muli text-xl text-center"><%= habitat.name %></h1>
+                                        <h1 class="font-muli text-xl text-center"><%= habitat.habitat_name %></h1>
                                     </div>
                                     <div class="flex items-center justify-center w-full h-1/5">
                                         <a href="/habitats/<%= habitat.habitat_id %>">
@@ -60,10 +60,9 @@
                                 </div>
                             <% }) %>
                         <% } else { %>
-
-                                <div class="container flex items-center justify-center mt-10 w-full">
-                                    <h1 class="font-muli font bold">Aucun habitats présents dans le zoo</h1>
-                                </div>
+                            <div class="container flex items-center justify-center mt-10 w-full">
+                                <h1 class="font-muli font bold">Aucun habitats présents dans le zoo</h1>
+                            </div>
                         <% } %>
 
                     </div>

@@ -15,20 +15,45 @@ const habitatRouter = express.Router();
 // Route to render the habitats page
 habitatRouter.get("/", async (req, res) => {
     try {
-        const habitats = await fetchHabitatData();
-        const decodedHabitats = decodeData(habitats);
-        res.render("layouts/habitats", {
-            title: "Découvrez nos habitats.",
-            habitats: decodedHabitats,
-        });
+      // Requête pour obtenir les habitats et leurs animaux associés
+      const habitatsQuery = `
+        SELECT
+          h.habitat_id,
+          h.name AS habitat_name,
+          h.description AS habitat_description,
+          h.images AS habitat_images,
+          json_agg(json_build_object(
+            'animal_id', a.animal_id,
+            'name', a.name,
+            'race', a.race,
+            'images', a.images
+          )) AS animals
+        FROM
+          habitat h
+        LEFT JOIN
+          animal a ON a.habitat_id = h.habitat_id
+        GROUP BY
+          h.habitat_id
+      `;
+      const { rows: habitats } = await db.query(habitatsQuery);
+  
+      const decodedHabitats = habitats.map(habitat => ({
+        ...habitat,
+        animals: decodeData(habitat.animals || [])
+      }));
+  
+      res.render("layouts/habitats", {
+        title: "Découvrez nos habitats.",
+        habitats: decodedHabitats,
+      });
     } catch (err) {
-        console.log(err)
-        res.render("layouts/habitats", {
-            title: "Découvrez nos habitats.",
-            habitats: [],
-        });
+      console.log(err);
+      res.render("layouts/habitats", {
+        title: "Découvrez nos habitats.",
+        habitats: [],
+      });
     }
-});
+  });
 
 // Route to render habitat details
 habitatRouter.get("/:id", async (req, res) => {
@@ -54,6 +79,8 @@ habitatRouter.get("/:id", async (req, res) => {
       `;
       const { rows: animals } = await db.query(animalsQuery, [habitatId]);
 
+      const decodedAnimal = decodeData(animals)
+
       // Query to get habitat details
       const habitatQuery = `
           SELECT *
@@ -64,7 +91,7 @@ habitatRouter.get("/:id", async (req, res) => {
 
       res.render("layouts/habitat-detail", {
           title: `Découvrez ${habitat.name}.`,
-          animals,
+          animals: decodedAnimal,
           habitat
       });
   } catch (err) {

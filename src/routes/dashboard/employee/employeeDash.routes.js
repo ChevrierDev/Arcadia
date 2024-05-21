@@ -190,8 +190,6 @@ employeeDashboardRouter.post(
   checkAuthenticated,
   checkRole("employee"),
   upload.single("images"),
-  serviceRules(),
-  validateService,
   async (req, res) => {
     try {
       await postServices(req);
@@ -265,8 +263,6 @@ employeeDashboardRouter.put(
   checkAuthenticated,
   checkRole("employee"),
   upload.single("images"),
-  serviceRules(),
-  validateService,
   async (req, res) => {
     try {
       await updateServices(req, res);
