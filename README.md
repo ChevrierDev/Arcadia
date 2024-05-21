@@ -109,6 +109,7 @@ CMD [ "node", "server.js" ]
 
 ### J'ai également modifié le fichier fly.toml pour ajouter un espace de stockage pour mes fichiers statiques. Voici le fichier fly.toml :
 
+```toml
 # toml
 
 #### Copier le code
@@ -145,6 +146,7 @@ primary_region = "cdg"
   memory = "1gb"
   cpu_kind = "shared"
   cpus = 1
+  ```
 
 ## 7. Déploiement de l'application
 
