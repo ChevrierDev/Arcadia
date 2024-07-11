@@ -115,7 +115,7 @@ flyctl postgres connect -a arcadia-db
 ### Puis, dans le terminal interactif de la base de données, j'ai importé le fichier SQL :
 #### Copier le code
 ```sh
-psql -U [utilisateur_fly] -d arcadia-db
+psql -U utilisateur -d arcadia-db
 \i backup.sql
 ```
 
@@ -124,7 +124,7 @@ psql -U [utilisateur_fly] -d arcadia-db
 ### Pour que mon application puisse se connecter à la base de données et utiliser d'autres informations sensibles, j'ai configuré les secrets nécessaires :
 #### Copier le code:
 ```sh
-flyctl secrets set DATABASE_URL=<URL_de_ma_base_de_données> API_KEY=<ma_clé_API>....
+flyctl secrets set DATABASE_URL=<URL_de_ma_base_de_données> API_KEY=<KEY>....
 ```
 
 
